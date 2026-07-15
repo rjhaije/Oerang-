@@ -1,0 +1,6 @@
+{
+  "name": "Oerang - Budget Websites",
+  "description": "Professionele, snelle en betaalbare websites voor kleine ondernemers, ZZP'ers en verenigingen door Oerang.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
