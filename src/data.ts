@@ -58,6 +58,7 @@ export interface Testimonial {
   rating: number;
   text: string;
   initials: string;
+  image?: string;
 }
 
 export interface FAQItem {
@@ -237,8 +238,9 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Eigenaresse',
     company: 'Haarstudio Nova',
     rating: 5,
-    text: 'Voorheen regelde ik afspraken via WhatsApp, dat kostte me uren per week. Oerang heeft een prachtige budget website gebouwd met een geïntegreerd afsprakensysteem. Mijn klanten boeken nu direct zelf. De investering had ik er binnen één maand al uit!',
-    initials: 'AD'
+    text: 'Voorheen regelde ik afspraken via WhatsApp, dat kostte me uren per week. Oerang heeft een prachtige budget website gebouwd met een geïegenereerd afsprakensysteem. Mijn klanten boeken nu direct zelf. De investering had ik er binnen één maand al uit!',
+    initials: 'AD',
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80'
   },
   {
     id: 'test_2',
@@ -247,7 +249,8 @@ export const TESTIMONIALS: Testimonial[] = [
     company: 'Hovenier Groen & Co',
     rating: 5,
     text: 'Ik zocht een simpele website zonder maandelijks honderden euro’s kwijt te zijn. Oerang leverde precies dat: een professionele uitstraling, snel geleverd en duidelijke communicatie. Geen gedoe, gewoon goede service.',
-    initials: 'MG'
+    initials: 'MG',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80'
   },
   {
     id: 'test_3',
@@ -256,7 +259,8 @@ export const TESTIMONIALS: Testimonial[] = [
     company: 'Café De Buurman',
     rating: 5,
     text: 'Onze menukaart verandert regelmatig. Dankzij het handige beheersysteem van Oerang pas ik dit nu binnen 2 minuten zelf aan op mijn telefoon. Echt een aanrader voor elke kleine ondernemer!',
-    initials: 'SB'
+    initials: 'SB',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80'
   }
 ];
 

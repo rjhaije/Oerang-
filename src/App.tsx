@@ -34,7 +34,8 @@ import {
   HelpCircle,
   TrendingUp,
   UserCheck,
-  Check
+  Check,
+  MessageSquareText
 } from 'lucide-react';
 
 export default function App() {
@@ -155,30 +156,39 @@ export default function App() {
           </button>
 
           {/* Desktop Menu - styled clean, uppercase bento-style */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-[11px] font-bold uppercase tracking-widest text-brand-moss">
+          <nav className="hidden md:flex items-center gap-5 lg:gap-6 text-[11px] font-bold uppercase tracking-widest text-brand-moss">
             <button onClick={() => scrollToSection('voordelen')} className="hover:text-brand-clay transition-colors cursor-pointer">Voordelen</button>
             <button onClick={() => scrollToSection('werkwijze')} className="hover:text-brand-clay transition-colors cursor-pointer text-brand-clay font-extrabold">Werkwijze</button>
             <button onClick={() => scrollToSection('stijlen')} className="hover:text-brand-clay transition-colors cursor-pointer">Stijlen</button>
             <button onClick={() => scrollToSection('portfolio')} className="hover:text-brand-clay transition-colors cursor-pointer">Portfolio</button>
             <button onClick={() => scrollToSection('faq')} className="hover:text-brand-clay transition-colors cursor-pointer">FAQ</button>
             <button onClick={() => scrollToSection('cost-calculator')} className="hover:text-brand-clay transition-colors cursor-pointer">Kostprijs</button>
+            <button onClick={() => scrollToSection('contact')} className="hover:text-brand-clay transition-colors cursor-pointer border-b border-dashed border-brand-clay/40 pb-0.5">Contact</button>
           </nav>
 
           {/* Desktop Call To Actions */}
-          <div className="hidden md:flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-3">
             <a 
               href="tel:0612345678" 
-              className="flex items-center gap-1.5 text-xs font-bold text-brand-moss hover:text-brand-clay transition-colors"
+              className="flex items-center gap-1 text-[11px] font-bold text-brand-moss hover:text-brand-clay transition-colors mr-1"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-3.5 h-3.5 text-brand-clay" />
               <span>06 - 1234 5678</span>
             </a>
             <button
               onClick={() => scrollToSection('cost-calculator')}
-              className="px-6 py-2.5 bg-brand-clay text-white text-xs font-bold uppercase tracking-widest rounded-full border-2 border-brand-clay hover:bg-orange-600 hover:border-orange-600 transition-all cursor-pointer shadow-sm"
+              className="px-4 py-2 border border-brand-forest text-brand-forest hover:bg-brand-forest hover:text-white text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-xs"
               id="cta-calc-button"
             >
               Bereken Prijs
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="px-5 py-2 bg-brand-clay hover:bg-orange-600 text-white text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-1.5"
+              id="cta-contact-button"
+            >
+              <MessageSquareText className="w-3.5 h-3.5" />
+              <span>Contact</span>
             </button>
           </div>
 
@@ -212,21 +222,30 @@ export default function App() {
                 <button onClick={() => scrollToSection('portfolio')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Portfolio</button>
                 <button onClick={() => scrollToSection('faq')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Veelgestelde Vragen</button>
                 <button onClick={() => scrollToSection('cost-calculator')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Kostprijs Berekenen</button>
+                <button onClick={() => scrollToSection('contact')} className="text-left font-bold text-brand-clay py-2 border-b border-gray-100">Contact Opnemen</button>
                 
-                <div className="pt-4 flex flex-col gap-4">
+                <div className="pt-4 flex flex-col gap-3">
                   <a 
                     href="tel:0612345678" 
                     className="flex items-center justify-center gap-2 py-3 bg-brand-sand border border-brand-sand-dark rounded-xl text-xs font-bold text-brand-forest"
                   >
                     <Phone className="w-4 h-4 text-brand-clay" />
-                    <span>Bel ons: 06 - 1234 5678</span>
+                    <span>Bel direct: 06 - 1234 5678</span>
                   </a>
-                  <button
-                    onClick={() => scrollToSection('cost-calculator')}
-                    className="w-full py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md text-center hover:bg-orange-600 transition-colors"
-                  >
-                    Bereken Offerte Prijs
-                  </button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => scrollToSection('cost-calculator')}
+                      className="py-3 bg-brand-sand border border-brand-forest text-brand-forest font-bold text-xs rounded-xl text-center hover:bg-gray-50 transition-colors"
+                    >
+                      Bereken Prijs
+                    </button>
+                    <button
+                      onClick={() => scrollToSection('contact')}
+                      className="py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md text-center hover:bg-orange-600 transition-colors"
+                    >
+                      Neem Contact Op
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -719,11 +738,23 @@ export default function App() {
                 </div>
 
                 <div className="flex items-center gap-3 pt-6 mt-6 border-t border-brand-sand-dark/60">
-                  <div className="w-9 h-9 rounded-full bg-brand-forest text-white flex items-center justify-center font-bold text-xs">
-                    {test.initials}
-                  </div>
+                  {test.image ? (
+                    <img 
+                      src={test.image} 
+                      alt={test.name}
+                      referrerPolicy="no-referrer"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-brand-sand-dark shadow-xs shrink-0" 
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-brand-forest text-white flex items-center justify-center font-bold text-xs shrink-0">
+                      {test.initials}
+                    </div>
+                  )}
                   <div>
-                    <h4 className="font-bold text-xs text-brand-forest">{test.name}</h4>
+                    <h4 className="font-bold text-xs text-brand-forest flex items-center gap-1">
+                      {test.name}
+                      <span className="inline-flex items-center justify-center w-3 h-3 rounded-full bg-green-100 text-green-700 text-[8px] font-bold" title="Geverifieerde klant">✓</span>
+                    </h4>
                     <p className="text-[10px] text-gray-400 font-semibold">{test.role} • {test.company}</p>
                   </div>
                 </div>
@@ -796,7 +827,7 @@ export default function App() {
       </section>
 
       {/* Advisory & Callback Request Footer block */}
-      <section className="py-10 bg-brand-forest text-white relative overflow-hidden">
+      <section id="contact" className="py-10 bg-brand-forest text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-clay/10 rounded-full blur-3xl" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
