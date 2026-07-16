@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   PORTFOLIO_PROJECTS, 
   TESTIMONIALS, 
-  FAQ_ITEMS, 
   PortfolioProject 
 } from './data';
 import StyleShowcase from './components/StyleShowcase';
@@ -34,7 +33,6 @@ import {
   Menu, 
   X,
   MessageCircle,
-  HelpCircle,
   TrendingUp,
   UserCheck,
   Check,
@@ -44,7 +42,6 @@ import {
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [portfolioFilter, setPortfolioFilter] = useState<string>('Alles');
-  const [activeFaqId, setActiveFaqId] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState<number>(0);
   const [heroReviewIdx, setHeroReviewIdx] = useState<number>(0);
   
@@ -110,10 +107,6 @@ export default function App() {
         setCallbackPhone('');
       }, 5000);
     }
-  };
-
-  const toggleFaq = (id: string) => {
-    setActiveFaqId(activeFaqId === id ? null : id);
   };
 
   const scrollToSection = (id: string) => {
@@ -890,62 +883,6 @@ export default function App() {
       {/* Interactive Calculator Section */}
       <section id="cost-calculator" className="py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <Calculator />
-      </section>
-
-      {/* FAQ Section */}
-      <section id="faq" className="py-10 bg-white border-y border-brand-sand-dark">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 space-y-8">
-          
-          <div className="text-center space-y-2">
-            <HelpCircle className="w-8 h-8 text-brand-clay mx-auto" />
-            <h2 className="text-2xl font-display font-bold text-brand-forest tracking-tight">
-              Veelgestelde Vragen
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-600">
-              Heb je een vraag over de hosting, eigendom, of levertijd? Hier vind je direct antwoord. Staat je vraag er niet bij? Neem gerust even contact op!
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {FAQ_ITEMS.map((item) => {
-              const isOpen = activeFaqId === item.id;
-              return (
-                <div 
-                  key={item.id} 
-                  className="border border-brand-sand-dark rounded-xl overflow-hidden transition-all duration-200"
-                >
-                  <button
-                    onClick={() => toggleFaq(item.id)}
-                    className="w-full text-left px-5 py-4 bg-brand-sand/40 hover:bg-brand-sand/80 flex items-center justify-between gap-4 transition-colors focus:outline-none"
-                  >
-                    <span className="font-display font-bold text-sm text-brand-forest leading-snug">
-                      {item.question}
-                    </span>
-                    <ChevronDown className={`w-4 h-4 text-brand-moss shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'transform rotate-180' : ''
-                    }`} />
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="px-5 py-4 bg-white border-t border-brand-sand-dark text-xs text-gray-600 leading-relaxed">
-                          {item.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
       </section>
 
       {/* Advisory & Callback Request Footer block */}
