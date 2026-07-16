@@ -270,7 +270,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     text: 'Oerang hielp mij binnen twee weken aan een strakke, professionele website. Geen onnodige toeters en bellen, maar een snelle site waar patiënten gemakkelijk contact kunnen opnemen. De reacties van patiënten zijn super!',
     initials: 'LJ',
-    image: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&w=150&h=150&q=80'
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=150&h=150&q=80'
   },
   {
     id: 'test_5',

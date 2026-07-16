@@ -6,11 +6,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  PORTFOLIO_PROJECTS, 
-  TESTIMONIALS, 
-  PortfolioProject 
+  TESTIMONIALS 
 } from './data';
-import StyleShowcase from './components/StyleShowcase';
 import Calculator from './components/Calculator';
 import { OrangutanIcon } from './components/OrangutanIcon';
 import { 
@@ -41,7 +38,6 @@ import {
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [portfolioFilter, setPortfolioFilter] = useState<string>('Alles');
   const [activeStep, setActiveStep] = useState<number>(0);
   const [heroReviewIdx, setHeroReviewIdx] = useState<number>(0);
   
@@ -93,11 +89,6 @@ export default function App() {
     }
   ];
 
-  // Filter portfolio
-  const filteredPortfolio = portfolioFilter === 'Alles'
-    ? PORTFOLIO_PROJECTS
-    : PORTFOLIO_PROJECTS.filter(project => project.category.includes(portfolioFilter) || project.branch.includes(portfolioFilter));
-
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (callbackName.trim() && callbackPhone.trim()) {
@@ -111,9 +102,16 @@ export default function App() {
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
+    if (id === 'hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = rect.top + scrollTop - 90; // Offset to account for sticky header
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };
 
@@ -131,12 +129,17 @@ export default function App() {
               className="flex items-center gap-3.5 group text-left cursor-pointer focus:outline-none"
               id="nav-logo"
             >
-              <div className="w-12 h-12 bg-zinc-950 border-2 border-brand-clay rounded-xl transition-transform group-hover:scale-110 group-hover:rotate-6 shadow-md flex items-center justify-center p-1.5 select-none">
+              <div className="w-12 h-12 bg-zinc-950 border-2 border-brand-clay rounded-xl transition-transform group-hover:scale-110 group-hover:rotate-6 shadow-md flex items-center justify-center p-1.5 select-none shrink-0">
                 <OrangutanIcon size="100%" />
               </div>
-              <span className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-brand-clay group-hover:text-orange-500 transition-colors">
-                OERANG
-              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-brand-clay group-hover:text-orange-500 transition-colors">
+                  OERANG
+                </span>
+                <span className="text-xs md:text-sm font-sans font-extrabold text-white group-hover:text-zinc-200 transition-colors tracking-wide uppercase italic">
+                  budget websigners
+                </span>
+              </div>
             </button>
 
             {/* Mobile Menu Trigger aligned right */}
@@ -159,9 +162,7 @@ export default function App() {
             {/* Centered Desktop Menu */}
             <nav className="flex items-center gap-8 lg:gap-10 text-sm md:text-[15px] lg:text-[16px] font-extrabold uppercase tracking-widest text-zinc-300">
               <button onClick={() => scrollToSection('hero')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-100 font-extrabold">Home</button>
-              <button onClick={() => scrollToSection('over-ons')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Over Ons</button>
-              <button onClick={() => scrollToSection('testimonials')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Reviews</button>
-              <button onClick={() => scrollToSection('portfolio')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Voorbeelden</button>
+              <button onClick={() => scrollToSection('over-ons')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">About us</button>
             </nav>
 
             {/* Right Desktop CTA Buttons */}
@@ -198,9 +199,7 @@ export default function App() {
             >
               <div className="px-4 py-6 space-y-4 flex flex-col">
                 <button onClick={() => scrollToSection('hero')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Home</button>
-                <button onClick={() => scrollToSection('over-ons')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Over Ons</button>
-                <button onClick={() => scrollToSection('testimonials')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Reviews</button>
-                <button onClick={() => scrollToSection('portfolio')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Voorbeelden</button>
+                <button onClick={() => scrollToSection('over-ons')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">About us</button>
                 <button onClick={() => scrollToSection('contact')} className="text-left font-bold text-brand-clay py-2 border-b border-zinc-800/60">Contact Opnemen</button>
                 
                 <div className="pt-4 flex flex-col gap-3">
@@ -226,7 +225,7 @@ export default function App() {
       </header>
 
       {/* Hero Section styled as a gorgeous Aggressive Split Layout */}
-      <section id="hero" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-12 md:pb-20 relative">
+      <section id="hero" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 md:pt-12 md:pb-16 relative">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-clay/10 rounded-full blur-[140px] pointer-events-none"></div>
         <div className="absolute -left-12 top-10 w-48 h-48 bg-brand-clay/5 rounded-full blur-[90px] pointer-events-none"></div>
 
@@ -247,15 +246,25 @@ export default function App() {
                 Wij bouwen betaalbare gebruiksvriendelijke websites voor de kleine ondernemer.
               </p>
 
+              {/* High-Impact Over Ons Block placed higher in the left column */}
+              <div id="over-ons" className="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-[24px] space-y-3 relative overflow-hidden group hover:border-brand-clay/30 transition-all duration-300 animate-fade-in">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-clay/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="flex items-center gap-1.5">
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[9px] font-bold tracking-wider text-brand-clay uppercase">
+                    <Sparkles className="w-3 h-3" />
+                    <span>About us</span>
+                  </div>
+                </div>
+                <h2 className="font-sans font-black text-base sm:text-lg lg:text-xl text-white tracking-tight uppercase italic leading-[1.2]">
+                  "Oerang is opgericht met één doel: <span className="text-brand-clay">professionele, flitsend snelle websites</span> bouwen voor ZZP'ers en MKB'ers, binnen <span className="text-brand-clay">14 dagen</span>, punt."
+                </h2>
+              </div>
+
               {/* Aggressive Benefit Checkmarks */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-zinc-200 pt-2">
                 <div className="flex items-center gap-2">
                   <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
                   <span>100% jouw eigendom (geen contracten)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
-                  <span>Direct bovenaan in Google (SEO)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
@@ -268,41 +277,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Aggressive Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
-              <button
-                onClick={() => scrollToSection('cost-calculator')}
-                className="px-8 py-4 bg-brand-clay hover:bg-orange-600 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer shadow-lg hover:shadow-orange-950/20 flex items-center justify-center gap-2"
-              >
-                <Zap className="w-4 h-4 fill-current text-white animate-pulse" />
-                <span>Bereken je prijs</span>
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="px-8 py-4 border-2 border-zinc-800 hover:border-brand-clay text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer bg-zinc-900/40 hover:bg-zinc-900 flex items-center justify-center gap-2"
-              >
-                <MessageSquareText className="w-4 h-4 text-brand-clay" />
-                <span>Neem direct contact op</span>
-              </button>
-            </div>
-
-            {/* Dynamic Stats Row */}
-            <div className="flex gap-6 pt-6 border-t border-zinc-900">
-              <div className="flex flex-col">
-                <span className="text-3xl font-black text-white">50+</span>
-                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-extrabold mt-0.5">Live Projecten</span>
-              </div>
-              <div className="w-px h-10 bg-zinc-850"></div>
-              <div className="flex flex-col">
-                <span className="text-3xl font-black text-brand-clay">14 Dgn</span>
-                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-extrabold mt-0.5">Gem. Levertijd</span>
-              </div>
-              <div className="w-px h-10 bg-zinc-850"></div>
-              <div className="flex flex-col">
-                <span className="text-3xl font-black text-white">24u</span>
-                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-extrabold mt-0.5">WhatsApp Support</span>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: High-Impact Customer Review Card with LARGE portrait image */}
@@ -313,7 +287,7 @@ export default function App() {
                 test_1: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_2: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_3: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&h=1000&q=80',
-                test_4: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_4: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_5: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_6: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_7: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&h=1000&q=80',
@@ -332,7 +306,7 @@ export default function App() {
                   </div>
 
                   {/* Top Portion: VERY LARGE client photo with navigation arrows overlay */}
-                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border-2 border-zinc-800 bg-zinc-950 shrink-0">
+                  <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border-2 border-zinc-800 bg-zinc-950 shrink-0">
                     <img 
                       src={portraitSrc} 
                       alt={currentReview.name}
@@ -484,149 +458,7 @@ export default function App() {
           </div>
 
         </div>
-      </section>
 
-      {/* High-Impact Over Ons Section */}
-      <section id="over-ons" className="py-16 bg-zinc-950 text-white border-y border-zinc-900 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-brand-clay/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-            
-            {/* Left Column: Aggressive Manifesto */}
-            <div className="md:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Wie is Oerang?</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-display font-black leading-[0.95] tracking-tighter text-white uppercase italic">
-                WIJ GELOOVEN NIET IN <br />
-                <span className="text-brand-clay">BUREAUCRATISCHE SLOP.</span>
-              </h2>
-              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-medium">
-                Veel traditionele webdesignbureaus vullen hun uren met eindeloze vergaderingen, onnodige rapportages en torenhoge marges. Ondertussen wacht jij maanden op een simpele website. 
-              </p>
-              <div className="p-5 bg-zinc-900 border border-zinc-800 rounded-2xl border-l-4 border-l-brand-clay">
-                <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  "Oerang is opgericht met één doel: professionele, flitsend snelle websites bouwen voor ZZP'ers en MKB'ers, zonder de agency-hoofdpijn of wurgcontracten. Wij leveren resultaat binnen 14 dagen, punt."
-                </p>
-              </div>
-            </div>
-
-            {/* Right Column: Brutalist Perks List */}
-            <div className="md:col-span-5 space-y-4">
-              <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 space-y-4">
-                <h3 className="font-display font-bold text-lg text-white uppercase tracking-tight">Onze No-Nonsense Belofte</h3>
-                <div className="space-y-3 text-xs">
-                  <div className="flex items-start gap-3">
-                    <div className="w-5.5 h-5.5 rounded-md bg-brand-clay/10 flex items-center justify-center text-brand-clay font-black shrink-0">✓</div>
-                    <div>
-                      <h4 className="font-bold text-white">Geen Wurgcontracten</h4>
-                      <p className="text-zinc-500 mt-0.5">De website is na oplevering 100% van jou. Geen maandelijkse verplichtingen.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-5.5 h-5.5 rounded-md bg-brand-clay/10 flex items-center justify-center text-brand-clay font-black shrink-0">✓</div>
-                    <div>
-                      <h4 className="font-bold text-white">Razendsnel Online</h4>
-                      <p className="text-zinc-500 mt-0.5">Zodra we jouw teksten en logo hebben, staat de site binnen 14 dagen live.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-5.5 h-5.5 rounded-md bg-brand-clay/10 flex items-center justify-center text-brand-clay font-black shrink-0">✓</div>
-                    <div>
-                      <h4 className="font-bold text-white">Echte Mensen, Geen Ticket-slop</h4>
-                      <p className="text-zinc-500 mt-0.5">Direct contact via WhatsApp of telefoon. Geen helpdesk-tickets of lange wachttijden.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Bento Grid: Why Oerang? */}
-      <section id="voordelen" className="py-12 bg-zinc-900/40 border-y border-zinc-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block font-display">Ontdek onze voordelen</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-white tracking-tight uppercase italic">
-              Alles wat je nodig hebt, zonder de onnodige kosten
-            </h2>
-            <p className="text-sm sm:text-base text-zinc-400">
-              Veel webdesignbureaus rekenen duizenden euro’s voor functionaliteiten die je als kleine ondernemer helemaal niet direct nodig hebt. Oerang doet dit anders.
-            </p>
-          </div>
-
-          {/* Grid cards styled perfectly as Bento Boxes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            
-            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
-                <Smartphone className="w-5 h-5 text-brand-clay" />
-              </div>
-              <h3 className="font-display font-bold text-base text-white">100% Responsive &amp; Mobiel</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Meer dan 65% van je bezoekers bekijkt je site op een smartphone. Onze websites zijn volledig geoptimaliseerd voor een perfecte mobiele ervaring.
-              </p>
-            </div>
-
-            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
-                <Search className="w-5 h-5 text-brand-clay" />
-              </div>
-              <h3 className="font-display font-bold text-base text-white">Direct vindbaar in Google (SEO)</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                We bouwen de website volgens de nieuwste Google-standaarden. Supersnel geladen, schone code en direct aangemeld bij Google Search Console.
-              </p>
-            </div>
-
-            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
-                <Clock className="w-5 h-5 text-brand-clay" />
-              </div>
-              <h3 className="font-display font-bold text-base text-white">Binnen 14 dagen online</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Geen maandenlange overlegtrajecten. Zodra we jouw teksten en logo hebben, staat je professionele budget website binnen twee weken live op het internet.
-              </p>
-            </div>
-
-            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
-                <BadgeCheck className="w-5 h-5 text-brand-clay" />
-              </div>
-              <h3 className="font-display font-bold text-base text-white">Jouw eigen bezit</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Bij Oerang zit je niet vast aan wurgcontracten. De website is volledig jouw eigendom. Verhuis je na een jaar? Dan neem je de site gewoon mee.
-              </p>
-            </div>
-
-            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
-                <Globe className="w-5 h-5 text-brand-clay" />
-              </div>
-              <h3 className="font-display font-bold text-base text-white">Inclusief Domein &amp; Mail</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                In onze hosting is een professionele .nl-domeinnaam en een bijbehorend e-mailadres (bijv. info@jouwbedrijf.nl) altijd inbegrepen. Wel zo betrouwbaar!
-              </p>
-            </div>
-
-            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
-                <ShieldCheck className="w-5 h-5 text-brand-clay" />
-              </div>
-              <h3 className="font-display font-bold text-base text-white">Wekelijkse backups</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Onze servers maken elke week automatische backups van jouw website. Mocht er ooit per ongeluk iets misgaan, dan herstellen we dat kosteloos.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
       </section>
 
       {/* Interactive step-by-step Werkwijze Section */}
@@ -770,111 +602,6 @@ export default function App() {
               </div>
             </div>
 
-          </div>
-
-        </div>
-      </section>
-
-      {/* Style Showcase Section */}
-      <section id="stijlen" className="py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <StyleShowcase />
-      </section>
-
-      {/* Interactive Portfolio Grid */}
-      <section id="portfolio" className="py-10 bg-white border-y border-brand-sand-dark">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block">Gerealiseerd Werk</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-brand-forest tracking-tight">
-              Trotse ondernemers die al online zijn met Oerang
-            </h2>
-            <p className="text-sm sm:text-base text-gray-600">
-              Bekijk een greep uit onze opgeleverde projecten. Eerlijke, transparante prijzen en razendsnelle laadtijden voor elk type bedrijf.
-            </p>
-          </div>
-
-          {/* Filter Bar tabs */}
-          <div className="flex flex-wrap justify-center items-center gap-2 bg-brand-sand p-1 rounded-xl border border-brand-sand-dark max-w-md mx-auto">
-            {['Alles', 'Horeca', 'Schoonheid', 'Bouw'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setPortfolioFilter(tab)}
-                className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all ${
-                  portfolioFilter === tab
-                    ? 'bg-brand-forest text-white shadow-xs'
-                    : 'text-brand-moss hover:text-brand-clay'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Grid cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <AnimatePresence mode="popLayout">
-              {filteredPortfolio.map((project) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-brand-sand rounded-[20px] border border-brand-sand-dark p-6 flex flex-col justify-between group hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-brand-clay">
-                          {project.branch}
-                        </span>
-                        <h3 className="font-display font-bold text-lg text-brand-forest group-hover:text-brand-clay transition-colors mt-0.5">
-                          {project.title}
-                        </h3>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xs bg-brand-forest/10 text-brand-moss px-2.5 py-1 rounded-full font-bold">
-                          {project.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Meta tags details */}
-                    <div className="grid grid-cols-2 gap-4 py-3 border-t border-brand-sand-dark/60 font-mono text-[10px] text-gray-500">
-                      <div>
-                        <p className="font-bold text-brand-moss">Levertijd</p>
-                        <p className="mt-0.5">{project.deliveryTime}</p>
-                      </div>
-                      <div>
-                        <p className="font-bold text-brand-moss">Totale Investering</p>
-                        <p className="mt-0.5 text-brand-charcoal font-bold">{project.price},-</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-brand-sand-dark/60 flex items-center justify-between">
-                    <span className="text-[11px] text-brand-moss font-semibold flex items-center gap-1">
-                      <BadgeCheck className="w-4 h-4 text-brand-clay" />
-                      Live website operationeel
-                    </span>
-                    <button 
-                      onClick={() => scrollToSection('cost-calculator')} 
-                      className="text-xs font-bold text-brand-forest group-hover:text-brand-clay flex items-center gap-1 transition-colors"
-                    >
-                      <span>Prijs berekenen</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
           </div>
 
         </div>
