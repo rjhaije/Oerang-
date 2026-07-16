@@ -5,13 +5,13 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   
-  /* Bento Grid Zinc & Energetic Orange Palette */
-  --color-brand-forest: #18181b;     /* Dark Zinc/Black */
-  --color-brand-moss: #71717a;       /* Muted Zinc-500 */
-  --color-brand-clay: #ff5c00;       /* Energetic Bento Orange */
-  --color-brand-sand: #f4f4f5;       /* Warm Zinc-100 Canvas Background */
-  --color-brand-sand-dark: #e4e4e7;  /* Zinc-200 Border Color */
-  --color-brand-charcoal: #18181b;   /* Main Text Color */
+  /* Aggressive Dark Bento & Energetic Orange Palette */
+  --color-brand-forest: #121214;     /* Sleek Deep Zinc Cards */
+  --color-brand-moss: #a1a1aa;       /* Bright Muted Zinc-400 */
+  --color-brand-clay: #ff5c00;       /* Screaming Bento Orange */
+  --color-brand-sand: #09090b;       /* Pure Obsidian Canvas Background */
+  --color-brand-sand-dark: #27272a;  /* Zinc-800 Razor Border Color */
+  --color-brand-charcoal: #fafafa;   /* Main White Text Color */
 }
 
 @layer base {
@@ -60,9 +60,13 @@
 }
 
 .bg-grid-pattern {
-  background-image: linear-gradient(to right, rgba(228, 228, 231, 0.4) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(228, 228, 231, 0.4) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 2.5rem 2.5rem;
+}
+
+.aggressive-glow {
+  box-shadow: 0 0 40px -15px rgba(255, 92, 0, 0.15);
 }
 
 .animate-spin-slow {

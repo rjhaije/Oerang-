@@ -238,7 +238,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Eigenaresse',
     company: 'Haarstudio Nova',
     rating: 5,
-    text: 'Voorheen regelde ik afspraken via WhatsApp, dat kostte me uren per week. Oerang heeft een prachtige budget website gebouwd met een geïegenereerd afsprakensysteem. Mijn klanten boeken nu direct zelf. De investering had ik er binnen één maand al uit!',
+    text: 'Voorheen regelde ik afspraken via WhatsApp, dat kostte me uren per week. Oerang heeft een prachtige budget website gebouwd met een geïntegreerd afsprakensysteem. Mijn klanten boeken nu direct zelf. De investering had ik er binnen één maand al uit!',
     initials: 'AD',
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80'
   },
@@ -261,6 +261,86 @@ export const TESTIMONIALS: Testimonial[] = [
     text: 'Onze menukaart verandert regelmatig. Dankzij het handige beheersysteem van Oerang pas ik dit nu binnen 2 minuten zelf aan op mijn telefoon. Echt een aanrader voor elke kleine ondernemer!',
     initials: 'SB',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_4',
+    name: 'Linda de Jong',
+    role: 'Fysiotherapeute',
+    company: 'Fysio De Jong',
+    rating: 5,
+    text: 'Oerang hielp mij binnen twee weken aan een strakke, professionele website. Geen onnodige toeters en bellen, maar een snelle site waar patiënten gemakkelijk contact kunnen opnemen. De reacties van patiënten zijn super!',
+    initials: 'LJ',
+    image: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_5',
+    name: 'Thomas Bakker',
+    role: 'Eigenaar',
+    company: 'Warme Bakker Thomas',
+    rating: 5,
+    text: 'Dankzij Oerang hebben we nu een moderne website waarop we ons wekelijkse assortiment en aanbiedingen kunnen laten zien. De site is ontzettend snel op telefoons, wat voor onze klanten ideaal is!',
+    initials: 'TB',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_6',
+    name: 'Sophie Hermans',
+    role: 'Belastingadviseur',
+    company: 'Hermans & Partners',
+    rating: 5,
+    text: 'Als financieel adviseur wilde ik een betrouwbare, strakke uitstraling. Oerang heeft dit perfect vertaald in een modern design. Geen gezeur over verborgen kosten, alles was helder vanaf het begin.',
+    initials: 'SH',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_7',
+    name: 'Jeroen van Dijk',
+    role: 'Personal Trainer',
+    company: 'Dijk Fit PT',
+    rating: 5,
+    text: 'Mijn nieuwe website is een lead-machine. Potentiële klanten kunnen direct hun doelen invoeren en een proefsessie aanvragen. Oerang snapt hoe je conversie-gericht bouwt!',
+    initials: 'JD',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_8',
+    name: 'Chantal de Wit',
+    role: 'Eigenaresse',
+    company: 'Schoonheidssalon Chantal',
+    rating: 5,
+    text: 'Ik zag erg op tegen het bouwen van een website, maar Oerang nam alle zorgen uit handen. Het contact via WhatsApp verliep soepel en snel. De site is prachtig geworden en past perfect bij mijn salon.',
+    initials: 'CW',
+    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_9',
+    name: 'Bram de Waal',
+    role: 'Schilder',
+    company: 'De Waal Schilderwerken',
+    rating: 5,
+    text: 'Geen onzin, gewoon een website die werkt. Ik krijg nu wekelijks offerte-aanvragen binnen via het contactformulier dat Oerang heeft opgezet. Voor deze prijs is het echt een no-brainer.',
+    initials: 'BW',
+    image: 'https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_10',
+    name: 'Monique Alberts',
+    role: 'Oprichtster',
+    company: 'Alberts Schoonmaak',
+    rating: 5,
+    text: 'We wilden beter vindbaar zijn in onze regio. Oerang heeft de website zo geoptimaliseerd dat we nu op de eerste pagina van Google staan voor onze belangrijkste diensten. Geweldig resultaat!',
+    initials: 'MA',
+    image: 'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_11',
+    name: 'Robert van Veen',
+    role: 'Eigenaar',
+    company: 'Autoservice Van Veen',
+    rating: 5,
+    text: 'Eindelijk een webdesigner die begrijpt dat we geen ingewikkelde poespas willen. Een helder overzicht van onze diensten, openingstijden en een knop om direct een afspraak te maken. Snel, betaalbaar en betrouwbaar.',
+    initials: 'RV',
+    image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=150&h=150&q=80'
   }
 ];
 

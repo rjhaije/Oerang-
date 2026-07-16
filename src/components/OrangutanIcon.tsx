@@ -1,0 +1,193 @@
+import React from 'react';
+
+interface OrangutanIconProps {
+  className?: string;
+  size?: number | string;
+}
+
+export const OrangutanIcon: React.FC<OrangutanIconProps> = ({ 
+  className = '', 
+  size = '100%' 
+}) => {
+  return (
+    <svg 
+      viewBox="0 0 100 100" 
+      width={size} 
+      height={size} 
+      className={`${className} select-none`}
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* 1. Big Rounded Monkey Ears (Left & Right) */}
+      {/* Left Ear Outer */}
+      <circle 
+        cx="16" 
+        cy="48" 
+        r="14" 
+        fill="#E25800" 
+        stroke="#993200" 
+        strokeWidth="2.5" 
+      />
+      {/* Left Ear Inner */}
+      <circle 
+        cx="18" 
+        cy="48" 
+        r="8" 
+        fill="#FDBA74" 
+      />
+      {/* Left Ear Inner Rim shadow */}
+      <path 
+        d="M 15 42 C 12 45, 12 51, 15 54" 
+        stroke="#CC4F00" 
+        strokeWidth="1.5" 
+        strokeLinecap="round"
+        fill="none"
+      />
+
+      {/* Right Ear Outer */}
+      <circle 
+        cx="84" 
+        cy="48" 
+        r="14" 
+        fill="#E25800" 
+        stroke="#993200" 
+        strokeWidth="2.5" 
+      />
+      {/* Right Ear Inner */}
+      <circle 
+        cx="82" 
+        cy="48" 
+        r="8" 
+        fill="#FDBA74" 
+      />
+      {/* Right Ear Inner Rim shadow */}
+      <path 
+        d="M 85 42 C 88 45, 88 51, 85 54" 
+        stroke="#CC4F00" 
+        strokeWidth="1.5" 
+        strokeLinecap="round"
+        fill="none"
+      />
+
+      {/* 2. Main Head Shape + Top Hair Tufts */}
+      {/* We combine head shape and the cute tufts of hair on top of the head for a seamless look */}
+      <path 
+        d="
+          M 34 19 
+          Q 31 8 24 10 
+          Q 32 18 36 21 
+          C 22 24, 18 35, 18 48 
+          C 18 66, 32 80, 50 80 
+          C 68 80, 82 66, 82 48 
+          C 82 35, 78 24, 64 21 
+          Q 68 18, 76 10 
+          Q 69 8 66 19 
+          C 61 17, 56 16, 50 16 
+          Q 50 4 55 4 
+          Q 45 4 45 16 
+          C 40 16, 36 17, 34 19 Z
+        " 
+        fill="#E25800" 
+        stroke="#993200" 
+        strokeWidth="2.5" 
+        strokeLinejoin="round"
+      />
+
+      {/* 3. The Classic Heart-Shaped Monkey Face Plate */}
+      <path 
+        d="
+          M 50 32 
+          C 45 24, 28 24, 28 42 
+          C 28 55, 38 70, 50 71 
+          C 62 70, 72 55, 72 42 
+          C 72 24, 55 24, 50 32 Z
+        " 
+        fill="#FDBA74" 
+        stroke="#993200" 
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+
+      {/* 4. Rosy Pink Cheeks (Blush) */}
+      <ellipse cx="33" cy="51" rx="4" ry="2.5" fill="#F87171" opacity="0.35" />
+      <ellipse cx="67" cy="51" rx="4" ry="2.5" fill="#F87171" opacity="0.35" />
+
+      {/* 5. Distinctive Light Snout/Muzzle */}
+      <path 
+        d="
+          M 50 48 
+          C 37 48, 33 53, 33 61 
+          C 33 68, 39 71, 50 71 
+          C 61 71, 67 68, 67 61 
+          C 67 53, 63 48, 50 48 Z
+        " 
+        fill="#FFEDD5" 
+        stroke="#B3532C" 
+        strokeWidth="1.5"
+      />
+
+      {/* 6. Big, Friendly, Alive Eyes */}
+      {/* Left Eye */}
+      <circle cx="41" cy="41" r="5.5" fill="#1E293B" />
+      <circle cx="39.5" cy="39.5" r="1.8" fill="#FFFFFF" />
+      <circle cx="42.5" cy="42.5" r="0.8" fill="#FFFFFF" />
+
+      {/* Right Eye */}
+      <circle cx="59" cy="41" r="5.5" fill="#1E293B" />
+      <circle cx="57.5" cy="39.5" r="1.8" fill="#FFFFFF" />
+      <circle cx="60.5" cy="42.5" r="0.8" fill="#FFFFFF" />
+
+      {/* Cute Eyebrows */}
+      <path 
+        d="M 35 34 Q 41 31 45 35" 
+        stroke="#993200" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        fill="none"
+      />
+      <path 
+        d="M 65 34 Q 59 31 55 35" 
+        stroke="#993200" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        fill="none"
+      />
+
+      {/* 7. Cute Nose bridge & Nostrils */}
+      <path 
+        d="M 47 52 Q 50 49 53 52" 
+        stroke="#B3532C" 
+        strokeWidth="1.5" 
+        strokeLinecap="round"
+        fill="none"
+      />
+      <circle cx="48" cy="54.5" r="1.2" fill="#475569" />
+      <circle cx="52" cy="54.5" r="1.2" fill="#475569" />
+
+      {/* 8. Super Happy Wide Smile */}
+      <path 
+        d="M 38 59 Q 50 67 62 59" 
+        stroke="#1E293B" 
+        strokeWidth="3" 
+        strokeLinecap="round" 
+        fill="none"
+      />
+
+      {/* Smile dimples/cheeks at the corners */}
+      <path 
+        d="M 36 57 Q 37 60 39 59" 
+        stroke="#1E293B" 
+        strokeWidth="2" 
+        strokeLinecap="round"
+        fill="none"
+      />
+      <path 
+        d="M 64 57 Q 63 60 61 59" 
+        stroke="#1E293B" 
+        strokeWidth="2" 
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  );
+};

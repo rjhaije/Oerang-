@@ -13,6 +13,7 @@ import {
 } from './data';
 import StyleShowcase from './components/StyleShowcase';
 import Calculator from './components/Calculator';
+import { OrangutanIcon } from './components/OrangutanIcon';
 import { 
   Globe, 
   Search, 
@@ -22,6 +23,8 @@ import {
   BadgeCheck, 
   Sparkles, 
   ChevronDown, 
+  ChevronLeft,
+  ChevronRight,
   Star, 
   ArrowRight, 
   Phone, 
@@ -43,6 +46,7 @@ export default function App() {
   const [portfolioFilter, setPortfolioFilter] = useState<string>('Alles');
   const [activeFaqId, setActiveFaqId] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [heroReviewIdx, setHeroReviewIdx] = useState<number>(0);
   
   // Callback quick contact form
   const [callbackName, setCallbackName] = useState('');
@@ -123,84 +127,68 @@ export default function App() {
   return (
     <div className="min-h-screen bg-brand-sand text-brand-charcoal selection:bg-brand-clay selection:text-white antialiased">
       
-      {/* Top Banner */}
-      <div className="bg-brand-forest text-white py-2 px-4 text-center text-xs font-semibold border-b border-brand-moss relative z-50">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-1.5 sm:gap-4">
-          <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-clay animate-pulse" />
-            Tijdelijke actie: Gratis SEO Basis t.w.v. €79,- bij elke nieuwe website!
-          </span>
-          <button 
-            onClick={() => scrollToSection('cost-calculator')} 
-            className="underline hover:text-brand-clay text-[11px] font-bold transition-colors"
-          >
-            Bereken je prijs &rsaquo;
-          </button>
-        </div>
-      </div>      {/* Main Navigation Header */}
+      {/* Main Navigation Header */}
       <header className="sticky top-0 bg-brand-sand/95 backdrop-blur-md border-b border-brand-sand-dark z-40 transition-all">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-2.5 pb-2 md:pt-3 md:pb-2.5 flex flex-col gap-2 md:gap-3">
           
-          {/* Logo Brand in Bento style */}
-          <button 
-            onClick={() => scrollToSection('hero')} 
-            className="flex items-center gap-2.5 group text-left cursor-pointer focus:outline-none"
-            id="nav-logo"
-          >
-            <div className="w-8 h-8 bg-brand-clay rounded-lg transition-transform group-hover:scale-105 shadow-md flex items-center justify-center text-white font-extrabold text-sm">
-              O
+          {/* Top Row: Logo Centered */}
+          <div className="flex justify-center w-full relative">
+            <button 
+              onClick={() => scrollToSection('hero')} 
+              className="flex items-center gap-3.5 group text-left cursor-pointer focus:outline-none"
+              id="nav-logo"
+            >
+              <div className="w-12 h-12 bg-zinc-950 border-2 border-brand-clay rounded-xl transition-transform group-hover:scale-110 group-hover:rotate-6 shadow-md flex items-center justify-center p-1.5 select-none">
+                <OrangutanIcon size="100%" />
+              </div>
+              <span className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-brand-clay group-hover:text-orange-500 transition-colors">
+                OERANG
+              </span>
+            </button>
+
+            {/* Mobile Menu Trigger aligned right */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-1.5 text-zinc-200 hover:text-brand-clay transition-colors focus:outline-none"
+                id="mobile-menu-trigger"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
-            <span className="text-2xl font-black tracking-tighter uppercase italic text-brand-clay group-hover:text-orange-600 transition-colors">
-              OERANG
-            </span>
-          </button>
-
-          {/* Desktop Menu - styled clean, uppercase bento-style */}
-          <nav className="hidden md:flex items-center gap-5 lg:gap-6 text-[11px] font-bold uppercase tracking-widest text-brand-moss">
-            <button onClick={() => scrollToSection('voordelen')} className="hover:text-brand-clay transition-colors cursor-pointer">Voordelen</button>
-            <button onClick={() => scrollToSection('werkwijze')} className="hover:text-brand-clay transition-colors cursor-pointer text-brand-clay font-extrabold">Werkwijze</button>
-            <button onClick={() => scrollToSection('stijlen')} className="hover:text-brand-clay transition-colors cursor-pointer">Stijlen</button>
-            <button onClick={() => scrollToSection('portfolio')} className="hover:text-brand-clay transition-colors cursor-pointer">Portfolio</button>
-            <button onClick={() => scrollToSection('faq')} className="hover:text-brand-clay transition-colors cursor-pointer">FAQ</button>
-            <button onClick={() => scrollToSection('cost-calculator')} className="hover:text-brand-clay transition-colors cursor-pointer">Kostprijs</button>
-            <button onClick={() => scrollToSection('contact')} className="hover:text-brand-clay transition-colors cursor-pointer border-b border-dashed border-brand-clay/40 pb-0.5">Contact</button>
-          </nav>
-
-          {/* Desktop Call To Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <a 
-              href="tel:0612345678" 
-              className="flex items-center gap-1 text-[11px] font-bold text-brand-moss hover:text-brand-clay transition-colors mr-1"
-            >
-              <Phone className="w-3.5 h-3.5 text-brand-clay" />
-              <span>06 - 1234 5678</span>
-            </a>
-            <button
-              onClick={() => scrollToSection('cost-calculator')}
-              className="px-4 py-2 border border-brand-forest text-brand-forest hover:bg-brand-forest hover:text-white text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-xs"
-              id="cta-calc-button"
-            >
-              Bereken Prijs
-            </button>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="px-5 py-2 bg-brand-clay hover:bg-orange-600 text-white text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-1.5"
-              id="cta-contact-button"
-            >
-              <MessageSquareText className="w-3.5 h-3.5" />
-              <span>Contact</span>
-            </button>
           </div>
 
-          {/* Mobile Menu Trigger */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-brand-forest hover:text-brand-clay transition-colors focus:outline-none"
-              id="mobile-menu-trigger"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+          {/* Bottom Row: Navigation and CTAs - Desktop only */}
+          <div className="hidden md:flex items-center justify-between w-full pt-2.5 border-t border-zinc-900/60">
+            {/* Left spacing placeholder to keep navigation perfectly centered */}
+            <div className="w-64" />
+
+            {/* Centered Desktop Menu */}
+            <nav className="flex items-center gap-8 lg:gap-10 text-sm md:text-[15px] lg:text-[16px] font-extrabold uppercase tracking-widest text-zinc-300">
+              <button onClick={() => scrollToSection('hero')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-100 font-extrabold">Home</button>
+              <button onClick={() => scrollToSection('over-ons')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Over Ons</button>
+              <button onClick={() => scrollToSection('testimonials')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Reviews</button>
+              <button onClick={() => scrollToSection('portfolio')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Voorbeelden</button>
+            </nav>
+
+            {/* Right Desktop CTA Buttons */}
+            <div className="flex items-center gap-3 w-64 justify-end">
+              <button
+                onClick={() => scrollToSection('cost-calculator')}
+                className="px-4 py-2 border border-zinc-700 text-zinc-200 hover:bg-zinc-800 text-[11px] md:text-[13px] font-extrabold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-sm"
+                id="cta-calc-button"
+              >
+                Bereken Prijs
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="px-4.5 py-2 bg-brand-clay hover:bg-orange-600 text-white text-[11px] md:text-[13px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2"
+                id="cta-contact-button"
+              >
+                <MessageSquareText className="w-4 h-4" />
+                <span>Contact</span>
+              </button>
+            </div>
           </div>
 
         </div>
@@ -212,30 +200,21 @@ export default function App() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-b border-brand-sand-dark overflow-hidden absolute w-full left-0 shadow-xl"
+              className="md:hidden bg-zinc-900 border-b border-zinc-800 overflow-hidden absolute w-full left-0 shadow-xl"
               id="mobile-nav-menu"
             >
               <div className="px-4 py-6 space-y-4 flex flex-col">
-                <button onClick={() => scrollToSection('voordelen')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Voordelen</button>
-                <button onClick={() => scrollToSection('werkwijze')} className="text-left font-bold text-brand-clay py-2 border-b border-gray-100">Onze Werkwijze</button>
-                <button onClick={() => scrollToSection('stijlen')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Kies een Stijl</button>
-                <button onClick={() => scrollToSection('portfolio')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Portfolio</button>
-                <button onClick={() => scrollToSection('faq')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Veelgestelde Vragen</button>
-                <button onClick={() => scrollToSection('cost-calculator')} className="text-left font-bold text-brand-forest py-2 border-b border-gray-100">Kostprijs Berekenen</button>
-                <button onClick={() => scrollToSection('contact')} className="text-left font-bold text-brand-clay py-2 border-b border-gray-100">Contact Opnemen</button>
+                <button onClick={() => scrollToSection('hero')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Home</button>
+                <button onClick={() => scrollToSection('over-ons')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Over Ons</button>
+                <button onClick={() => scrollToSection('testimonials')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Reviews</button>
+                <button onClick={() => scrollToSection('portfolio')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Voorbeelden</button>
+                <button onClick={() => scrollToSection('contact')} className="text-left font-bold text-brand-clay py-2 border-b border-zinc-800/60">Contact Opnemen</button>
                 
                 <div className="pt-4 flex flex-col gap-3">
-                  <a 
-                    href="tel:0612345678" 
-                    className="flex items-center justify-center gap-2 py-3 bg-brand-sand border border-brand-sand-dark rounded-xl text-xs font-bold text-brand-forest"
-                  >
-                    <Phone className="w-4 h-4 text-brand-clay" />
-                    <span>Bel direct: 06 - 1234 5678</span>
-                  </a>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => scrollToSection('cost-calculator')}
-                      className="py-3 bg-brand-sand border border-brand-forest text-brand-forest font-bold text-xs rounded-xl text-center hover:bg-gray-50 transition-colors"
+                      className="py-3 bg-zinc-950 border border-zinc-800 text-zinc-300 font-bold text-xs rounded-xl text-center hover:bg-zinc-800 transition-colors"
                     >
                       Bereken Prijs
                     </button>
@@ -253,137 +232,338 @@ export default function App() {
         </AnimatePresence>
       </header>
 
-      {/* Hero Section styled as a gorgeous Bento Grid */}
-      <section id="hero" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 md:py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Hero Section styled as a gorgeous Aggressive Split Layout */}
+      <section id="hero" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-12 md:pb-20 relative">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-clay/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div className="absolute -left-12 top-10 w-48 h-48 bg-brand-clay/5 rounded-full blur-[90px] pointer-events-none"></div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative z-10">
           
-          {/* Main Hero Card (spans 2 cols on md/lg) */}
-          <div className="md:col-span-2 lg:col-span-2 bg-brand-forest rounded-[24px] p-6 md:p-8 flex flex-col justify-between text-white relative overflow-hidden shadow-xl min-h-[320px]">
-            <div className="z-10 space-y-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-800 border border-zinc-700 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-brand-clay" />
-                <span>Budget-proof &amp; Snel</span>
+          {/* Left Column: Aggressive Core Value Pitch */}
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Binnen 14 dgn online</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-[0.95] tracking-tighter text-white uppercase italic">
-                WEBSITES DIE VOOR JE <span className="text-brand-clay">WERKEN.</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-[0.9] tracking-tighter text-white uppercase italic">
+                WIJ MAKEN <span className="text-brand-clay">BETAALBARE</span> WEBSITES <br />
+                DIE BIJ <span className="text-brand-clay">JOUW BEDRIJF</span> PASSEN.
               </h1>
-              <p className="text-sm md:text-base text-gray-300 max-w-md leading-relaxed">
-                Betaalbare, professionele websites voor ambitieuze kleine ondernemers en ZZP'ers. Binnen 14 dagen online en volledig geoptimaliseerd voor resultaat.
+              <p className="text-sm sm:text-base text-zinc-300 max-w-lg leading-relaxed font-medium">
+                Wij bouwen betaalbare gebruiksvriendelijke websites voor de kleine ondernemer.
               </p>
+
+              {/* Aggressive Benefit Checkmarks */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-zinc-200 pt-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
+                  <span>100% jouw eigendom (geen contracten)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
+                  <span>Direct bovenaan in Google (SEO)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
+                  <span>Supersnel laden op elk apparaat</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-brand-clay/20 text-brand-clay flex items-center justify-center text-[10px] font-black shrink-0">✓</span>
+                  <span>Hosting, Backups &amp; Support</span>
+                </div>
+              </div>
             </div>
-            
-            <div className="flex gap-6 z-10 pt-6 border-t border-zinc-850">
+
+            {/* Aggressive Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <button
+                onClick={() => scrollToSection('cost-calculator')}
+                className="px-8 py-4 bg-brand-clay hover:bg-orange-600 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer shadow-lg hover:shadow-orange-950/20 flex items-center justify-center gap-2"
+              >
+                <Zap className="w-4 h-4 fill-current text-white animate-pulse" />
+                <span>Bereken je prijs</span>
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="px-8 py-4 border-2 border-zinc-800 hover:border-brand-clay text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer bg-zinc-900/40 hover:bg-zinc-900 flex items-center justify-center gap-2"
+              >
+                <MessageSquareText className="w-4 h-4 text-brand-clay" />
+                <span>Neem direct contact op</span>
+              </button>
+            </div>
+
+            {/* Dynamic Stats Row */}
+            <div className="flex gap-6 pt-6 border-t border-zinc-900">
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-white">50+</span>
-                <span className="text-[9px] uppercase tracking-wider text-brand-moss font-bold">Projecten</span>
+                <span className="text-3xl font-black text-white">50+</span>
+                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-extrabold mt-0.5">Live Projecten</span>
               </div>
-              <div className="w-px h-8 bg-zinc-800"></div>
+              <div className="w-px h-10 bg-zinc-850"></div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-brand-clay">14 dgn</span>
-                <span className="text-[9px] uppercase tracking-wider text-brand-moss font-bold">Oplevertijd</span>
+                <span className="text-3xl font-black text-brand-clay">14 Dgn</span>
+                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-extrabold mt-0.5">Gem. Levertijd</span>
               </div>
-              <div className="w-px h-8 bg-zinc-800"></div>
+              <div className="w-px h-10 bg-zinc-850"></div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-white">24u</span>
-                <span className="text-[9px] uppercase tracking-wider text-brand-moss font-bold">Responstijd</span>
+                <span className="text-3xl font-black text-white">24u</span>
+                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-extrabold mt-0.5">WhatsApp Support</span>
               </div>
             </div>
-            {/* Decorative organic glow circle */}
-            <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-brand-clay rounded-full blur-[90px] opacity-20 pointer-events-none"></div>
           </div>
 
-          {/* Pricing Card (spans 1 col) */}
-          <div className="bg-white rounded-[24px] p-6 border border-brand-sand-dark flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
-            <div>
-              <span className="text-[9px] font-black uppercase tracking-widest text-brand-clay bg-orange-50 px-3 py-1 rounded-full border border-orange-100">
-                Budget-proof
-              </span>
-              <h2 className="text-4xl font-black font-display text-brand-forest mt-4 tracking-tight uppercase leading-none">
-                Vanaf <br />
-                <span className="text-brand-clay">€299,-</span>
-              </h2>
-            </div>
-            <p className="text-xs text-brand-moss leading-relaxed mt-4 font-semibold">
-              Alles-in-één budget pakket: uniek responsive design, betrouwbare hosting en wekelijkse backups.
-            </p>
-          </div>
+          {/* Right Column: High-Impact Customer Review Card with LARGE portrait image */}
+          <div className="lg:col-span-6 scroll-mt-24" id="testimonials">
+            {(() => {
+              const currentReview = TESTIMONIALS[heroReviewIdx];
+              const HERO_PORTRAITS: Record<string, string> = {
+                test_1: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_2: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_3: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_4: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_5: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_6: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_7: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_8: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_9: 'https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_10: 'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_11: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&h=1000&q=80'
+              };
+              const portraitSrc = HERO_PORTRAITS[currentReview.id] || currentReview.image;
 
-          {/* Focus Card (spans 1 col) */}
-          <div className="bg-brand-clay rounded-[24px] p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group hover:scale-[1.01] transition-transform">
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase font-bold tracking-wider opacity-85 font-sans">Focus</div>
-              <div className="text-xl font-bold tracking-tight font-display uppercase italic leading-tight">
-                CONVERSIE &amp; <br />SNELHEID
-              </div>
-            </div>
-            <p className="text-xs text-white/90 leading-relaxed font-semibold">
-              Geen trage laadsnelheid. Jouw website is geoptimaliseerd om bezoekers om te zetten in betalende klanten.
-            </p>
-            <div className="h-10 w-10 bg-white/20 rounded-full flex items-center justify-center self-end group-hover:translate-x-1 transition-transform">
-              <Zap className="w-5 h-5 text-white stroke-[2.5]" />
-            </div>
-          </div>
+              return (
+                <div className="bg-zinc-900 rounded-[32px] border-2 border-zinc-800 p-6 md:p-8 flex flex-col gap-6 relative overflow-hidden h-full shadow-2xl hover:border-brand-clay/30 transition-all duration-300 group aggressive-glow">
+                  <div className="absolute top-0 right-0 bg-brand-clay text-white text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-md flex items-center gap-1 z-20">
+                    <Star className="w-3 h-3 fill-current text-white" />
+                    <span>Reviews</span>
+                  </div>
 
-          {/* Portfolio/Testimonial Card (spans 2 cols) */}
-          <div className="md:col-span-2 bg-white rounded-[24px] p-6 border border-brand-sand-dark flex flex-col sm:flex-row items-center gap-4 shadow-xs hover:shadow-md transition-all">
-            <div className="w-20 h-20 bg-brand-sand rounded-2xl flex items-center justify-center text-xs font-black italic text-brand-moss shrink-0 select-none border border-brand-sand-dark">
-              LOGO
-            </div>
-            <div className="space-y-3">
-              <p className="text-sm font-medium leading-relaxed italic text-brand-charcoal">
-                "Oerang begreep precies wat mijn salon nodig had. Binnen 10 dagen was ik online en had ik mijn eerste aanvraag binnen!"
-              </p>
-              <p className="text-xs font-bold text-brand-forest">
-                — Anouk van Dam, <span className="text-brand-clay">Haarstudio Nova</span>
-              </p>
-            </div>
-          </div>
+                  {/* Top Portion: VERY LARGE client photo with navigation arrows overlay */}
+                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border-2 border-zinc-800 bg-zinc-950 shrink-0">
+                    <img 
+                      src={portraitSrc} 
+                      alt={currentReview.name}
+                      referrerPolicy="no-referrer"
+                      className={`absolute inset-0 w-full h-full object-cover object-center filter contrast-110 brightness-95 group-hover:scale-[1.02] transition-all duration-500 ${currentReview.id === 'test_1' ? '' : 'grayscale group-hover:grayscale-0'}`}
+                    />
+                    {/* Orange outline accent inside the frame */}
+                    <div className="absolute inset-0 border border-zinc-800 group-hover:border-brand-clay/30 transition-colors pointer-events-none rounded-2xl"></div>
+                    {/* Subtle dark gradient overlay at the bottom of the photo */}
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-zinc-950 via-zinc-950/45 to-transparent pointer-events-none"></div>
+                    
+                    {/* Interactive overlay arrows on the left/right sides of the photo */}
+                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 z-20">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setHeroReviewIdx((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+                        }}
+                        className="w-10 h-10 rounded-full bg-zinc-950/80 hover:bg-brand-clay border border-zinc-800/80 hover:border-brand-clay text-zinc-300 hover:text-white transition-all cursor-pointer shadow-lg flex items-center justify-center backdrop-blur-md hover:scale-110 active:scale-95"
+                        aria-label="Vorige review"
+                        title="Vorige review"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
 
-          {/* Quick Features Bento Grid (spans 1 col) */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-[24px] border border-brand-sand-dark flex flex-col items-center justify-center p-3 text-center hover:border-brand-clay/40 transition-colors">
-               <div className="w-2 h-2 bg-green-500 rounded-full mb-1.5 animate-pulse"></div>
-               <span className="text-[9px] font-extrabold uppercase tracking-tight text-brand-forest">Mobile Ready</span>
-            </div>
-            <div className="bg-white rounded-[24px] border border-brand-sand-dark flex flex-col items-center justify-center p-3 text-center hover:border-brand-clay/40 transition-colors">
-               <span className="text-xs font-black text-brand-clay">SEO</span>
-               <span className="text-[8px] text-brand-moss uppercase tracking-wider font-extrabold">Optimized</span>
-            </div>
-            <div className="bg-white rounded-[24px] border border-brand-sand-dark flex flex-col items-center justify-center p-3 text-center hover:border-brand-clay/40 transition-colors">
-               <span className="text-xs font-black text-brand-forest">CMS</span>
-               <span className="text-[8px] text-brand-moss uppercase tracking-wider font-extrabold">Beheer</span>
-            </div>
-            <div className="bg-white rounded-[24px] border border-brand-sand-dark flex flex-col items-center justify-center p-3 text-center hover:border-brand-clay/40 transition-colors">
-               <span className="text-xs text-brand-clay">★</span>
-               <span className="text-[8px] text-brand-moss uppercase tracking-wider font-extrabold">Support</span>
-            </div>
-          </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setHeroReviewIdx((prev) => (prev + 1) % TESTIMONIALS.length);
+                        }}
+                        className="w-10 h-10 rounded-full bg-zinc-950/80 hover:bg-brand-clay border border-zinc-800/80 hover:border-brand-clay text-zinc-300 hover:text-white transition-all cursor-pointer shadow-lg flex items-center justify-center backdrop-blur-md hover:scale-110 active:scale-95"
+                        aria-label="Volgende review"
+                        title="Volgende review"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+                    
+                    {/* Overlay Identity details inside the bottom of the large image for maximum punch */}
+                    <div className="absolute bottom-4 left-4 z-10">
+                      <div className="bg-zinc-950/80 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-zinc-800/80">
+                        <h4 className="font-display font-black text-sm text-white tracking-tight uppercase flex items-center gap-1.5">
+                          {currentReview.name}
+                          <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-green-500/20 text-green-400 text-[9px] font-bold" title="Geverifieerde klant">✓</span>
+                        </h4>
+                        <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider mt-0.5">
+                          {currentReview.role} • <span className="text-brand-clay">{currentReview.company}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-          {/* Final CTA Card (spans 1 col) */}
-          <div 
-            onClick={() => scrollToSection('cost-calculator')}
-            className="bg-brand-forest rounded-[24px] p-6 text-white flex flex-col justify-center items-center text-center gap-3 shadow-xl cursor-pointer hover:bg-black transition-all group border border-brand-forest"
-          >
-            <div className="text-[9px] text-brand-moss uppercase tracking-widest font-black">Klaar om te starten?</div>
-            <div className="text-xl font-bold leading-tight uppercase font-display underline decoration-brand-clay decoration-4 underline-offset-8 group-hover:text-brand-clay transition-colors">
-              Plan een call
-            </div>
+                  {/* Bottom Portion: Testimonial content below photo */}
+                  <div className="flex-1 flex flex-col justify-between space-y-5">
+                    
+                    <div className="space-y-3">
+                      {/* Star Rating and Tag */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex text-amber-500 gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-current text-brand-clay" />
+                          ))}
+                        </div>
+                        <span className="text-[9px] font-black text-brand-clay uppercase tracking-widest font-display bg-brand-clay/10 px-2.5 py-0.5 rounded-md border border-brand-clay/20">
+                          Geverifieerd
+                        </span>
+                      </div>
+
+                      {/* Emotional Client Quote */}
+                      <p className="text-sm sm:text-base font-medium text-zinc-100 italic leading-relaxed">
+                        "{currentReview.text}"
+                      </p>
+
+                      {/* Small Client Avatars Underneath the Text for Easier Scrolling and Direct Selection */}
+                      <div className="pt-4 border-t border-zinc-800/40 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">Kies een klant:</span>
+                          <span className="text-[10px] font-bold text-brand-clay">klik op een foto om te wisselen</span>
+                        </div>
+                        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none sm:scrollbar-thin sm:scrollbar-thumb-zinc-800 sm:scrollbar-track-transparent">
+                          {TESTIMONIALS.map((test, idx) => {
+                            const thumbSrc = HERO_PORTRAITS[test.id] || test.image;
+                            const isActive = heroReviewIdx === idx;
+                            return (
+                              <button
+                                key={test.id}
+                                onClick={() => setHeroReviewIdx(idx)}
+                                className={`relative w-12 h-12 rounded-xl overflow-hidden shrink-0 transition-all cursor-pointer border-2 focus:outline-none ${
+                                  isActive
+                                    ? 'border-brand-clay scale-110 ring-4 ring-brand-clay/10 z-10'
+                                    : `border-zinc-800 hover:border-zinc-600 opacity-70 hover:opacity-100 hover:grayscale-0 ${test.id === 'test_1' ? '' : 'grayscale'}`
+                                }`}
+                                title={`${test.name} - ${test.company}`}
+                              >
+                                <img
+                                  src={thumbSrc}
+                                  alt={test.name}
+                                  referrerPolicy="no-referrer"
+                                  className="w-full h-full object-cover"
+                                />
+                                {isActive && (
+                                  <div className="absolute inset-0 bg-brand-clay/15 flex items-end justify-center pb-0.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-clay" />
+                                  </div>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Interactive Client Selector Controls with Arrows and Dot Pagination */}
+                    <div className="pt-4 border-t border-zinc-800/60 flex items-center justify-between gap-3">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-bold">Geselecteerd:</span>
+                        <span className="text-xs font-bold text-zinc-200 truncate max-w-[140px] sm:max-w-[200px]">
+                          {currentReview.company}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center gap-1.5 bg-zinc-950 p-1 rounded-xl border border-zinc-800">
+                        <button
+                          onClick={() => setHeroReviewIdx((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+                          className="p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer"
+                          aria-label="Vorige review"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        
+                        <span className="text-[10px] font-bold text-zinc-400 px-1 font-mono">
+                          {heroReviewIdx + 1} / {TESTIMONIALS.length}
+                        </span>
+
+                        <button
+                          onClick={() => setHeroReviewIdx((prev) => (prev + 1) % TESTIMONIALS.length)}
+                          className="p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer"
+                          aria-label="Volgende review"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
         </div>
       </section>
 
+      {/* High-Impact Over Ons Section */}
+      <section id="over-ons" className="py-16 bg-zinc-950 text-white border-y border-zinc-900 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-brand-clay/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            
+            {/* Left Column: Aggressive Manifesto */}
+            <div className="md:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Wie is Oerang?</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-black leading-[0.95] tracking-tighter text-white uppercase italic">
+                WIJ GELOOVEN NIET IN <br />
+                <span className="text-brand-clay">BUREAUCRATISCHE SLOP.</span>
+              </h2>
+              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-medium">
+                Veel traditionele webdesignbureaus vullen hun uren met eindeloze vergaderingen, onnodige rapportages en torenhoge marges. Ondertussen wacht jij maanden op een simpele website. 
+              </p>
+              <div className="p-5 bg-zinc-900 border border-zinc-800 rounded-2xl border-l-4 border-l-brand-clay">
+                <p className="text-xs text-zinc-300 italic leading-relaxed">
+                  "Oerang is opgericht met één doel: professionele, flitsend snelle websites bouwen voor ZZP'ers en MKB'ers, zonder de agency-hoofdpijn of wurgcontracten. Wij leveren resultaat binnen 14 dagen, punt."
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column: Brutalist Perks List */}
+            <div className="md:col-span-5 space-y-4">
+              <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 space-y-4">
+                <h3 className="font-display font-bold text-lg text-white uppercase tracking-tight">Onze No-Nonsense Belofte</h3>
+                <div className="space-y-3 text-xs">
+                  <div className="flex items-start gap-3">
+                    <div className="w-5.5 h-5.5 rounded-md bg-brand-clay/10 flex items-center justify-center text-brand-clay font-black shrink-0">✓</div>
+                    <div>
+                      <h4 className="font-bold text-white">Geen Wurgcontracten</h4>
+                      <p className="text-zinc-500 mt-0.5">De website is na oplevering 100% van jou. Geen maandelijkse verplichtingen.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-5.5 h-5.5 rounded-md bg-brand-clay/10 flex items-center justify-center text-brand-clay font-black shrink-0">✓</div>
+                    <div>
+                      <h4 className="font-bold text-white">Razendsnel Online</h4>
+                      <p className="text-zinc-500 mt-0.5">Zodra we jouw teksten en logo hebben, staat de site binnen 14 dagen live.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-5.5 h-5.5 rounded-md bg-brand-clay/10 flex items-center justify-center text-brand-clay font-black shrink-0">✓</div>
+                    <div>
+                      <h4 className="font-bold text-white">Echte Mensen, Geen Ticket-slop</h4>
+                      <p className="text-zinc-500 mt-0.5">Direct contact via WhatsApp of telefoon. Geen helpdesk-tickets of lange wachttijden.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Bento Grid: Why Oerang? */}
-      <section id="voordelen" className="py-10 bg-white border-y border-brand-sand-dark">
+      <section id="voordelen" className="py-12 bg-zinc-900/40 border-y border-zinc-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block">Ontdek onze werkwijze</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-brand-forest tracking-tight">
+            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block font-display">Ontdek onze voordelen</span>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-white tracking-tight uppercase italic">
               Alles wat je nodig hebt, zonder de onnodige kosten
             </h2>
-            <p className="text-sm sm:text-base text-gray-600">
+            <p className="text-sm sm:text-base text-zinc-400">
               Veel webdesignbureaus rekenen duizenden euro’s voor functionaliteiten die je als kleine ondernemer helemaal niet direct nodig hebt. Oerang doet dit anders.
             </p>
           </div>
@@ -391,62 +571,62 @@ export default function App() {
           {/* Grid cards styled perfectly as Bento Boxes */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             
-            <div className="bg-brand-sand p-6 rounded-[20px] border border-brand-sand-dark space-y-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-brand-forest text-white flex items-center justify-center shadow-xs">
+            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
                 <Smartphone className="w-5 h-5 text-brand-clay" />
               </div>
-              <h3 className="font-display font-bold text-base text-brand-forest">100% Responsive &amp; Mobiel</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <h3 className="font-display font-bold text-base text-white">100% Responsive &amp; Mobiel</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 Meer dan 65% van je bezoekers bekijkt je site op een smartphone. Onze websites zijn volledig geoptimaliseerd voor een perfecte mobiele ervaring.
               </p>
             </div>
 
-            <div className="bg-brand-sand p-6 rounded-[20px] border border-brand-sand-dark space-y-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-brand-forest text-white flex items-center justify-center shadow-xs">
+            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
                 <Search className="w-5 h-5 text-brand-clay" />
               </div>
-              <h3 className="font-display font-bold text-base text-brand-forest">Direct vindbaar in Google (SEO)</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <h3 className="font-display font-bold text-base text-white">Direct vindbaar in Google (SEO)</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 We bouwen de website volgens de nieuwste Google-standaarden. Supersnel geladen, schone code en direct aangemeld bij Google Search Console.
               </p>
             </div>
 
-            <div className="bg-brand-sand p-6 rounded-[20px] border border-brand-sand-dark space-y-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-brand-forest text-white flex items-center justify-center shadow-xs">
+            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
                 <Clock className="w-5 h-5 text-brand-clay" />
               </div>
-              <h3 className="font-display font-bold text-base text-brand-forest">Binnen 14 dagen online</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <h3 className="font-display font-bold text-base text-white">Binnen 14 dagen online</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 Geen maandenlange overlegtrajecten. Zodra we jouw teksten en logo hebben, staat je professionele budget website binnen twee weken live op het internet.
               </p>
             </div>
 
-            <div className="bg-brand-sand p-6 rounded-[20px] border border-brand-sand-dark space-y-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-brand-forest text-white flex items-center justify-center shadow-xs">
+            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
                 <BadgeCheck className="w-5 h-5 text-brand-clay" />
               </div>
-              <h3 className="font-display font-bold text-base text-brand-forest">Jouw eigen bezit</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <h3 className="font-display font-bold text-base text-white">Jouw eigen bezit</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 Bij Oerang zit je niet vast aan wurgcontracten. De website is volledig jouw eigendom. Verhuis je na een jaar? Dan neem je de site gewoon mee.
               </p>
             </div>
 
-            <div className="bg-brand-sand p-6 rounded-[20px] border border-brand-sand-dark space-y-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-brand-forest text-white flex items-center justify-center shadow-xs">
+            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
                 <Globe className="w-5 h-5 text-brand-clay" />
               </div>
-              <h3 className="font-display font-bold text-base text-brand-forest">Inclusief Domein &amp; Mail</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <h3 className="font-display font-bold text-base text-white">Inclusief Domein &amp; Mail</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 In onze hosting is een professionele .nl-domeinnaam en een bijbehorend e-mailadres (bijv. info@jouwbedrijf.nl) altijd inbegrepen. Wel zo betrouwbaar!
               </p>
             </div>
 
-            <div className="bg-brand-sand p-6 rounded-[20px] border border-brand-sand-dark space-y-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-brand-forest text-white flex items-center justify-center shadow-xs">
+            <div className="bg-zinc-900 p-6 rounded-[20px] border border-zinc-800 space-y-3 hover:shadow-lg hover:border-brand-clay/30 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs border border-zinc-850">
                 <ShieldCheck className="w-5 h-5 text-brand-clay" />
               </div>
-              <h3 className="font-display font-bold text-base text-brand-forest">Wekelijkse backups</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <h3 className="font-display font-bold text-base text-white">Wekelijkse backups</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 Onze servers maken elke week automatische backups van jouw website. Mocht er ooit per ongeluk iets misgaan, dan herstellen we dat kosteloos.
               </p>
             </div>
@@ -707,64 +887,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section id="testimonials" className="py-10 bg-brand-sand-dark/40">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block">Klanten over Oerang</span>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-brand-forest tracking-tight">
-              Wat andere ondernemers vertellen
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {TESTIMONIALS.map((test) => (
-              <div 
-                key={test.id} 
-                className="bg-white p-6 rounded-[20px] border border-brand-sand-dark flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300"
-              >
-                <div className="space-y-4">
-                  {/* Rating stars */}
-                  <div className="flex text-amber-500 text-sm">
-                    {[...Array(test.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                    ))}
-                  </div>
-
-                  <p className="text-xs text-gray-600 italic leading-relaxed">
-                    "{test.text}"
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-6 mt-6 border-t border-brand-sand-dark/60">
-                  {test.image ? (
-                    <img 
-                      src={test.image} 
-                      alt={test.name}
-                      referrerPolicy="no-referrer"
-                      className="w-10 h-10 rounded-full object-cover border-2 border-brand-sand-dark shadow-xs shrink-0" 
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-brand-forest text-white flex items-center justify-center font-bold text-xs shrink-0">
-                      {test.initials}
-                    </div>
-                  )}
-                  <div>
-                    <h4 className="font-bold text-xs text-brand-forest flex items-center gap-1">
-                      {test.name}
-                      <span className="inline-flex items-center justify-center w-3 h-3 rounded-full bg-green-100 text-green-700 text-[8px] font-bold" title="Geverifieerde klant">✓</span>
-                    </h4>
-                    <p className="text-[10px] text-gray-400 font-semibold">{test.role} • {test.company}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
       {/* Interactive Calculator Section */}
       <section id="cost-calculator" className="py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <Calculator />
@@ -854,7 +976,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="md:col-span-6 bg-brand-charcoal p-6 rounded-2xl border border-brand-moss shadow-xl">
+          <div className="md:col-span-6 bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-xl">
             <AnimatePresence mode="wait">
               {!callbackSubmitted ? (
                 <motion.form 
@@ -917,7 +1039,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-brand-charcoal text-gray-400 pt-10 pb-8 border-t border-brand-charcoal">
+      <footer className="bg-zinc-950 text-zinc-400 pt-10 pb-8 border-t border-zinc-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -925,8 +1047,8 @@ export default function App() {
             {/* Oerang Col */}
             <div className="md:col-span-5 space-y-4">
               <div className="flex items-center gap-2 text-white">
-                <div className="w-8 h-8 rounded-lg bg-brand-clay flex items-center justify-center text-white font-display font-bold text-sm">
-                  O
+                <div className="w-9 h-9 rounded-lg bg-zinc-950 border border-brand-clay flex items-center justify-center p-1 select-none">
+                  <OrangutanIcon size="100%" />
                 </div>
                 <span className="font-display font-bold text-lg tracking-tight text-brand-clay">
                   Oerang<span className="text-white">.</span>
@@ -939,10 +1061,6 @@ export default function App() {
                 <a href="mailto:info@oerang.nl" className="hover:text-brand-clay transition-colors flex items-center gap-1">
                   <Mail className="w-3.5 h-3.5 text-brand-clay" />
                   <span>info@oerang.nl</span>
-                </a>
-                <a href="tel:0612345678" className="hover:text-brand-clay transition-colors flex items-center gap-1">
-                  <Phone className="w-3.5 h-3.5 text-brand-clay" />
-                  <span>06 - 1234 5678</span>
                 </a>
               </div>
             </div>
