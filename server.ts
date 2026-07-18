@@ -14,6 +14,16 @@ async function startServer() {
   app.use(express.json());
 
   // API Endpoint to send offers & callback requests
+  app.get("/api/contact", (req, res) => {
+    res.json({
+      status: "ok",
+      message: "Express backend API is active and ready for POST requests!",
+      receiver: process.env.NOTIFICATION_RECEIVER_EMAIL || "rjhaije@protonmail.com",
+      hasSmtp: !!process.env.SMTP_HOST,
+      hasResend: !!process.env.RESEND_API_KEY
+    });
+  });
+
   app.post("/api/contact", async (req, res) => {
     const { email, phone, packageConfig } = req.body;
 
