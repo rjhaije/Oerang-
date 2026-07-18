@@ -129,19 +129,44 @@ async function startServer() {
 
       // Option B: Traditional SMTP Delivery
       if (process.env.SMTP_HOST) {
-        console.log(`Using SMTP (${process.env.SMTP_HOST}) for email delivery...`);
+        const smtpUser = process.env.SMTP_USER || "";
+        const smtpPass = process.env.SMTP_PASS || "";
+        
+        // Smart validation for dummy / placeholder values
+        const isDummyUser = !smtpUser || 
+                            smtpUser.includes("je-emailadres") || 
+                            smtpUser.includes("your_email") || 
+                            smtpUser.includes("example.com") ||
+                            smtpUser === "your_email@domain.com";
+                            
+        const isDummyPass = !smtpPass || 
+                            smtpPass.includes("je-wachtwoord") || 
+                            smtpPass.includes("your_password") || 
+                            smtpPass === "your_password_here";
+
+        if (isDummyUser || isDummyPass) {
+          return res.status(400).json({
+            success: false,
+            message: "De SMTP-inloggegevens zijn nog niet correct ingesteld. Vul je echte Hostinger e-mailadres en wachtwoord in de 'Secrets' tab van Google AI Studio of in het .env-bestand.",
+          });
+        }
+
+        console.log(`Using SMTP (${process.env.SMTP_HOST}) for email delivery for user: ${smtpUser}...`);
         const transporter = nodemailer.createTransport({
           host: process.env.SMTP_HOST,
           port: Number(process.env.SMTP_PORT) || 587,
           secure: Number(process.env.SMTP_PORT) === 465,
           auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
+            user: smtpUser,
+            pass: smtpPass,
           },
+          connectionTimeout: 5000, // 5 seconds max connection attempt
+          greetingTimeout: 5000,   // 5 seconds max greeting
+          socketTimeout: 5000,     // 5 seconds inactivity
         });
 
         await transporter.sendMail({
-          from: process.env.SMTP_USER || `"${email}" <${email}>`,
+          from: smtpUser,
           to: receiverEmail,
           subject: subject,
           text: textContent,

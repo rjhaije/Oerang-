@@ -166,7 +166,12 @@ export default function App() {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch (jsonErr) {
+        // Response was not valid JSON
+      }
 
       if (res.ok && data.success) {
         setCallbackSubmitted(true);
@@ -174,7 +179,7 @@ export default function App() {
         setCallbackEmail('');
         setCallbackPhone('');
       } else {
-        setSubmitError(data.message || "Er is een fout opgetreden bij het verzenden van je aanvraag.");
+        setSubmitError(data.message || `Fout (${res.status}): Er is een fout opgetreden bij het verzenden van je aanvraag.`);
       }
     } catch (err) {
       setSubmitError("Kon geen verbinding maken met de server. Controleer je internetverbinding.");
