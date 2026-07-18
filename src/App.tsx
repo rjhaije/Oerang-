@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  TESTIMONIALS 
+  TESTIMONIALS as DEFAULT_TESTIMONIALS,
+  CALCULATOR_OPTIONS as DEFAULT_CALCULATOR_OPTIONS,
+  FAQ_ITEMS as DEFAULT_FAQ_ITEMS
 } from './data';
-import Calculator from './components/Calculator';
 import { OrangutanIcon } from './components/OrangutanIcon';
 import { 
   Globe, 
@@ -33,7 +34,10 @@ import {
   TrendingUp,
   UserCheck,
   Check,
-  MessageSquareText
+  MessageSquareText,
+  Paintbrush,
+  PenTool,
+  ShoppingBag
 } from 'lucide-react';
 
 export default function App() {
@@ -42,9 +46,49 @@ export default function App() {
   const [heroReviewIdx, setHeroReviewIdx] = useState<number>(0);
   
   // Callback quick contact form
-  const [callbackName, setCallbackName] = useState('');
+  const [callbackEmail, setCallbackEmail] = useState('');
   const [callbackPhone, setCallbackPhone] = useState('');
   const [callbackSubmitted, setCallbackSubmitted] = useState(false);
+
+  // FAQ accordion & search state
+  const [faqSearch, setFaqSearch] = useState('');
+  const [activeFaqIdx, setActiveFaqIdx] = useState<string | null>(null);
+
+  // Static site configurations (replaces CMS dynamic states)
+  const companyInfo = {
+    email: 'rjhaije@protonmail.com',
+    phone: '+31 (0) 6 4539 2108',
+    phoneRaw: '+31645392108',
+    address: 'Utrecht, Nederland',
+    kvk: '12345678',
+    heroTitle: 'WIJ MAKEN BETAALBARE WEBSITES DIE BIJ JOUW BEDRIJF PASSEN.',
+    heroSubtitle: 'Wij bouwen betaalbare gebruiksvriendelijke websites voor de kleine ondernemer.'
+  };
+
+  const calculatorOptions = DEFAULT_CALCULATOR_OPTIONS;
+  const testimonials = DEFAULT_TESTIMONIALS;
+  const faqItems = DEFAULT_FAQ_ITEMS;
+
+  // Package configuration state
+  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>(['webdesign', 'hosting']);
+  const [hasConfiguredPackage, setHasConfiguredPackage] = useState(false);
+
+  const toggleOption = (id: string) => {
+    setSelectedOptionIds(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id) 
+        : [...prev, id]
+    );
+  };
+
+  const selectedOptions = calculatorOptions.filter(opt => selectedOptionIds.includes(opt.id));
+  const totalSetup = selectedOptions.reduce((acc, opt) => acc + opt.setupPrice, 0);
+  const totalMonthly = selectedOptions.reduce((acc, opt) => acc + opt.monthlyPrice, 0);
+
+  const handleRequestPackage = () => {
+    setHasConfiguredPackage(true);
+    scrollToSection('contact');
+  };
 
   const WERKWIJZE_STEPS = [
     {
@@ -91,10 +135,10 @@ export default function App() {
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (callbackName.trim() && callbackPhone.trim()) {
+    if (callbackEmail.trim() && callbackPhone.trim()) {
       setCallbackSubmitted(true);
       setTimeout(() => {
-        setCallbackName('');
+        setCallbackEmail('');
         setCallbackPhone('');
       }, 5000);
     }
@@ -163,17 +207,11 @@ export default function App() {
             <nav className="flex items-center gap-8 lg:gap-10 text-sm md:text-[15px] lg:text-[16px] font-extrabold uppercase tracking-widest text-zinc-300">
               <button onClick={() => scrollToSection('hero')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-100 font-extrabold">Home</button>
               <button onClick={() => scrollToSection('over-ons')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">About us</button>
+              <button onClick={() => scrollToSection('pakket-kiezer')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Pakket Kiezer</button>
             </nav>
 
             {/* Right Desktop CTA Buttons */}
             <div className="flex items-center gap-3 w-64 justify-end">
-              <button
-                onClick={() => scrollToSection('cost-calculator')}
-                className="px-4 py-2 border border-zinc-700 text-zinc-200 hover:bg-zinc-800 text-[11px] md:text-[13px] font-extrabold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-sm"
-                id="cta-calc-button"
-              >
-                Bereken Prijs
-              </button>
               <button
                 onClick={() => scrollToSection('contact')}
                 className="px-4.5 py-2 bg-brand-clay hover:bg-orange-600 text-white text-[11px] md:text-[13px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2"
@@ -200,23 +238,16 @@ export default function App() {
               <div className="px-4 py-6 space-y-4 flex flex-col">
                 <button onClick={() => scrollToSection('hero')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Home</button>
                 <button onClick={() => scrollToSection('over-ons')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">About us</button>
+                <button onClick={() => scrollToSection('pakket-kiezer')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Pakket Kiezer</button>
                 <button onClick={() => scrollToSection('contact')} className="text-left font-bold text-brand-clay py-2 border-b border-zinc-800/60">Contact Opnemen</button>
                 
                 <div className="pt-4 flex flex-col gap-3">
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => scrollToSection('cost-calculator')}
-                      className="py-3 bg-zinc-950 border border-zinc-800 text-zinc-300 font-bold text-xs rounded-xl text-center hover:bg-zinc-800 transition-colors"
-                    >
-                      Bereken Prijs
-                    </button>
-                    <button
-                      onClick={() => scrollToSection('contact')}
-                      className="py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md text-center hover:bg-orange-600 transition-colors"
-                    >
-                      Neem Contact Op
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => scrollToSection('contact')}
+                    className="w-full py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md text-center hover:bg-orange-600 transition-colors"
+                  >
+                    Neem Contact Op
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -238,14 +269,13 @@ export default function App() {
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Binnen 14 dgn online</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black leading-[0.9] tracking-tighter text-white uppercase italic">
-                WIJ MAKEN <span className="text-brand-clay">BETAALBARE</span> WEBSITES <br />
-                DIE BIJ <span className="text-brand-clay">JOUW BEDRIJF</span> PASSEN.
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-black leading-[0.9] tracking-tighter text-white uppercase italic">
+                {companyInfo.heroTitle}
               </h1>
               <p className="text-sm sm:text-base text-zinc-300 max-w-lg leading-relaxed font-medium">
-                Wij bouwen betaalbare gebruiksvriendelijke websites voor de kleine ondernemer.
+                {companyInfo.heroSubtitle}
               </p>
-
+ 
               {/* High-Impact Over Ons Block placed higher in the left column */}
               <div id="over-ons" className="bg-zinc-900/40 border border-zinc-800/80 p-6 rounded-[24px] space-y-3 relative overflow-hidden group hover:border-brand-clay/30 transition-all duration-300 animate-fade-in">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-clay/5 rounded-full blur-2xl pointer-events-none"></div>
@@ -255,8 +285,8 @@ export default function App() {
                     <span>About us</span>
                   </div>
                 </div>
-                <h2 className="font-sans font-black text-base sm:text-lg lg:text-xl text-white tracking-tight uppercase italic leading-[1.2]">
-                  "Oerang is opgericht met één doel: <span className="text-brand-clay">professionele, flitsend snelle websites</span> bouwen voor ZZP'ers en MKB'ers, binnen <span className="text-brand-clay">14 dagen</span>, punt."
+                <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tighter uppercase italic leading-[1.0] lg:leading-[0.9]">
+                  "Oerang is opgericht met één doel: <span className="text-brand-clay">professionele websites</span> bouwen voor ZZP'ers en MKB'ers, binnen <span className="text-brand-clay">14 dagen</span>, punt."
                 </h2>
               </div>
 
@@ -282,7 +312,7 @@ export default function App() {
           {/* Right Column: High-Impact Customer Review Card with LARGE portrait image */}
           <div className="lg:col-span-6 scroll-mt-24" id="testimonials">
             {(() => {
-              const currentReview = TESTIMONIALS[heroReviewIdx];
+              const currentReview = testimonials[heroReviewIdx] || testimonials[0] || DEFAULT_TESTIMONIALS[0];
               const HERO_PORTRAITS: Record<string, string> = {
                 test_1: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_2: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&h=1000&q=80',
@@ -323,7 +353,7 @@ export default function App() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setHeroReviewIdx((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+                          setHeroReviewIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length);
                         }}
                         className="w-10 h-10 rounded-full bg-zinc-950/80 hover:bg-brand-clay border border-zinc-800/80 hover:border-brand-clay text-zinc-300 hover:text-white transition-all cursor-pointer shadow-lg flex items-center justify-center backdrop-blur-md hover:scale-110 active:scale-95"
                         aria-label="Vorige review"
@@ -335,7 +365,7 @@ export default function App() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setHeroReviewIdx((prev) => (prev + 1) % TESTIMONIALS.length);
+                          setHeroReviewIdx((prev) => (prev + 1) % testimonials.length);
                         }}
                         className="w-10 h-10 rounded-full bg-zinc-950/80 hover:bg-brand-clay border border-zinc-800/80 hover:border-brand-clay text-zinc-300 hover:text-white transition-all cursor-pointer shadow-lg flex items-center justify-center backdrop-blur-md hover:scale-110 active:scale-95"
                         aria-label="Volgende review"
@@ -387,7 +417,7 @@ export default function App() {
                           <span className="text-[10px] font-bold text-brand-clay">klik op een foto om te wisselen</span>
                         </div>
                         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none sm:scrollbar-thin sm:scrollbar-thumb-zinc-800 sm:scrollbar-track-transparent">
-                          {TESTIMONIALS.map((test, idx) => {
+                          {testimonials.map((test, idx) => {
                             const thumbSrc = HERO_PORTRAITS[test.id] || test.image;
                             const isActive = heroReviewIdx === idx;
                             return (
@@ -430,7 +460,7 @@ export default function App() {
                       
                       <div className="flex items-center gap-1.5 bg-zinc-950 p-1 rounded-xl border border-zinc-800">
                         <button
-                          onClick={() => setHeroReviewIdx((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+                          onClick={() => setHeroReviewIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
                           className="p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer"
                           aria-label="Vorige review"
                         >
@@ -438,11 +468,11 @@ export default function App() {
                         </button>
                         
                         <span className="text-[10px] font-bold text-zinc-400 px-1 font-mono">
-                          {heroReviewIdx + 1} / {TESTIMONIALS.length}
+                          {heroReviewIdx + 1} / {testimonials.length}
                         </span>
 
                         <button
-                          onClick={() => setHeroReviewIdx((prev) => (prev + 1) % TESTIMONIALS.length)}
+                          onClick={() => setHeroReviewIdx((prev) => (prev + 1) % testimonials.length)}
                           className="p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer"
                           aria-label="Volgende review"
                         >
@@ -461,142 +491,247 @@ export default function App() {
 
       </section>
 
-      {/* Interactive step-by-step Werkwijze Section */}
-      <section id="werkwijze" className="py-16 bg-brand-sand bg-grid-pattern border-b border-brand-sand-dark relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-1/2 left-0 w-72 h-72 bg-brand-clay/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
-        
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* Interactive Package Configurator Section */}
+      <section id="pakket-kiezer" className="py-16 bg-brand-sand border-t border-brand-sand-dark relative overflow-hidden bg-grid-pattern">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block">In 4 heldere stappen</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-brand-forest tracking-tight">
-              Hoe we jouw website snel &amp; professioneel live zetten
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block mb-2">Configureer Jouw Website</span>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic leading-none">
+              Welk pakket past bij jou?
             </h2>
-            <p className="text-sm text-gray-600">
-              Bij Oerang weet je precies wat je kunt verwachten. Geen trage overlegtrajecten, maar een snelle, efficiënte route naar een topresultaat.
+            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+              Laat ons weten wat je wilt of nodig hebt. Klik op de functionaliteiten om je eigen pakket samen te stellen. Je ziet direct een heldere prijsopgave.
             </p>
           </div>
 
-          {/* Interactive Split Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left: Interactive Vertical Step Buttons */}
-            <div className="lg:col-span-5 space-y-3">
-              {WERKWIJZE_STEPS.map((stepItem, idx) => {
-                const isActive = activeStep === idx;
-                return (
-                  <button
-                    key={stepItem.step}
-                    onClick={() => setActiveStep(idx)}
-                    className={`w-full text-left p-4 sm:p-5 rounded-2xl transition-all duration-300 border flex gap-4 items-start cursor-pointer ${
-                      isActive
-                        ? 'bg-white border-brand-clay shadow-md translate-x-1'
-                        : 'bg-white/60 border-brand-sand-dark/80 hover:bg-white hover:border-gray-300 hover:shadow-xs'
-                    }`}
-                  >
-                    {/* Big Step Number */}
-                    <div className={`text-2xl font-black font-display italic leading-none shrink-0 ${
-                      isActive ? 'text-brand-clay' : 'text-zinc-350'
-                    }`}>
-                      {stepItem.step}
-                    </div>
-                    
-                    <div className="space-y-1">
-                      <h4 className="font-display font-bold text-sm sm:text-base text-brand-forest flex items-center gap-1.5">
-                        {stepItem.title}
-                        {isActive && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-brand-clay animate-ping" />
-                        )}
-                      </h4>
-                      <p className="text-xs text-gray-500 line-clamp-1">
-                        {stepItem.tagline}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
+            {/* Left Column: Interactive Options Grid */}
+            <div className="lg:col-span-7 space-y-8">
+              
+              {/* Category: Basis (Required / Highly recommended) */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 pb-1 border-b border-zinc-800/60">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-clay" />
+                  <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">1. De Basis (Essentieel)</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {calculatorOptions.filter(opt => opt.category === 'basis').map((option) => {
+                    const IconComponent = option.icon;
+                    const isSelected = selectedOptionIds.includes(option.id);
+                    return (
+                      <button
+                        key={option.id}
+                        onClick={() => toggleOption(option.id)}
+                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group cursor-pointer focus:outline-none flex flex-col justify-between h-full ${
+                          isSelected 
+                            ? 'bg-zinc-900 border-brand-clay shadow-[0_0_20px_-5px_rgba(255,92,0,0.15)]' 
+                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700'
+                        }`}
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <div className={`p-2.5 rounded-xl transition-colors ${isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'}`}>
+                              <IconComponent className="w-5 h-5" />
+                            </div>
+                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
+                              isSelected ? 'bg-brand-clay border-brand-clay text-white' : 'border-zinc-700 bg-zinc-950'
+                            }`}>
+                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="font-display font-black text-sm text-white tracking-tight uppercase leading-snug">
+                              {option.name}
+                            </h4>
+                            <p className="text-[11px] text-zinc-400 leading-normal mt-1">
+                              {option.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="pt-4 mt-4 border-t border-zinc-800/60 flex items-baseline justify-between">
+                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-extrabold">Investering</span>
+                          <span className="text-xs font-extrabold text-white">
+                            {option.setupPrice > 0 && `€${option.setupPrice} eenmalig`}
+                            {option.setupPrice > 0 && option.monthlyPrice > 0 && ' + '}
+                            {option.monthlyPrice > 0 && `€${option.monthlyPrice}/mnd`}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Category: Extra Functionaliteiten */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 pb-1 border-b border-zinc-800/60">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-clay/65" />
+                  <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">2. Extra Functionaliteiten (Boost je bereik)</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {calculatorOptions.filter(opt => opt.category === 'extra').map((option) => {
+                    const IconComponent = option.icon;
+                    const isSelected = selectedOptionIds.includes(option.id);
+                    return (
+                      <button
+                        key={option.id}
+                        onClick={() => toggleOption(option.id)}
+                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group cursor-pointer focus:outline-none flex flex-col justify-between h-full ${
+                          isSelected 
+                            ? 'bg-zinc-900 border-brand-clay shadow-[0_0_20px_-5px_rgba(255,92,0,0.15)]' 
+                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700'
+                        }`}
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <div className={`p-2.5 rounded-xl transition-colors ${isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'}`}>
+                              <IconComponent className="w-5 h-5" />
+                            </div>
+                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
+                              isSelected ? 'bg-brand-clay border-brand-clay text-white' : 'border-zinc-700 bg-zinc-950'
+                            }`}>
+                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="font-display font-black text-sm text-white tracking-tight uppercase leading-snug">
+                              {option.name}
+                            </h4>
+                            <p className="text-[11px] text-zinc-400 leading-normal mt-1">
+                              {option.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="pt-4 mt-4 border-t border-zinc-800/60 flex items-baseline justify-between">
+                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-extrabold">Investering</span>
+                          <span className="text-xs font-extrabold text-white">
+                            {option.setupPrice > 0 && `€${option.setupPrice} eenmalig`}
+                            {option.setupPrice > 0 && option.monthlyPrice > 0 && ' + '}
+                            {option.monthlyPrice > 0 && `€${option.monthlyPrice}/mnd`}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Category: Groei & Beheer */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 pb-1 border-b border-zinc-800/60">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-clay/40" />
+                  <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">3. Groei &amp; Beheer (Voor de actieve ondernemer)</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {calculatorOptions.filter(opt => opt.category === 'groei').map((option) => {
+                    const IconComponent = option.icon;
+                    const isSelected = selectedOptionIds.includes(option.id);
+                    return (
+                      <button
+                        key={option.id}
+                        onClick={() => toggleOption(option.id)}
+                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group cursor-pointer focus:outline-none flex flex-col justify-between h-full ${
+                          isSelected 
+                            ? 'bg-zinc-900 border-brand-clay shadow-[0_0_20px_-5px_rgba(255,92,0,0.15)]' 
+                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700'
+                        }`}
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <div className={`p-2.5 rounded-xl transition-colors ${isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'}`}>
+                              <IconComponent className="w-5 h-5" />
+                            </div>
+                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
+                              isSelected ? 'bg-brand-clay border-brand-clay text-white' : 'border-zinc-700 bg-zinc-950'
+                            }`}>
+                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="font-display font-black text-sm text-white tracking-tight uppercase leading-snug">
+                              {option.name}
+                            </h4>
+                            <p className="text-[11px] text-zinc-400 leading-normal mt-1">
+                              {option.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="pt-4 mt-4 border-t border-zinc-800/60 flex items-baseline justify-between">
+                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-extrabold">Investering</span>
+                          <span className="text-xs font-extrabold text-white">
+                            {option.setupPrice > 0 && `€${option.setupPrice} eenmalig`}
+                            {option.setupPrice > 0 && option.monthlyPrice > 0 && ' + '}
+                            {option.monthlyPrice > 0 && `€${option.monthlyPrice}/mnd`}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
             </div>
 
-            {/* Right: Step Detail View (Design Blueprint Box) */}
-            <div className="lg:col-span-7">
-              <div className="bg-white rounded-[24px] border border-brand-sand-dark shadow-xl overflow-hidden flex flex-col justify-between min-h-[360px] p-6 sm:p-8 relative">
+            {/* Right Column: Sticky Summary & Checkout Card */}
+            <div className="lg:col-span-5 lg:sticky lg:top-28">
+              <div className="bg-zinc-900 rounded-3xl border border-zinc-800 p-6 space-y-6 shadow-2xl relative overflow-hidden aggressive-glow">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-clay/5 rounded-full blur-2xl pointer-events-none" />
                 
-                {/* Mock Browser Header decorative */}
-                <div className="absolute top-0 left-0 right-0 h-10 bg-brand-sand/50 border-b border-brand-sand-dark/60 px-4 flex items-center justify-between">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
-                  </div>
-                  <span className="text-[10px] font-mono text-gray-400">
-                    oerang_werkwijze_stap_{WERKWIJZE_STEPS[activeStep].step}.ts
-                  </span>
-                  <div className="w-8 h-1 bg-gray-200 rounded" />
+                <div className="border-b border-zinc-800 pb-4">
+                  <h3 className="font-display font-black text-lg text-white uppercase italic tracking-tight">Jouw Keuzes</h3>
+                  <p className="text-[11px] text-zinc-400">Snel en direct berekend</p>
                 </div>
 
-                <div className="pt-6 space-y-5 z-10 flex-1">
-                  
-                  {/* Step Accent Badge */}
-                  <div className="flex justify-between items-center">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-orange-50 border border-orange-100 rounded-full text-[10px] font-bold text-brand-clay uppercase tracking-wider">
-                      <Sparkles className="w-3 h-3 text-brand-clay" />
-                      {WERKWIJZE_STEPS[activeStep].badge}
-                    </span>
-                    <span className="text-[10px] font-mono text-brand-moss font-semibold uppercase bg-brand-sand px-2.5 py-1 rounded">
-                      {WERKWIJZE_STEPS[activeStep].metric}
-                    </span>
-                  </div>
-
-                  {/* Step content */}
-                  <div className="space-y-3">
-                    <h3 className="text-2xl font-display font-black text-brand-forest leading-tight uppercase italic">
-                      {WERKWIJZE_STEPS[activeStep].title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      {WERKWIJZE_STEPS[activeStep].description}
-                    </p>
-                  </div>
-
-                  {/* Highlights checklist */}
-                  <div className="pt-4 border-t border-brand-sand-dark/60 space-y-2.5">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-brand-moss">Geleverd resultaat:</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-brand-charcoal">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 shrink-0">
-                          <Check className="w-3 h-3 stroke-[3]" />
+                {/* Selected items receipt list */}
+                <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+                  {selectedOptions.length === 0 ? (
+                    <p className="text-xs text-zinc-500 italic py-4 text-center">Geen opties geselecteerd. Klik links om opties toe te voegen!</p>
+                  ) : (
+                    selectedOptions.map((opt) => (
+                      <div key={opt.id} className="flex justify-between items-start gap-4 text-xs">
+                        <div className="flex gap-2">
+                          <span className="text-brand-clay font-bold shrink-0">✓</span>
+                          <span className="text-zinc-200 font-medium">{opt.name}</span>
                         </div>
-                        <span className="font-medium text-gray-700">{WERKWIJZE_STEPS[activeStep].detail}</span>
+                        <span className="text-zinc-400 font-semibold font-mono shrink-0">
+                          {opt.setupPrice > 0 && `€${opt.setupPrice}`}
+                          {opt.setupPrice > 0 && opt.monthlyPrice > 0 && ' + '}
+                          {opt.monthlyPrice > 0 && `€${opt.monthlyPrice}/mnd`}
+                        </span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 shrink-0">
-                          <Check className="w-3 h-3 stroke-[3]" />
-                        </div>
-                        <span className="font-medium text-gray-700 font-sans">Persoonlijke ondersteuning</span>
-                      </div>
-                    </div>
-                  </div>
-
+                    ))
+                  )}
                 </div>
 
-                {/* Footer of card */}
-                <div className="mt-8 pt-4 border-t border-brand-sand-dark/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 bg-brand-clay/10 rounded-lg flex items-center justify-center text-brand-clay">
-                      <Zap className="w-4 h-4" />
-                    </div>
-                    <span className="text-[10px] font-mono font-bold text-brand-moss uppercase tracking-wider">
-                      Fase: {WERKWIJZE_STEPS[activeStep].accent}
-                    </span>
+                {/* Cost totals */}
+                <div className="bg-zinc-950 p-4 rounded-2xl border border-zinc-850 space-y-4">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Eenmalige opstart:</span>
+                    <span className="text-2xl font-display font-black text-white">€{totalSetup}</span>
                   </div>
-                  
-                  <button 
-                    onClick={() => scrollToSection('cost-calculator')}
-                    className="px-5 py-2 bg-brand-forest hover:bg-brand-clay text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-xs cursor-pointer"
-                  >
-                    Direct Aanvragen &rsaquo;
-                  </button>
+                  <div className="flex justify-between items-baseline border-t border-zinc-800/50 pt-3">
+                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Maandelijkse kosten:</span>
+                    <span className="text-xl font-display font-black text-brand-clay">€{totalMonthly}<span className="text-xs font-sans font-medium text-zinc-500 lowercase">/mnd</span></span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleRequestPackage}
+                  className="w-full py-3.5 bg-brand-clay hover:bg-orange-600 text-white font-extrabold uppercase tracking-wider text-xs rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                  <span>Vraag dit pakket aan</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+
+                <div className="text-[10px] text-zinc-500 text-center space-y-1">
+                  <p>✓ 100% vrijblijvend advies • Geen verkoopdruk</p>
+                  <p>✓ We nemen binnen 1 werkdag telefonisch contact op</p>
                 </div>
 
               </div>
@@ -607,10 +742,109 @@ export default function App() {
         </div>
       </section>
 
-      {/* Interactive Calculator Section */}
-      <section id="cost-calculator" className="py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Calculator />
+      {/* Veelgestelde Vragen (FAQ) Section */}
+      <section id="faq" className="py-16 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
+        <div className="absolute -right-24 bottom-12 w-80 h-80 bg-brand-clay/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block mb-2">Heb je vragen?</span>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic leading-none">
+              Veelgestelde Vragen
+            </h2>
+            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+              Vind hier snel antwoord op al je vragen over budget websites, hosting, eigendom en onze werkwijze.
+            </p>
+          </div>
+
+          {/* Search bar inside FAQ */}
+          <div className="max-w-xl mx-auto mb-8 relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-500">
+              <Search className="w-4 h-4" />
+            </div>
+            <input 
+              type="text" 
+              placeholder="Zoeken naar antwoorden..."
+              value={faqSearch}
+              onChange={(e) => setFaqSearch(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 bg-zinc-900/80 hover:bg-zinc-900 text-xs text-white placeholder-zinc-500 rounded-xl border border-zinc-800 focus:outline-none focus:ring-1 focus:ring-brand-clay transition-all"
+            />
+            {faqSearch && (
+              <button 
+                type="button"
+                onClick={() => setFaqSearch('')}
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-zinc-500 hover:text-white"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          {/* FAQ Accordion Grid */}
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {(() => {
+              const filtered = faqItems.filter(item => 
+                item.question.toLowerCase().includes(faqSearch.toLowerCase()) || 
+                item.answer.toLowerCase().includes(faqSearch.toLowerCase())
+              );
+
+              if (filtered.length === 0) {
+                return (
+                  <div className="text-center py-10 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-2xl text-zinc-500">
+                    <p className="text-sm">Geen veelgestelde vragen gevonden die voldoen aan je zoekopdracht.</p>
+                  </div>
+                );
+              }
+
+              return filtered.map((item) => {
+                const isOpen = activeFaqIdx === item.id;
+                return (
+                  <div 
+                    key={item.id} 
+                    className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                      isOpen 
+                        ? 'bg-zinc-900 border-brand-clay/40 shadow-lg' 
+                        : 'bg-zinc-900/30 border-zinc-800/80 hover:border-zinc-700'
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setActiveFaqIdx(isOpen ? null : item.id)}
+                      className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-brand-clay font-display font-black text-sm select-none mt-0.5">?</span>
+                        <span className="font-display font-black text-sm sm:text-[15px] text-white tracking-tight uppercase group-hover:text-brand-clay transition-colors">
+                          {item.question}
+                        </span>
+                      </div>
+                      <ChevronDown className={`w-4 h-4 text-zinc-400 shrink-0 transition-transform duration-300 ml-4 ${isOpen ? 'rotate-180 text-brand-clay' : 'group-hover:text-zinc-200'}`} />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2, ease: 'easeInOut' }}
+                        >
+                          <div className="px-6 pb-6 pl-10 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-zinc-800/50 pt-4 bg-zinc-900/50">
+                            {item.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              });
+            })()}
+          </div>
+
+        </div>
       </section>
+
 
       {/* Advisory & Callback Request Footer block */}
       <section id="contact" className="py-10 bg-brand-forest text-white relative overflow-hidden">
@@ -619,25 +853,26 @@ export default function App() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           
           <div className="md:col-span-6 space-y-4">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block">Gratis adviesgesprek</span>
+            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block">Contact</span>
             <h2 className="text-2xl sm:text-3xl font-display font-bold tracking-tight text-white leading-tight">
-              Twijfel je nog? <br />
-              Laat ons je terugbellen!
+              Laat ons je terugbellen of mailen!
             </h2>
             <p className="text-xs text-gray-300 leading-relaxed max-w-md">
               We nemen binnen een werkdag telefonisch contact met je op. We bespreken je wensen, beantwoorden je vragen en geven je direct gratis advies. Helemaal vrijblijvend!
             </p>
 
-            <div className="space-y-2 pt-2 text-xs text-gray-300">
-              <div className="flex items-center gap-2">
-                <BadgeCheck className="w-4 h-4 text-brand-clay" />
-                <span>Geen verkoopdruk, gewoon een fijn gesprek</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <BadgeCheck className="w-4 h-4 text-brand-clay" />
-                <span>Binnen 5 minuten helderheid over de kosten</span>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 text-xs font-semibold text-gray-300 pt-2 border-t border-brand-moss/40 max-w-md">
+              <a href={`mailto:${companyInfo.email}`} className="hover:text-brand-clay transition-colors flex items-center gap-1.5">
+                <Mail className="w-4 h-4 text-brand-clay" />
+                <span>{companyInfo.email}</span>
+              </a>
+              <a href={`tel:${companyInfo.phoneRaw}`} className="hover:text-brand-clay transition-colors flex items-center gap-1.5">
+                <Phone className="w-4 h-4 text-brand-clay" />
+                <span>{companyInfo.phone}</span>
+              </a>
             </div>
+
+
           </div>
 
           <div className="md:col-span-6 bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-xl">
@@ -650,16 +885,40 @@ export default function App() {
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <h4 className="font-display font-bold text-sm text-white mb-2">Vul je nummer in voor een terugbelverzoek</h4>
+                  {hasConfiguredPackage && (
+                    <div className="bg-brand-clay/10 border border-brand-clay/35 rounded-xl p-3.5 text-xs space-y-1.5 animate-fade-in relative">
+                      <div className="flex justify-between items-center">
+                        <span className="font-extrabold text-brand-clay uppercase tracking-wider text-[9px]">Gekozen Configuraties</span>
+                        <button 
+                          type="button" 
+                          onClick={() => setHasConfiguredPackage(false)} 
+                          className="text-zinc-500 hover:text-white transition-colors cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-zinc-200 font-bold text-[11.5px] leading-tight">
+                        {selectedOptions.map(o => o.name).join(', ')}
+                      </p>
+                      <div className="flex gap-4 font-bold text-[10px] text-zinc-400 pt-0.5">
+                        <span>Eenmalig: <span className="text-white">€{totalSetup}</span></span>
+                        <span>Maandelijks: <span className="text-brand-clay">€{totalMonthly}/mnd</span></span>
+                      </div>
+                    </div>
+                  )}
+
+                  <h4 className="font-display font-bold text-sm text-white mb-2">
+                    {hasConfiguredPackage ? "Ontvang een gratis offerte voor dit pakket" : "Vul je gegevens in voor contact"}
+                  </h4>
                   
                   <div className="space-y-3">
                     <div>
                       <input 
-                        type="text" 
+                        type="email" 
                         required
-                        placeholder="Jouw naam"
-                        value={callbackName}
-                        onChange={(e) => setCallbackName(e.target.value)}
+                        placeholder="E-mailadres (bijv. naam@voorbeeld.nl)"
+                        value={callbackEmail}
+                        onChange={(e) => setCallbackEmail(e.target.value)}
                         className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay"
                       />
                     </div>
@@ -677,9 +936,9 @@ export default function App() {
 
                   <button
                     type="submit"
-                    className="w-full py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md hover:bg-amber-700 transition-all"
+                    className="w-full py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md hover:bg-amber-700 transition-all cursor-pointer"
                   >
-                    Bel Mij Terug
+                    Neem Contact Met Mij Op
                   </button>
                 </motion.form>
               ) : (
@@ -691,8 +950,12 @@ export default function App() {
                 >
                   <div className="text-3xl text-brand-clay">✓</div>
                   <h4 className="font-display font-bold text-sm text-white">Bedankt voor je aanvraag!</h4>
-                  <p className="text-xs text-gray-400">
-                    We bellen je zo snel mogelijk terug op het opgegeven nummer. Tot snel!
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    {hasConfiguredPackage ? (
+                      `We hebben je aanvraag voor jouw samengestelde website-pakket (eenmalig €${totalSetup} en €${totalMonthly}/mnd) ontvangen. We nemen binnen één werkdag contact met je op!`
+                    ) : (
+                      "We nemen zo snel mogelijk contact met je op via e-mail of telefoon. Tot snel!"
+                    )}
                   </p>
                 </motion.div>
               )}
@@ -709,7 +972,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             
             {/* Oerang Col */}
-            <div className="md:col-span-5 space-y-4">
+            <div className="md:col-span-6 space-y-4">
               <div className="flex items-center gap-2 text-white">
                 <div className="w-9 h-9 rounded-lg bg-zinc-950 border border-brand-clay flex items-center justify-center p-1 select-none">
                   <OrangutanIcon size="100%" />
@@ -721,34 +984,27 @@ export default function App() {
               <p className="text-xs text-gray-400 leading-relaxed max-w-sm">
                 Oerang bouwt professionele en betrouwbare websites voor kleine ondernemers, ZZP'ers, therapeuten, salons, bakkers, horeca en bouwbedrijven. Kwaliteit voor een eerlijke budget prijs.
               </p>
-              <div className="flex gap-4 text-xs font-semibold text-white">
-                <a href="mailto:info@oerang.nl" className="hover:text-brand-clay transition-colors flex items-center gap-1">
-                  <Mail className="w-3.5 h-3.5 text-brand-clay" />
-                  <span>info@oerang.nl</span>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 text-xs font-semibold text-white">
+                <a href={`mailto:${companyInfo.email}`} className="hover:text-brand-clay transition-colors flex items-center gap-1.5">
+                  <Mail className="w-4 h-4 text-brand-clay" />
+                  <span>{companyInfo.email}</span>
+                </a>
+                <a href={`tel:${companyInfo.phoneRaw}`} className="hover:text-brand-clay transition-colors flex items-center gap-1.5">
+                  <Phone className="w-4 h-4 text-brand-clay" />
+                  <span>{companyInfo.phone}</span>
                 </a>
               </div>
             </div>
 
-            {/* Links Col 1 */}
-            <div className="md:col-span-3 space-y-4 text-xs">
-              <h4 className="font-display font-bold text-white uppercase tracking-wider text-[11px]">Diensten</h4>
-              <ul className="space-y-2">
-                <li><button onClick={() => scrollToSection('cost-calculator')} className="hover:text-brand-clay transition-colors text-left focus:outline-none">Budget Webdesign</button></li>
-                <li><button onClick={() => scrollToSection('cost-calculator')} className="hover:text-brand-clay transition-colors text-left focus:outline-none">Online Reserveren</button></li>
-                <li><button onClick={() => scrollToSection('cost-calculator')} className="hover:text-brand-clay transition-colors text-left focus:outline-none">E-commerce Mini-shop</button></li>
-                <li><button onClick={() => scrollToSection('cost-calculator')} className="hover:text-brand-clay transition-colors text-left focus:outline-none">Hosting & Onderhoud</button></li>
-              </ul>
-            </div>
-
             {/* Links Col 2 */}
-            <div className="md:col-span-4 space-y-4 text-xs">
+            <div className="md:col-span-6 space-y-4 text-xs">
               <h4 className="font-display font-bold text-white uppercase tracking-wider text-[11px]">Over Oerang</h4>
               <p className="text-xs text-gray-400 leading-relaxed">
                 Wij zijn gevestigd in Nederland en ondersteunen lokale ondernemers door het hele land. Geen ingewikkeld vakjargon, gewoon duidelijke taal en snelle oplevering.
               </p>
               <div className="flex items-center gap-1.5 text-xs text-gray-300">
                 <MapPin className="w-3.5 h-3.5 text-brand-clay shrink-0" />
-                <span>Utrecht, Nederland • KvK: 12345678</span>
+                <span>{companyInfo.address} • KvK: {companyInfo.kvk}</span>
               </div>
             </div>
 
