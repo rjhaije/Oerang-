@@ -37,13 +37,20 @@ import {
   MessageSquareText,
   Paintbrush,
   PenTool,
-  ShoppingBag
+  ShoppingBag,
+  Download,
+  FolderArchive,
+  Settings,
+  ExternalLink,
+  AlertTriangle,
+  RefreshCw
 } from 'lucide-react';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeStep, setActiveStep] = useState<number>(0);
   const [heroReviewIdx, setHeroReviewIdx] = useState<number>(0);
+  const [devPanelOpen, setDevPanelOpen] = useState(false);
   
   // Callback quick contact form
   const [callbackEmail, setCallbackEmail] = useState('');
@@ -164,7 +171,7 @@ export default function App() {
       const hostname = window.location.hostname;
       const apiUrl = (hostname === "localhost" || hostname === "127.0.0.1" || hostname.endsWith(".run.app"))
         ? "/api/contact"
-        : "https://ais-dev-b7wpyfggbbqqswb6oiacy3-339632128331.europe-west2.run.app/api/contact";
+        : "https://ais-pre-b7wpyfggbbqqswb6oiacy3-339632128331.europe-west2.run.app/api/contact";
 
       const res = await fetch(apiUrl, {
         method: "POST",
@@ -990,8 +997,43 @@ export default function App() {
                   </div>
 
                   {submitError && (
-                    <div className="p-3 bg-red-500/10 border border-red-500/35 text-red-300 text-xs rounded-xl font-medium animate-fade-in">
-                      ⚠️ {submitError}
+                    <div className="space-y-2.5 animate-fade-in">
+                      <div className="p-3 bg-red-500/10 border border-red-500/35 text-red-300 text-[11px] rounded-xl font-medium leading-relaxed">
+                        ⚠️ {submitError}
+                      </div>
+                      <div className="p-3 bg-zinc-950/60 border border-zinc-800 rounded-xl space-y-2">
+                        <p className="text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Directe Fallback (Altijd Succes):</p>
+                        <p className="text-[10px] text-zinc-300 leading-normal">
+                          Als de verbinding met de server faalt, kun je je aanvraag direct handmatig via WhatsApp of E-mail versturen. We reageren binnen 24 uur!
+                        </p>
+                        <div className="grid grid-cols-2 gap-2 pt-1">
+                          <a
+                            href={`https://wa.me/31645392108?text=${encodeURIComponent(
+                              `Beste Oerang, ik wil graag contact opnemen.\n\nE-mailadres: ${callbackEmail || '(nog niet ingevuld)'}\nTelefoonnummer: ${callbackPhone || '(nog niet ingevuld)'}` +
+                              (hasConfiguredPackage ? `\n\nGekozen pakket:\nOpties: ${selectedOptions.map(o => o.name).join(', ')}\nEenmalig: €${totalSetup}\nMaandelijks: €${totalMonthly}/mnd` : '')
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="py-2 px-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] rounded-lg text-center flex items-center justify-center gap-1.5 transition-colors"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 shrink-0" />
+                            <span>WhatsApp</span>
+                          </a>
+                          <a
+                            href={`mailto:rjhaije@protonmail.com?subject=${encodeURIComponent(
+                              hasConfiguredPackage ? "Oerang.nl: Offerte Aanvraag" : "Oerang.nl: Terugbelverzoek"
+                            )}&body=${encodeURIComponent(
+                              `Beste Oerang,\n\nHierbij mijn contactgegevens:\n\nE-mailadres: ${callbackEmail || ''}\nTelefoonnummer: ${callbackPhone || ''}` +
+                              (hasConfiguredPackage ? `\n\nIk heb de volgende configuratie samengesteld:\nOpties: ${selectedOptions.map(o => o.name).join(', ')}\nEenmalige opstartkosten: €${totalSetup}\nMaandelijkse kosten: €${totalMonthly}/mnd` : '') +
+                              `\n\nMet vriendelijke groet,\n${callbackEmail}`
+                            )}`}
+                            className="py-2 px-2.5 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-[10px] rounded-lg text-center flex items-center justify-center gap-1.5 transition-colors border border-zinc-700"
+                          >
+                            <Mail className="w-3.5 h-3.5 shrink-0" />
+                            <span>E-mail</span>
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -1091,6 +1133,125 @@ export default function App() {
 
         </div>
       </footer>
+
+      {/* --- DEVELOPER PANEL & EXPORT ZONE (FLOATING PANEL) --- */}
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+        <AnimatePresence>
+          {devPanelOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              className="mb-3 w-80 sm:w-96 bg-zinc-950/95 border border-zinc-800 text-zinc-100 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl"
+            >
+              {/* Header */}
+              <div className="bg-gradient-to-r from-orange-600/25 to-brand-clay/10 p-4 border-b border-zinc-800/80 flex items-center justify-between">
+                <div>
+                  <h4 className="font-display font-black text-xs uppercase tracking-wider text-brand-clay flex items-center gap-1.5">
+                    <Settings className="w-3.5 h-3.5 animate-spin-slow" />
+                    <span>Oerang Developer Panel</span>
+                  </h4>
+                  <p className="text-[10px] text-zinc-400 font-medium">Download je bestanden & exporteer naar Hostinger</p>
+                </div>
+                <button
+                  onClick={() => setDevPanelOpen(false)}
+                  className="p-1 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Body */}
+              <div className="p-4 space-y-4 max-h-[380px] overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+                
+                {/* 1. Download Static Build ZIP */}
+                <div className="space-y-2">
+                  <span className="text-[9px] uppercase tracking-widest font-black text-brand-clay block">Stap 1: Live Bestanden Downloaden</span>
+                  <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-3 space-y-2">
+                    <p className="text-[10.5px] text-zinc-300 leading-relaxed">
+                      Download de volledig gecompileerde, ultrasnelle <strong>static build (dist map)</strong>. Dit zijn de exacte bestanden die op <strong>oerang.nl</strong> geplaatst moeten worden.
+                    </p>
+                    <a
+                      href="/api/download-dist"
+                      download="dist-oerang.zip"
+                      className="w-full py-2.5 bg-brand-clay hover:bg-orange-600 text-white font-bold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Download static-build (dist.zip)</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* 2. Download Project ZIP */}
+                <div className="space-y-2">
+                  <span className="text-[9px] uppercase tracking-widest font-black text-zinc-500 block">Optioneel: Broncode Backup</span>
+                  <div className="bg-zinc-900/50 border border-zinc-800/60 rounded-xl p-3 space-y-2">
+                    <p className="text-[10.5px] text-zinc-400 leading-relaxed">
+                      Download de volledige project-broncode (inclusief server.ts, package.json en App.tsx) om de code lokaal te kunnen bewerken of back-uppen.
+                    </p>
+                    <a
+                      href="/api/download-project"
+                      download="project-oerang.zip"
+                      className="w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold text-xs rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
+                    >
+                      <FolderArchive className="w-3.5 h-3.5" />
+                      <span>Download volledige broncode</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* 3. Hostinger Deployment Guide */}
+                <div className="space-y-2">
+                  <span className="text-[9px] uppercase tracking-widest font-black text-zinc-400 block">Stap 2: Uploaden naar Hostinger</span>
+                  <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-3 text-[11px] text-zinc-300 space-y-2">
+                    <p className="font-bold text-zinc-200">Volg deze stappen in Hostinger:</p>
+                    <ol className="list-decimal pl-4 space-y-1.5 text-zinc-400 text-[10px]">
+                      <li>Klik hierboven op de oranje knop om <strong>dist.zip</strong> te downloaden.</li>
+                      <li>Log in op je <strong>Hostinger hPanel</strong> en ga naar <strong>Bestandsbeheer (File Manager)</strong> voor <span className="text-zinc-200 font-semibold">oerang.nl</span>.</li>
+                      <li>Open de map <strong className="text-zinc-200 font-semibold">public_html</strong>.</li>
+                      <li>Upload het bestand <strong>dist-oerang.zip</strong> naar deze map.</li>
+                      <li>Klik met de rechtermuisknop op het geüploade ZIP-bestand en kies <strong>Extract / Uitpakken</strong>.</li>
+                      <li>Zorg dat alle bestanden (zoals <code className="text-zinc-200">index.html</code> en de map <code className="text-zinc-200">assets</code>) direct in <code className="text-zinc-200">public_html</code> staan en niet in een submap.</li>
+                    </ol>
+                    <div className="p-2 bg-brand-clay/10 border border-brand-clay/20 rounded-lg text-[9.5px] text-brand-clay leading-relaxed">
+                      <strong>Tip:</strong> Omdat Hostinger static webhosting geen Node.js backend draait, hebben we een slimme <strong>WhatsApp & E-mail fallback</strong> ingebouwd in de contactformulieren. Mocht de server offline zijn of de verbinding wegvallen, dan kunnen klanten alsnog direct contact opnemen!
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              
+              {/* Footer */}
+              <div className="p-3 bg-zinc-900/40 border-t border-zinc-800 text-center text-[9px] text-zinc-500 font-semibold">
+                Oerang Budget Websigners • Live Export Systeem
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Toggle Button */}
+        <button
+          onClick={() => setDevPanelOpen(!devPanelOpen)}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs shadow-2xl transition-all cursor-pointer border select-none ${
+            devPanelOpen
+              ? 'bg-zinc-900 text-white border-zinc-700'
+              : 'bg-brand-clay text-white border-orange-500 hover:bg-orange-600 animate-pulse-slow'
+          }`}
+          title="Download dist.zip voor Hostinger"
+        >
+          {devPanelOpen ? (
+            <>
+              <X className="w-4 h-4" />
+              <span>Sluit Panel</span>
+            </>
+          ) : (
+            <>
+              <Settings className="w-4 h-4" />
+              <span>Export & downloads (ZIP)</span>
+            </>
+          )}
+        </button>
+      </div>
 
     </div>
   );

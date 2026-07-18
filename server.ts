@@ -4,6 +4,7 @@ import { createServer as createViteServer } from "vite";
 import { Resend } from "resend";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import AdmZip from "adm-zip";
 
 dotenv.config();
 
@@ -35,6 +36,61 @@ async function startServer() {
       hasSmtp: !!process.env.SMTP_HOST,
       hasResend: !!process.env.RESEND_API_KEY
     });
+  });
+
+  // API Endpoint to download the static build (dist folder) as a ZIP file
+  app.get("/api/download-dist", async (req, res) => {
+    try {
+      const distPath = path.join(process.cwd(), "dist");
+      
+      // Check if dist directory exists
+      const fs = await import("fs");
+      if (!fs.existsSync(distPath)) {
+        return res.status(404).send("De 'dist' map bestaat nog niet. Bouw de app eerst.");
+      }
+
+      const zip = new AdmZip();
+      zip.addLocalFolder(distPath);
+      
+      const zipBuffer = zip.toBuffer();
+      
+      res.setHeader("Content-Type", "application/zip");
+      res.setHeader("Content-Disposition", "attachment; filename=dist-oerang.zip");
+      res.send(zipBuffer);
+    } catch (error: any) {
+      console.error("Error creating zip of dist folder:", error);
+      res.status(500).send("Fout bij het maken van het ZIP-bestand van de dist map: " + error.message);
+    }
+  });
+
+  // API Endpoint to download the full project source files (excluding node_modules & dist)
+  app.get("/api/download-project", async (req, res) => {
+    try {
+      const fs = await import("fs");
+      const zip = new AdmZip();
+      
+      const files = fs.readdirSync(process.cwd());
+      for (const file of files) {
+        if (file === "node_modules" || file === ".git" || file === "dist") {
+          continue;
+        }
+        const fullPath = path.join(process.cwd(), file);
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+          zip.addLocalFolder(fullPath, file);
+        } else {
+          zip.addLocalFile(fullPath);
+        }
+      }
+
+      const zipBuffer = zip.toBuffer();
+      res.setHeader("Content-Type", "application/zip");
+      res.setHeader("Content-Disposition", "attachment; filename=project-oerang.zip");
+      res.send(zipBuffer);
+    } catch (error: any) {
+      console.error("Error creating project zip:", error);
+      res.status(500).send("Fout bij het maken van het project ZIP-bestand: " + error.message);
+    }
   });
 
   app.post("/api/contact", async (req, res) => {
