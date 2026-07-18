@@ -49,6 +49,9 @@ export default function App() {
   const [callbackEmail, setCallbackEmail] = useState('');
   const [callbackPhone, setCallbackPhone] = useState('');
   const [callbackSubmitted, setCallbackSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitFeedback, setSubmitFeedback] = useState<string | null>(null);
 
   // FAQ accordion & search state
   const [faqSearch, setFaqSearch] = useState('');
@@ -135,12 +138,47 @@ export default function App() {
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (callbackEmail.trim() && callbackPhone.trim()) {
+    if (!callbackEmail.trim() || !callbackPhone.trim()) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitFeedback(null);
+
+    try {
+      const emailTo = 'rjhaije@protonmail.com';
+      let subject = hasConfiguredPackage 
+        ? `Aanvraag website-pakket via oerang.nl (${callbackEmail})` 
+        : `Terugbelverzoek via oerang.nl (${callbackEmail})`;
+
+      let body = `Hoi Oerang,\n\nIk wil graag contact opnemen over een website.\n\n`;
+      body += `Mijn gegevens:\n`;
+      body += `- E-mailadres: ${callbackEmail}\n`;
+      body += `- Telefoonnummer: ${callbackPhone}\n\n`;
+
+      if (hasConfiguredPackage) {
+        body += `Gekozen website-configuratie:\n`;
+        selectedOptions.forEach(opt => {
+          body += `• ${opt.name} (${opt.description})\n`;
+        });
+        body += `\nEenmalige opstartkosten: €${totalSetup}\n`;
+        body += `Maandelijkse hosting & support: €${totalMonthly}/mnd\n\n`;
+      }
+
+      body += `Met vriendelijke groet,\n${callbackEmail}`;
+
+      // Open user's native email client pre-filled with the request
+      const mailtoUrl = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+
+      // Set state to show a beautiful success feedback
       setCallbackSubmitted(true);
-      setTimeout(() => {
-        setCallbackEmail('');
-        setCallbackPhone('');
-      }, 5000);
+      setSubmitFeedback("Je e-mailprogramma is geopend! Klik daar op 'Verzenden' om je aanvraag direct naar ons door te sturen.");
+      setCallbackEmail('');
+      setCallbackPhone('');
+    } catch (err) {
+      setSubmitError("Er is een fout opgetreden bij het openen van je e-mailprogramma.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -916,46 +954,62 @@ export default function App() {
                       <input 
                         type="email" 
                         required
+                        disabled={isSubmitting}
                         placeholder="E-mailadres (bijv. naam@voorbeeld.nl)"
                         value={callbackEmail}
                         onChange={(e) => setCallbackEmail(e.target.value)}
-                        className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay"
+                        className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay disabled:opacity-50"
                       />
                     </div>
                     <div>
                       <input 
                         type="tel" 
                         required
+                        disabled={isSubmitting}
                         placeholder="Telefoonnummer (bijv. 0612345678)"
                         value={callbackPhone}
                         onChange={(e) => setCallbackPhone(e.target.value)}
-                        className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay"
+                        className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay disabled:opacity-50"
                       />
                     </div>
                   </div>
 
+                  {submitError && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/35 text-red-300 text-xs rounded-xl font-medium animate-fade-in">
+                      ⚠️ {submitError}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full py-3 bg-brand-clay text-white font-bold text-xs rounded-xl shadow-md hover:bg-amber-700 transition-all cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full py-3 bg-brand-clay hover:bg-orange-600 disabled:bg-zinc-800 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
-                    Neem Contact Met Mij Op
+                    {isSubmitting ? (
+                      <>
+                        <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Versturen...</span>
+                      </>
+                    ) : (
+                      <span>Neem Contact Met Mij Op</span>
+                    )}
                   </button>
                 </motion.form>
               ) : (
                 <motion.div 
                   key="callback-success"
-                  className="text-center py-6 space-y-3"
+                  className="text-center py-6 space-y-4"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                 >
                   <div className="text-3xl text-brand-clay">✓</div>
                   <h4 className="font-display font-bold text-sm text-white">Bedankt voor je aanvraag!</h4>
                   <p className="text-xs text-zinc-300 leading-relaxed">
-                    {hasConfiguredPackage ? (
+                    {submitFeedback || (hasConfiguredPackage ? (
                       `We hebben je aanvraag voor jouw samengestelde website-pakket (eenmalig €${totalSetup} en €${totalMonthly}/mnd) ontvangen. We nemen binnen één werkdag contact met je op!`
                     ) : (
                       "We nemen zo snel mogelijk contact met je op via e-mail of telefoon. Tot snel!"
-                    )}
+                    ))}
                   </p>
                 </motion.div>
               )}
