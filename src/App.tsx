@@ -165,21 +165,39 @@ export default function App() {
         };
       }
 
-      // Dynamisch bepalen van de API URL.
-      // Als de app draait op localhost of de AI Studio preview (.run.app), gebruiken we het relatieve pad.
-      // Als de static site is geüpload naar de live website (zoals oerang.nl), sturen we de POST naar de live AI Studio backend op Cloud Run.
+      // Dynamisch bepalen van de API URL en verzendmethode.
+      // Als de app draait op localhost of de AI Studio preview (.run.app), gebruiken we het relatieve pad van de Express server.
+      // Als de static site is geüpload naar de live website op Hostinger (zoals oerang.nl), sturen we de POST via URL-encoded form data naar contact.php.
+      // Dit omzeilt de ModSecurity WAF-regels op Hostinger (die vaak JSON-payloads met '409 Conflict' blokkeren).
       const hostname = window.location.hostname;
-      const apiUrl = (hostname === "localhost" || hostname === "127.0.0.1" || hostname.endsWith(".run.app"))
-        ? "/api/contact"
-        : "https://ais-pre-b7wpyfggbbqqswb6oiacy3-339632128331.europe-west2.run.app/api/contact";
+      const isLocalOrPreview = (hostname === "localhost" || hostname === "127.0.0.1" || hostname.endsWith(".run.app"));
+      const apiUrl = isLocalOrPreview ? "/api/contact" : "/contact.php";
 
-      const res = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      let res;
+      if (isLocalOrPreview) {
+        res = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+      } else {
+        const formBody = new URLSearchParams();
+        formBody.append("email", payload.email);
+        formBody.append("phone", payload.phone);
+        if (payload.packageConfig) {
+          formBody.append("packageConfig", JSON.stringify(payload.packageConfig));
+        }
+
+        res = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formBody.toString(),
+        });
+      }
 
       let data: any = {};
       try {
