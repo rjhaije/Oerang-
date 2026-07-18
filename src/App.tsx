@@ -136,7 +136,7 @@ export default function App() {
     }
   ];
 
-  const handleCallbackSubmit = (e: React.FormEvent) => {
+  const handleCallbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!callbackEmail.trim() || !callbackPhone.trim()) return;
 
@@ -145,38 +145,39 @@ export default function App() {
     setSubmitFeedback(null);
 
     try {
-      const emailTo = 'rjhaije@protonmail.com';
-      let subject = hasConfiguredPackage 
-        ? `Aanvraag website-pakket via oerang.nl (${callbackEmail})` 
-        : `Terugbelverzoek via oerang.nl (${callbackEmail})`;
-
-      let body = `Hoi Oerang,\n\nIk wil graag contact opnemen over een website.\n\n`;
-      body += `Mijn gegevens:\n`;
-      body += `- E-mailadres: ${callbackEmail}\n`;
-      body += `- Telefoonnummer: ${callbackPhone}\n\n`;
+      const payload: any = {
+        email: callbackEmail,
+        phone: callbackPhone,
+      };
 
       if (hasConfiguredPackage) {
-        body += `Gekozen website-configuratie:\n`;
-        selectedOptions.forEach(opt => {
-          body += `• ${opt.name} (${opt.description})\n`;
-        });
-        body += `\nEenmalige opstartkosten: €${totalSetup}\n`;
-        body += `Maandelijkse hosting & support: €${totalMonthly}/mnd\n\n`;
+        payload.packageConfig = {
+          options: selectedOptions.map(o => o.name),
+          setupPrice: totalSetup,
+          monthlyPrice: totalMonthly,
+        };
       }
 
-      body += `Met vriendelijke groet,\n${callbackEmail}`;
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-      // Open user's native email client pre-filled with the request
-      const mailtoUrl = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoUrl;
+      const data = await res.json();
 
-      // Set state to show a beautiful success feedback
-      setCallbackSubmitted(true);
-      setSubmitFeedback("Je e-mailprogramma is geopend! Klik daar op 'Verzenden' om je aanvraag direct naar ons door te sturen.");
-      setCallbackEmail('');
-      setCallbackPhone('');
+      if (res.ok && data.success) {
+        setCallbackSubmitted(true);
+        setSubmitFeedback("Bedankt! We hebben je aanvraag ontvangen en nemen binnen 1 werkdag telefonisch contact met je op.");
+        setCallbackEmail('');
+        setCallbackPhone('');
+      } else {
+        setSubmitError(data.message || "Er is een fout opgetreden bij het verzenden van je aanvraag.");
+      }
     } catch (err) {
-      setSubmitError("Er is een fout opgetreden bij het openen van je e-mailprogramma.");
+      setSubmitError("Kon geen verbinding maken met de server. Controleer je internetverbinding.");
     } finally {
       setIsSubmitting(false);
     }
