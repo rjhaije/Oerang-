@@ -181,8 +181,9 @@ export default function App() {
       } else {
         setSubmitError(data.message || `Fout (${res.status}): Er is een fout opgetreden bij het verzenden van je aanvraag.`);
       }
-    } catch (err) {
-      setSubmitError("Kon geen verbinding maken met de server. Controleer je internetverbinding.");
+    } catch (err: any) {
+      console.error("Fetch error:", err);
+      setSubmitError(`Verbindingsfout (${err?.message || err || "onbekend"}): Kon geen verbinding maken met de server. Controleer je internetverbinding of ververs de pagina.`);
     } finally {
       setIsSubmitting(false);
     }
