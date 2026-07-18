@@ -158,7 +158,15 @@ export default function App() {
         };
       }
 
-      const res = await fetch("/api/contact", {
+      // Dynamisch bepalen van de API URL.
+      // Als de app draait op localhost of de AI Studio preview (.run.app), gebruiken we het relatieve pad.
+      // Als de static site is geüpload naar de live website (zoals oerang.nl), sturen we de POST naar de live AI Studio backend op Cloud Run.
+      const hostname = window.location.hostname;
+      const apiUrl = (hostname === "localhost" || hostname === "127.0.0.1" || hostname.endsWith(".run.app"))
+        ? "/api/contact"
+        : "https://ais-dev-b7wpyfggbbqqswb6oiacy3-339632128331.europe-west2.run.app/api/contact";
+
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

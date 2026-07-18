@@ -13,6 +13,19 @@ async function startServer() {
 
   app.use(express.json());
 
+  // CORS Middleware to allow requests from external domains (like the live oerang.nl)
+  app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    
+    // Handle CORS preflight request
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
+    next();
+  });
+
   // API Endpoint to send offers & callback requests
   app.get("/api/contact", (req, res) => {
     res.json({
