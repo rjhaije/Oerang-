@@ -175,10 +175,11 @@ $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 $headers .= "From: Oerang Web Leads <no-reply@oerang.nl>\r\n";
 $headers .= "Reply-To: " . $email . "\r\n";
+$headers .= "Return-Path: <no-reply@oerang.nl>\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
-// Send the mail
-$mailSent = mail($to, $subject, $message, $headers);
+// Send the mail (using the -f parameter to set the envelope sender/Return-Path, which aligns SPF and DMARC)
+$mailSent = mail($to, $subject, $message, $headers, "-fno-reply@oerang.nl");
 
 if ($mailSent) {
     http_response_code(200);
