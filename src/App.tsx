@@ -7,13 +7,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   TESTIMONIALS as DEFAULT_TESTIMONIALS,
-  CALCULATOR_OPTIONS as DEFAULT_CALCULATOR_OPTIONS,
-  FAQ_ITEMS as DEFAULT_FAQ_ITEMS
+  CALCULATOR_OPTIONS as DEFAULT_CALCULATOR_OPTIONS
 } from './data';
 import { OrangutanIcon } from './components/OrangutanIcon';
 import { 
   Globe, 
-  Search, 
   Smartphone, 
   ShieldCheck, 
   Clock, 
@@ -60,10 +58,6 @@ export default function App() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitFeedback, setSubmitFeedback] = useState<string | null>(null);
 
-  // FAQ accordion & search state
-  const [faqSearch, setFaqSearch] = useState('');
-  const [activeFaqIdx, setActiveFaqIdx] = useState<string | null>(null);
-
   // Static site configurations (replaces CMS dynamic states)
   const companyInfo = {
     email: 'rjhaije@protonmail.com',
@@ -77,7 +71,6 @@ export default function App() {
 
   const calculatorOptions = DEFAULT_CALCULATOR_OPTIONS;
   const testimonials = DEFAULT_TESTIMONIALS;
-  const faqItems = DEFAULT_FAQ_ITEMS;
 
   // Package configuration state
   const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>(['webdesign', 'hosting']);
@@ -820,108 +813,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Veelgestelde Vragen (FAQ) Section */}
-      <section id="faq" className="py-16 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
-        <div className="absolute -right-24 bottom-12 w-80 h-80 bg-brand-clay/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block mb-2">Heb je vragen?</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic leading-none">
-              Veelgestelde Vragen
-            </h2>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-              Vind hier snel antwoord op al je vragen over budget websites, hosting, eigendom en onze werkwijze.
-            </p>
-          </div>
 
-          {/* Search bar inside FAQ */}
-          <div className="max-w-xl mx-auto mb-8 relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-500">
-              <Search className="w-4 h-4" />
-            </div>
-            <input 
-              type="text" 
-              placeholder="Zoeken naar antwoorden..."
-              value={faqSearch}
-              onChange={(e) => setFaqSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-zinc-900/80 hover:bg-zinc-900 text-xs text-white placeholder-zinc-500 rounded-xl border border-zinc-800 focus:outline-none focus:ring-1 focus:ring-brand-clay transition-all"
-            />
-            {faqSearch && (
-              <button 
-                type="button"
-                onClick={() => setFaqSearch('')}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-zinc-500 hover:text-white"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-
-          {/* FAQ Accordion Grid */}
-          <div className="space-y-4 max-w-3xl mx-auto">
-            {(() => {
-              const filtered = faqItems.filter(item => 
-                item.question.toLowerCase().includes(faqSearch.toLowerCase()) || 
-                item.answer.toLowerCase().includes(faqSearch.toLowerCase())
-              );
-
-              if (filtered.length === 0) {
-                return (
-                  <div className="text-center py-10 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-2xl text-zinc-500">
-                    <p className="text-sm">Geen veelgestelde vragen gevonden die voldoen aan je zoekopdracht.</p>
-                  </div>
-                );
-              }
-
-              return filtered.map((item) => {
-                const isOpen = activeFaqIdx === item.id;
-                return (
-                  <div 
-                    key={item.id} 
-                    className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                      isOpen 
-                        ? 'bg-zinc-900 border-brand-clay/40 shadow-lg' 
-                        : 'bg-zinc-900/30 border-zinc-800/80 hover:border-zinc-700'
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setActiveFaqIdx(isOpen ? null : item.id)}
-                      className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
-                    >
-                      <div className="flex items-start gap-3">
-                        <span className="text-brand-clay font-display font-black text-sm select-none mt-0.5">?</span>
-                        <span className="font-display font-black text-sm sm:text-[15px] text-white tracking-tight uppercase group-hover:text-brand-clay transition-colors">
-                          {item.question}
-                        </span>
-                      </div>
-                      <ChevronDown className={`w-4 h-4 text-zinc-400 shrink-0 transition-transform duration-300 ml-4 ${isOpen ? 'rotate-180 text-brand-clay' : 'group-hover:text-zinc-200'}`} />
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2, ease: 'easeInOut' }}
-                        >
-                          <div className="px-6 pb-6 pl-10 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-zinc-800/50 pt-4 bg-zinc-900/50">
-                            {item.answer}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              });
-            })()}
-          </div>
-
-        </div>
-      </section>
 
 
       {/* Advisory & Callback Request Footer block */}
