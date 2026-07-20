@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oerang.nl/sitemap.xml
