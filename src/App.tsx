@@ -6,9 +6,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  TESTIMONIALS as DEFAULT_TESTIMONIALS
+  TESTIMONIALS as DEFAULT_TESTIMONIALS,
+  CALCULATOR_OPTIONS,
+  FAQ_ITEMS
 } from './data';
 import { OrangutanIcon } from './components/OrangutanIcon';
+import { WebsitePortfolioShowcase } from './components/WebsitePortfolioShowcase';
 import { 
   Globe, 
   Smartphone, 
@@ -17,6 +20,7 @@ import {
   BadgeCheck, 
   Sparkles, 
   ChevronDown, 
+  ChevronUp,
   ChevronLeft,
   ChevronRight,
   Star, 
@@ -38,7 +42,13 @@ import {
   ExternalLink,
   AlertTriangle,
   RefreshCw,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Lock,
+  HelpCircle,
+  Tag,
+  Hourglass,
+  CheckCircle2,
+  Calculator
 } from 'lucide-react';
 
 export default function App() {
@@ -49,10 +59,17 @@ export default function App() {
   // Callback quick contact form
   const [callbackEmail, setCallbackEmail] = useState('');
   const [callbackPhone, setCallbackPhone] = useState('');
+  const [callbackMessage, setCallbackMessage] = useState(''); // Custom client message or inquiries
   const [callbackSubmitted, setCallbackSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitFeedback, setSubmitFeedback] = useState<string | null>(null);
+
+  // Cost Calculator Options - base webdesign and hosting are selected by default
+  const [selectedCalcOptions, setSelectedCalcOptions] = useState<string[]>(['webdesign', 'hosting']);
+
+  // FAQ Expanded State
+  const [expandedFaqId, setExpandedFaqId] = useState<string | null>(null);
 
   // Static site configurations (replaces CMS dynamic states)
   const companyInfo = {
@@ -119,9 +136,24 @@ export default function App() {
     setSubmitFeedback(null);
 
     try {
+      // Calculate selected packages
+      const optionsMapped = CALCULATOR_OPTIONS.filter(o => selectedCalcOptions.includes(o.id)).map(o => o.name);
+      if (callbackMessage.trim()) {
+        optionsMapped.push(`Klant bericht: ${callbackMessage.trim()}`);
+      }
+      const setupPriceTotal = CALCULATOR_OPTIONS.filter(o => selectedCalcOptions.includes(o.id)).reduce((acc, o) => acc + o.setupPrice, 0);
+      const monthlyPriceTotal = CALCULATOR_OPTIONS.filter(o => selectedCalcOptions.includes(o.id)).reduce((acc, o) => acc + o.monthlyPrice, 0);
+
+      const packageConfigObj = {
+        options: optionsMapped,
+        setupPrice: setupPriceTotal,
+        monthlyPrice: monthlyPriceTotal
+      };
+
       const payload: any = {
         email: callbackEmail,
         phone: callbackPhone,
+        packageConfig: packageConfigObj
       };
 
       // Dynamisch bepalen van de API URL en verzendmethode.
@@ -145,6 +177,7 @@ export default function App() {
         const formBody = new URLSearchParams();
         formBody.append("email", payload.email);
         formBody.append("phone", payload.phone);
+        formBody.append("packageConfig", JSON.stringify(packageConfigObj));
 
         res = await fetch(apiUrl, {
           method: "POST",
@@ -167,6 +200,7 @@ export default function App() {
         setSubmitFeedback("Bedankt! We hebben je aanvraag ontvangen en nemen binnen 1 werkdag telefonisch contact met je op.");
         setCallbackEmail('');
         setCallbackPhone('');
+        setCallbackMessage('');
       } else {
         setSubmitError(data.message || `Fout (${res.status}): Er is een fout opgetreden bij het verzenden van je aanvraag.`);
       }
@@ -526,12 +560,422 @@ export default function App() {
 
       </section>
 
+      {/* Premium custom interactive portfolio website showcase */}
+      <WebsitePortfolioShowcase />
 
+      {/* Interactive Werkwijze Timeline Section */}
+      <section id="werkwijze" className="py-16 bg-zinc-950 border-b border-zinc-900 relative overflow-hidden text-left">
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-brand-clay/5 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+          
+          {/* Section Header */}
+          <div className="space-y-3 max-w-2xl border-b border-zinc-900 pb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
+              <Clock className="w-3.5 h-3.5 animate-pulse" />
+              <span>Snel &amp; transparant</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic tracking-tighter leading-none">
+              Onze <span className="text-brand-clay">Werkwijze</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-medium">
+              Van kennismaking tot een professionele website online binnen 14 dagen. Transparant, betrouwbaar en volledig ontzorgd. Klik op de stappen om de details te ontdekken.
+            </p>
+          </div>
 
+          {/* Interactive timeline tabs */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Steps Left Selector */}
+            <div className="lg:col-span-5 space-y-3">
+              {WERKWIJZE_STEPS.map((step, idx) => {
+                const isActive = activeStep === idx;
+                return (
+                  <button
+                    key={step.step}
+                    onClick={() => setActiveStep(idx)}
+                    className={`w-full text-left p-4.5 rounded-2xl border transition-all duration-300 flex items-center gap-4 cursor-pointer relative overflow-hidden group ${
+                      isActive
+                        ? 'bg-zinc-900 border-brand-clay/50 ring-2 ring-brand-clay/15 shadow-lg'
+                        : 'bg-zinc-900/40 border-zinc-850 hover:bg-zinc-900/80 hover:border-zinc-800'
+                    }`}
+                    id={`werkwijze-step-btn-${step.step}`}
+                  >
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-display font-black text-sm shrink-0 transition-all ${
+                      isActive 
+                        ? 'bg-brand-clay text-white' 
+                        : 'bg-zinc-950 text-zinc-500 group-hover:text-zinc-300'
+                    }`}>
+                      {step.step}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest font-mono">
+                          {step.accent}
+                        </span>
+                        {isActive && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-brand-clay animate-pulse shrink-0" />
+                        )}
+                      </div>
+                      <h4 className={`text-xs sm:text-sm font-black tracking-tight uppercase truncate mt-0.5 ${
+                        isActive ? 'text-white' : 'text-zinc-400 group-hover:text-zinc-200'
+                      }`}>
+                        {step.title}
+                      </h4>
+                    </div>
 
+                    {isActive && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-clay" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
+            {/* Step Detail Card Right */}
+            <div className="lg:col-span-7">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={{ opacity: 0, x: 15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -15 }}
+                  transition={{ duration: 0.25 }}
+                  className="bg-zinc-900 border border-zinc-850 rounded-3xl p-6 sm:p-8 space-y-6 relative overflow-hidden shadow-2xl min-h-[320px] flex flex-col justify-between"
+                >
+                  <div className="space-y-4 text-left">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-[10px] font-black text-brand-clay bg-brand-clay/10 border border-brand-clay/20 px-3 py-1 rounded-full uppercase tracking-wider">
+                        {WERKWIJZE_STEPS[activeStep].badge}
+                      </span>
+                      <span className="text-xs font-mono font-black text-zinc-500">
+                        Fase {WERKWIJZE_STEPS[activeStep].step}
+                      </span>
+                    </div>
 
+                    <h3 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tighter uppercase italic leading-none">
+                      {WERKWIJZE_STEPS[activeStep].title}
+                    </h3>
+                    
+                    <p className="text-[11px] font-semibold text-zinc-400 uppercase tracking-widest font-mono">
+                      {WERKWIJZE_STEPS[activeStep].tagline}
+                    </p>
 
+                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-medium">
+                      {WERKWIJZE_STEPS[activeStep].description}
+                    </p>
+                  </div>
+
+                  <div className="pt-5 border-t border-zinc-850/60 grid grid-cols-2 gap-4 text-left">
+                    <div>
+                      <span className="text-[9px] text-zinc-500 uppercase font-black tracking-wider">Resultaat</span>
+                      <p className="text-xs font-bold text-zinc-200 mt-0.5">
+                        {WERKWIJZE_STEPS[activeStep].detail}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-[9px] text-zinc-500 uppercase font-black tracking-wider">Snelheid</span>
+                      <p className="text-xs font-mono font-black text-brand-clay mt-0.5">
+                        {WERKWIJZE_STEPS[activeStep].metric}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* Interactive Budget Cost Calculator */}
+      <section id="calculator" className="py-16 bg-zinc-900 border-b border-zinc-950 relative overflow-hidden text-left">
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-brand-clay/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+          
+          {/* Section Header */}
+          <div className="space-y-3 max-w-2xl border-b border-zinc-800 pb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
+              <Calculator className="w-3.5 h-3.5" />
+              <span>Transparante prijzen</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic tracking-tighter leading-none">
+              Oerang <span className="text-brand-clay">Kosten-Calculator</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-medium">
+              Bereken direct de exacte kosten voor jouw website. Toggle opties aan of uit en zie in realtime de opstart- en maandelijkse kosten veranderen. Geen verrassingen achteraf!
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            {/* Options Selector List (Left Column) */}
+            <div className="lg:col-span-7 space-y-3">
+              <p className="text-[10px] font-black tracking-widest text-zinc-500 uppercase flex items-center gap-1.5 mb-2">
+                <Tag className="w-3.5 h-3.5 text-zinc-600" />
+                <span>Kies jouw gewenste functionaliteiten:</span>
+              </p>
+
+              <div className="space-y-3">
+                {CALCULATOR_OPTIONS.map((opt) => {
+                  const isBase = opt.id === 'webdesign' || opt.id === 'hosting';
+                  const isSelected = selectedCalcOptions.includes(opt.id) || isBase;
+                  const IconComponent = opt.icon;
+
+                  const toggleOption = () => {
+                    if (isBase) return; // Cannot toggle core options
+                    if (selectedCalcOptions.includes(opt.id)) {
+                      setSelectedCalcOptions(prev => prev.filter(id => id !== opt.id));
+                    } else {
+                      setSelectedCalcOptions(prev => [...prev, opt.id]);
+                    }
+                  };
+
+                  return (
+                    <div
+                      key={opt.id}
+                      onClick={toggleOption}
+                      className={`p-4 rounded-2xl border transition-all duration-300 flex items-start gap-3.5 cursor-pointer select-none text-left relative overflow-hidden ${
+                        isSelected
+                          ? 'bg-zinc-950 border-brand-clay/40 shadow-inner'
+                          : 'bg-zinc-950/40 border-zinc-850/80 hover:bg-zinc-950/80 hover:border-zinc-800'
+                      }`}
+                      id={`calc-option-box-${opt.id}`}
+                    >
+                      {/* Checkbox status indicator */}
+                      <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 mt-1 transition-all ${
+                        isSelected
+                          ? 'bg-brand-clay border-brand-clay text-white'
+                          : 'border-zinc-700 bg-zinc-900'
+                      }`}>
+                        {isSelected && (
+                          isBase ? <Lock className="w-3.5 h-3.5 text-white" /> : <Check className="w-3.5 h-3.5 text-white" />
+                        )}
+                      </div>
+
+                      {/* Icon */}
+                      <div className={`p-2 rounded-xl shrink-0 mt-0.5 ${
+                        isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-900 text-zinc-500'
+                      }`}>
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+
+                      {/* Details Text */}
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="flex items-baseline justify-between gap-2 flex-wrap">
+                          <h4 className={`text-xs sm:text-sm font-black tracking-tight uppercase ${
+                            isSelected ? 'text-white' : 'text-zinc-400'
+                          }`}>
+                            {opt.name}
+                          </h4>
+                          
+                          {/* Price tags */}
+                          <div className="flex gap-2 text-[10px] font-mono font-black uppercase shrink-0">
+                            {opt.setupPrice > 0 && (
+                              <span className="text-orange-400">
+                                +€{opt.setupPrice} eenmalig
+                              </span>
+                            )}
+                            {opt.monthlyPrice > 0 && (
+                              <span className="text-emerald-400">
+                                +€{opt.monthlyPrice}/mnd
+                              </span>
+                            )}
+                            {isBase && opt.setupPrice === 0 && opt.monthlyPrice === 0 && (
+                              <span className="text-zinc-500 font-sans font-bold">Inbegrepen</span>
+                            )}
+                          </div>
+                        </div>
+
+                        <p className="text-[11px] text-zinc-500 leading-relaxed font-medium mt-1">
+                          {opt.description}
+                        </p>
+
+                        {/* Lock warning badge for core options */}
+                        {isBase && (
+                          <span className="inline-flex items-center gap-1 mt-2 px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-[8px] font-bold text-zinc-400 uppercase tracking-wider">
+                            <Lock className="w-2.5 h-2.5" />
+                            <span>Basis Website Vereiste</span>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Cost Breakdown Receipt Card (Right Column) */}
+            <div className="lg:col-span-5 flex flex-col justify-between bg-zinc-950 border border-zinc-850 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
+              
+              {/* Premium Card Corner Accents */}
+              <div className="absolute -top-12 -right-12 w-28 h-28 bg-brand-clay/10 rounded-full blur-xl pointer-events-none" />
+              
+              <div className="space-y-6 text-left">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[9px] font-black tracking-widest text-brand-clay uppercase bg-brand-clay/10 px-2.5 py-0.5 rounded-md border border-brand-clay/20">
+                      Samenstelling
+                    </span>
+                    <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase">
+                      Offerte-Sleutel: #ORG-{selectedCalcOptions.length}
+                    </span>
+                  </div>
+                  <h3 className="font-display font-black text-2xl text-white uppercase italic leading-none pt-1">
+                    Kosten Overzicht
+                  </h3>
+                </div>
+
+                {/* Checklist receipt */}
+                <div className="space-y-2 bg-zinc-900/40 border border-zinc-850 p-4 rounded-2xl">
+                  <span className="text-[9px] text-zinc-500 font-black uppercase tracking-wider block border-b border-zinc-850 pb-1.5">
+                    Geselecteerde website modules:
+                  </span>
+                  
+                  <div className="space-y-1.5 max-h-[160px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+                    {CALCULATOR_OPTIONS.map((opt) => {
+                      const isBase = opt.id === 'webdesign' || opt.id === 'hosting';
+                      const isSelected = selectedCalcOptions.includes(opt.id) || isBase;
+                      if (!isSelected) return null;
+
+                      return (
+                        <div key={opt.id} className="flex items-center justify-between gap-3 text-xs text-zinc-300 font-bold uppercase tracking-tight">
+                          <span className="truncate flex items-center gap-1.5 font-sans">
+                            <span className="h-1.5 w-1.5 rounded-full bg-brand-clay shrink-0" />
+                            {opt.name}
+                          </span>
+                          <span className="font-mono text-[10px] text-zinc-500 shrink-0">
+                            {isBase && opt.id === 'hosting' ? '€15/md' : isBase && opt.id === 'webdesign' ? '€299' : opt.setupPrice > 0 ? `+€${opt.setupPrice}` : `+€${opt.monthlyPrice}/md`}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Totals displays */}
+                <div className="grid grid-cols-2 gap-4 border-t border-b border-zinc-850 py-5">
+                  <div>
+                    <span className="text-[9px] text-zinc-500 uppercase font-black tracking-wider block">Eenmalig Ontwerp</span>
+                    <p className="text-2xl sm:text-3xl font-mono font-black text-white mt-1 leading-none">
+                      € {CALCULATOR_OPTIONS.filter(o => selectedCalcOptions.includes(o.id) || o.id === 'webdesign' || o.id === 'hosting').reduce((acc, o) => acc + o.setupPrice, 0)}
+                    </p>
+                    <span className="text-[9px] text-zinc-500 font-medium mt-1 block">opstartkosten incl. btw</span>
+                  </div>
+
+                  <div>
+                    <span className="text-[9px] text-zinc-500 uppercase font-black tracking-wider block">Maandelijks Service</span>
+                    <p className="text-2xl sm:text-3xl font-mono font-black text-brand-clay mt-1 leading-none">
+                      € {CALCULATOR_OPTIONS.filter(o => selectedCalcOptions.includes(o.id) || o.id === 'webdesign' || o.id === 'hosting').reduce((acc, o) => acc + o.monthlyPrice, 0)}<span className="text-xs text-zinc-500 font-medium">/md</span>
+                    </p>
+                    <span className="text-[9px] text-zinc-500 font-medium mt-1 block">hosting, backups &amp; support</span>
+                  </div>
+                </div>
+
+                {/* Speed indicator */}
+                <div className="flex items-center gap-3.5 bg-zinc-900/60 border border-zinc-850 p-3.5 rounded-2xl">
+                  <Zap className="w-5 h-5 text-emerald-500 animate-pulse shrink-0" />
+                  <div className="text-left">
+                    <p className="text-[10px] uppercase font-black tracking-wider text-emerald-400">Google Lighthouse Score</p>
+                    <p className="text-xs font-semibold text-zinc-300">100/100 Laadsnelheid op mobiel gegarandeerd!</p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Call-to-action */}
+              <button
+                onClick={() => {
+                  const finalConfigDesc = CALCULATOR_OPTIONS.filter(o => selectedCalcOptions.includes(o.id) || o.id === 'webdesign' || o.id === 'hosting').map(o => o.name).join(", ");
+                  setCallbackMessage(`Beste Oerang, ik wil graag de budget website met de volgende gekozen modules: ${finalConfigDesc}`);
+                  
+                  const contactSec = document.getElementById('contact');
+                  if (contactSec) contactSec.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full mt-6 py-4.5 bg-brand-clay hover:bg-orange-600 text-white font-black uppercase tracking-wider rounded-2xl transition-all cursor-pointer shadow-lg hover:shadow-brand-clay/15 flex items-center justify-center gap-2 text-xs"
+                id="calc-submit-btn"
+              >
+                <span>Samenstelling versturen</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* Accordion FAQ Section */}
+      <section id="faq" className="py-16 bg-zinc-950 border-b border-zinc-900 relative overflow-hidden text-left">
+        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-brand-clay/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
+          
+          {/* Section Header */}
+          <div className="space-y-3 max-w-2xl border-b border-zinc-900 pb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-clay/10 border border-brand-clay/30 rounded-full text-[10px] font-bold tracking-wider text-brand-clay uppercase">
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span>Heb je vragen?</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic tracking-tighter leading-none">
+              Veelgestelde <span className="text-brand-clay">Vragen</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-medium">
+              Alles wat je moet weten over het bouwen, hosten, onderhouden en optimaliseren van jouw nieuwe budget website. Klik op een vraag om het antwoord te openen.
+            </p>
+          </div>
+
+          {/* Accordion grid */}
+          <div className="max-w-3xl mx-auto space-y-3">
+            {FAQ_ITEMS.map((faq) => {
+              const isExpanded = expandedFaqId === faq.id;
+              
+              return (
+                <div
+                  key={faq.id}
+                  className="bg-zinc-900 border border-zinc-850 rounded-2xl overflow-hidden transition-colors"
+                  id={`faq-item-box-${faq.id}`}
+                >
+                  <button
+                    onClick={() => setExpandedFaqId(isExpanded ? null : faq.id)}
+                    className="w-full text-left px-5 py-4.5 flex items-center justify-between gap-4 cursor-pointer focus:outline-none group"
+                  >
+                    <span className="text-xs sm:text-sm font-black tracking-tight uppercase text-zinc-200 group-hover:text-brand-clay transition-colors leading-snug">
+                      {faq.question}
+                    </span>
+                    <span className={`p-1 bg-zinc-950 border border-zinc-850 rounded-lg text-zinc-500 transition-all ${
+                      isExpanded ? 'rotate-180 text-brand-clay border-brand-clay/25' : ''
+                    }`}>
+                      <ChevronDown className="w-4 h-4" />
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: "auto" }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed font-medium border-t border-zinc-850/40">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
 
       {/* Advisory & Callback Request Footer block */}
       <section id="contact" className="py-10 bg-brand-forest text-white relative overflow-hidden">
@@ -599,6 +1043,16 @@ export default function App() {
                         className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay disabled:opacity-50"
                       />
                     </div>
+                    <div>
+                      <textarea 
+                        rows={3}
+                        disabled={isSubmitting}
+                        placeholder="Je bericht, opmerkingen of specifieke wensen (optioneel)"
+                        value={callbackMessage}
+                        onChange={(e) => setCallbackMessage(e.target.value)}
+                        className="w-full px-4 py-3 text-xs text-white placeholder-gray-500 bg-brand-forest/20 rounded-xl border border-brand-moss focus:outline-none focus:ring-1 focus:ring-brand-clay disabled:opacity-50 resize-none font-sans"
+                      />
+                    </div>
                   </div>
 
                   {submitError && (
@@ -614,7 +1068,7 @@ export default function App() {
                         <div className="grid grid-cols-2 gap-2 pt-1">
                           <a
                             href={`https://wa.me/31645392108?text=${encodeURIComponent(
-                              `Beste Oerang, ik wil graag contact opnemen.\n\nE-mailadres: ${callbackEmail || '(nog niet ingevuld)'}\nTelefoonnummer: ${callbackPhone || '(nog niet ingevuld)'}`
+                              `Beste Oerang, ik wil graag contact opnemen.\n\nE-mailadres: ${callbackEmail || '(nog niet ingevuld)'}\nTelefoonnummer: ${callbackPhone || '(nog niet ingevuld)'}${callbackMessage ? `\n\nBericht/Opties:\n${callbackMessage}` : ""}`
                             )}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -627,7 +1081,7 @@ export default function App() {
                             href={`mailto:rjhaije@protonmail.com?subject=${encodeURIComponent(
                               "Oerang.nl: Terugbelverzoek"
                             )}&body=${encodeURIComponent(
-                              `Beste Oerang,\n\nHierbij mijn contactgegevens:\n\nE-mailadres: ${callbackEmail || ''}\nTelefoonnummer: ${callbackPhone || ''}\n\nMet vriendelijke groet,\n${callbackEmail}`
+                              `Beste Oerang,\n\nHierbij mijn contactgegevens:\n\nE-mailadres: ${callbackEmail || ''}\nTelefoonnummer: ${callbackPhone || ''}${callbackMessage ? `\n\nOpmerkingen/Opties:\n${callbackMessage}` : ""}\n\nMet vriendelijke groet,\n${callbackEmail}`
                             )}`}
                             className="py-2 px-2.5 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-[10px] rounded-lg text-center flex items-center justify-center gap-1.5 transition-colors border border-zinc-700"
                           >

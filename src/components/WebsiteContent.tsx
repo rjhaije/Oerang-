@@ -68,29 +68,29 @@ function SchildersbedrijfVanHerkContent() {
   };
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
+    <div className="min-h-full flex flex-col text-sm text-slate-600 bg-white">
       {/* Navbar */}
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-display font-black text-white text-base tracking-wide uppercase italic">
-          Van Herk <span className="text-blue-500">Schilders</span>
+      <header className="border-b border-slate-100 bg-white/90 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md">
+        <span className="font-display font-black text-slate-900 text-base tracking-wide uppercase italic">
+          Van Herk <span className="text-blue-600">Schilders</span>
         </span>
-        <div className="flex gap-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400">
-          <span className="text-white">Home</span>
-          <span className="hover:text-white cursor-pointer hidden sm:inline">Diensten</span>
-          <span className="hover:text-white cursor-pointer">Projecten</span>
+        <div className="flex gap-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <span className="text-slate-900">Home</span>
+          <span className="hover:text-slate-900 cursor-pointer hidden sm:inline">Diensten</span>
+          <span className="hover:text-slate-900 cursor-pointer">Projecten</span>
         </div>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-blue-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-blue-50/40 to-white border-b border-slate-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-wider">
+          <span className="px-2.5 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-wider border border-blue-100/80">
             Utrecht &amp; Omstreken
           </span>
-          <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase italic leading-none">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-slate-900 uppercase italic leading-none">
             Schilderwerk dat tientallen jaren beschermt &amp; straalt
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-slate-500 leading-relaxed">
             Professioneel binnenschilderwerk, buitenschilderwerk en houtrotrenovatie voor particulieren en bedrijven. Vaste scherpe tarieven en 5 jaar garantie.
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
@@ -102,45 +102,45 @@ function SchildersbedrijfVanHerkContent() {
         <img 
           src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=300&q=80" 
           alt="Schilderwerk" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-blue-900/30 brightness-75 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-blue-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
 
       {/* Services */}
       <section className="py-6 px-4 space-y-4">
-        <h3 className="text-center font-display font-black text-white uppercase italic text-sm">
+        <h3 className="text-center font-display font-black text-slate-900 uppercase italic text-sm">
           Onze Diensten
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="bg-zinc-900/60 rounded-xl border border-zinc-850 overflow-hidden flex flex-col p-3 space-y-1.5">
+          <div className="bg-slate-50 rounded-xl border border-slate-100 overflow-hidden flex flex-col p-3 space-y-1.5 shadow-sm">
             <span className="text-lg">🏠</span>
-            <h4 className="font-bold text-white text-xs">Binnenschilderwerk</h4>
-            <p className="text-[10px] text-zinc-400 leading-relaxed">Strakke muren, plafonds, deuren en kozijnen. Wij werken stofvrij.</p>
+            <h4 className="font-bold text-slate-900 text-xs">Binnenschilderwerk</h4>
+            <p className="text-[10px] text-slate-500 leading-relaxed">Strakke muren, plafonds, deuren en kozijnen. Wij werken stofvrij.</p>
           </div>
-          <div className="bg-zinc-900/60 rounded-xl border border-zinc-850 overflow-hidden flex flex-col p-3 space-y-1.5">
+          <div className="bg-slate-50 rounded-xl border border-slate-100 overflow-hidden flex flex-col p-3 space-y-1.5 shadow-sm">
             <span className="text-lg">☀️</span>
-            <h4 className="font-bold text-white text-xs">Buitenschilderwerk</h4>
-            <p className="text-[10px] text-zinc-400 leading-relaxed">Optimale bescherming tegen weer en wind. Behoud de waarde.</p>
+            <h4 className="font-bold text-slate-900 text-xs">Buitenschilderwerk</h4>
+            <p className="text-[10px] text-slate-500 leading-relaxed">Optimale bescherming tegen weer en wind. Behoud de waarde.</p>
           </div>
-          <div className="bg-zinc-900/60 rounded-xl border border-zinc-850 overflow-hidden flex flex-col p-3 space-y-1.5">
+          <div className="bg-slate-50 rounded-xl border border-slate-100 overflow-hidden flex flex-col p-3 space-y-1.5 shadow-sm">
             <span className="text-lg">🪵</span>
-            <h4 className="font-bold text-white text-xs">Houtrot Herstel</h4>
-            <p className="text-[10px] text-zinc-400 leading-relaxed">Houtrot grondig herstellen in plaats van direct vervangen.</p>
+            <h4 className="font-bold text-slate-900 text-xs">Houtrot Herstel</h4>
+            <p className="text-[10px] text-slate-500 leading-relaxed">Houtrot grondig herstellen in plaats van direct vervangen.</p>
           </div>
         </div>
       </section>
 
       {/* Interactive Calculator widget */}
-      <section className="py-6 px-4 bg-zinc-900/40 border-t border-b border-zinc-900">
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-3">
-          <h4 className="font-display font-black text-white text-xs uppercase italic text-center">
+      <section className="py-6 px-4 bg-slate-50/50 border-t border-b border-slate-100">
+        <div className="max-w-md mx-auto bg-white border border-slate-100 p-4 rounded-xl space-y-3 shadow-md">
+          <h4 className="font-display font-black text-slate-900 text-xs uppercase italic text-center">
             Bereken direct je offerte indicatie
           </h4>
           
           <div className="space-y-1">
-            <label className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider block">
-              Geschat aantal m²: <span className="text-blue-400 font-mono font-black text-xs">{paintM2} m²</span>
+            <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">
+              Geschat aantal m²: <span className="text-blue-600 font-mono font-black text-xs">{paintM2} m²</span>
             </label>
             <input 
               type="range" 
@@ -151,12 +151,12 @@ function SchildersbedrijfVanHerkContent() {
                 setPaintM2(parseInt(e.target.value));
                 setPaintCalculatorResult(null);
               }}
-              className="w-full accent-blue-500 h-1 bg-zinc-800 rounded-lg cursor-pointer"
+              className="w-full accent-blue-600 h-1 bg-slate-100 rounded-lg cursor-pointer"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[9px] font-bold text-zinc-400 uppercase block">Type Werk</label>
+            <label className="text-[9px] font-bold text-slate-500 uppercase block">Type Werk</label>
             <div className="grid grid-cols-3 gap-1.5">
               {(['binnen', 'buiten', 'kozijnen'] as const).map((type) => (
                 <button
@@ -167,8 +167,8 @@ function SchildersbedrijfVanHerkContent() {
                   }}
                   className={`py-1 px-1 text-[9px] font-bold rounded-md border uppercase transition-all cursor-pointer text-center ${
                     paintType === type 
-                      ? 'bg-blue-600 text-white border-blue-600' 
-                      : 'bg-zinc-950 text-zinc-400 border-zinc-850 hover:border-zinc-800'
+                      ? 'bg-blue-600 text-white border-blue-600 shadow' 
+                      : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   {type}
@@ -185,12 +185,12 @@ function SchildersbedrijfVanHerkContent() {
           </button>
 
           {paintCalculatorResult !== null && (
-            <div className="p-2.5 bg-blue-950/20 border border-blue-900/30 rounded-lg text-center space-y-0.5 animate-fade-in">
-              <p className="text-[9px] text-zinc-400 uppercase font-bold tracking-wider">Geschatte Kosten</p>
-              <p className="text-lg font-black text-white font-mono">€{paintCalculatorResult},-</p>
+            <div className="p-2.5 bg-blue-50 border border-blue-100 rounded-lg text-center space-y-0.5 animate-fade-in">
+              <p className="text-[9px] text-slate-500 uppercase font-bold tracking-wider">Geschatte Kosten</p>
+              <p className="text-lg font-black text-slate-900 font-mono">€{paintCalculatorResult},-</p>
               
               {!paintFormSubmitted ? (
-                <div className="mt-2 pt-1.5 border-t border-zinc-800/80">
+                <div className="mt-2 pt-1.5 border-t border-slate-100">
                   <button 
                     onClick={() => setPaintFormSubmitted(true)}
                     className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[8px] uppercase tracking-wider rounded transition-all cursor-pointer mx-auto block"
@@ -199,7 +199,7 @@ function SchildersbedrijfVanHerkContent() {
                   </button>
                 </div>
               ) : (
-                <p className="text-[9px] text-emerald-400 font-bold mt-1.5 flex items-center justify-center gap-1">
+                <p className="text-[9px] text-emerald-600 font-bold mt-1.5 flex items-center justify-center gap-1">
                   <CheckCircle className="w-3 h-3" /> Offerte aanvraag gereed!
                 </p>
               )}
@@ -210,15 +210,15 @@ function SchildersbedrijfVanHerkContent() {
 
       {/* Reviews */}
       <section className="py-6 px-4 text-center space-y-2">
-        <span className="text-[9px] font-bold text-blue-400 uppercase tracking-widest block font-mono">★★★★★</span>
-        <p className="text-[10px] italic text-zinc-400 max-w-sm mx-auto leading-relaxed">
+        <span className="text-[9px] font-bold text-blue-500 uppercase tracking-widest block font-mono">★★★★★</span>
+        <p className="text-[10px] italic text-slate-500 max-w-sm mx-auto leading-relaxed">
           "Prachtig resultaat. De schilders werkten uiterst netjes en snel!"
         </p>
-        <p className="text-[8px] font-bold text-white uppercase">Fam. de Vries, Utrecht</p>
+        <p className="text-[8px] font-bold text-slate-900 uppercase">Fam. de Vries, Utrecht</p>
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600 space-y-0.5">
+      <footer className="mt-auto bg-slate-50 border-t border-slate-100 p-3 text-center text-[9px] text-slate-400 space-y-0.5">
         <p>© Schildersbedrijf Van Herk. Alle rechten voorbehouden.</p>
         <p>KvK: 87462198 | Dorpsstraat 45, Utrecht</p>
       </footer>
@@ -240,31 +240,31 @@ function BakkerVanderLindenContent() {
   const totalCartCount = Object.keys(bakeryCart).reduce((sum, id) => sum + (bakeryCart[id] || 0), 0);
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-serif font-bold text-amber-500 text-base">
+    <div className="min-h-full flex flex-col text-sm text-stone-700 bg-stone-50">
+      <header className="border-b border-stone-150 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-serif font-bold text-amber-800 text-base">
           🌾 Bakker Van der Linden
         </span>
-        <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest font-mono">
+        <span className="text-[10px] font-bold text-amber-700 uppercase tracking-widest font-mono">
           Wagen ({totalCartCount})
         </span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-amber-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-amber-50/40 to-stone-50 border-b border-stone-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="text-[9px] uppercase tracking-widest text-amber-400 font-bold">Ambachtelijk &amp; Smaakvol sinds 1984</span>
-          <h2 className="text-xl sm:text-2xl font-serif font-bold text-amber-100 leading-tight">
+          <span className="text-[9px] uppercase tracking-widest text-amber-700 font-bold">Ambachtelijk &amp; Smaakvol sinds 1984</span>
+          <h2 className="text-xl sm:text-2xl font-serif font-bold text-amber-950 leading-tight">
             Kraakvers desembrood en heerlijk traditioneel banket
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-stone-600 leading-relaxed">
             Elke ochtend om 03:00 uur staan onze bakkers in de warme bakkerij om voor jou het lekkerste brood te bakken.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80" 
           alt="Bakkerij" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-amber-900/10 brightness-90 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-amber-100 shadow-sm brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -272,31 +272,31 @@ function BakkerVanderLindenContent() {
       {/* Interactive Order Shop */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center">
-          <h3 className="font-serif text-sm text-amber-100">Direct Bestellen voor Afhalen</h3>
-          <p className="text-[10px] text-zinc-500">Plaats voor 17:00, haal morgen vanaf 08:00 uur vers af.</p>
+          <h3 className="font-serif text-sm text-amber-950 font-bold">Direct Bestellen voor Afhalen</h3>
+          <p className="text-[10px] text-stone-500">Plaats voor 17:00, haal morgen vanaf 08:00 uur vers af.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
           {bakeryItems.map((item) => {
             const count = bakeryCart[item.id] || 0;
             return (
-              <div key={item.id} className="p-2.5 bg-zinc-900 border border-zinc-800 rounded-xl flex gap-3 items-center">
+              <div key={item.id} className="p-2.5 bg-white border border-stone-150/80 rounded-xl flex gap-3 items-center shadow-sm">
                 <img 
                   src={item.image} 
                   alt={item.name} 
-                  className="w-16 h-16 rounded-lg object-cover shrink-0 border border-zinc-800"
+                  className="w-16 h-16 rounded-lg object-cover shrink-0 border border-stone-100"
                   referrerPolicy="no-referrer"
                 />
                 <div className="flex-1 flex flex-col justify-between min-w-0">
                   <div className="space-y-0.5">
                     <div className="flex justify-between items-start gap-1">
-                      <h4 className="font-bold text-white text-[11px] truncate">{item.name}</h4>
-                      <span className="text-[10px] text-amber-400 font-bold font-mono shrink-0">€{item.price.toFixed(2)}</span>
+                      <h4 className="font-bold text-stone-900 text-[11px] truncate">{item.name}</h4>
+                      <span className="text-[10px] text-amber-700 font-bold font-mono shrink-0">€{item.price.toFixed(2)}</span>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between mt-1.5">
-                    <span className="text-[9px] text-zinc-600">Aantal</span>
+                    <span className="text-[9px] text-stone-500">Aantal</span>
                     <div className="flex items-center gap-1.5">
                       <button 
                         onClick={() => {
@@ -304,16 +304,16 @@ function BakkerVanderLindenContent() {
                             setBakeryCart(prev => ({ ...prev, [item.id]: count - 1 }));
                           }
                         }}
-                        className="w-5 h-5 rounded bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center font-bold cursor-pointer"
+                        className="w-5 h-5 rounded bg-stone-100 text-stone-600 hover:bg-stone-200 flex items-center justify-center font-bold cursor-pointer"
                       >
                         <Minus className="w-2.5 h-2.5" />
                       </button>
-                      <span className="font-mono text-[10px] text-white font-bold w-3 text-center">{count}</span>
+                      <span className="font-mono text-[10px] text-stone-800 font-bold w-3 text-center">{count}</span>
                       <button 
                         onClick={() => {
                           setBakeryCart(prev => ({ ...prev, [item.id]: count + 1 }));
                         }}
-                        className="w-5 h-5 rounded bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center font-bold cursor-pointer"
+                        className="w-5 h-5 rounded bg-stone-100 text-stone-600 hover:bg-stone-200 flex items-center justify-center font-bold cursor-pointer"
                       >
                         <Plus className="w-2.5 h-2.5" />
                       </button>
@@ -327,10 +327,10 @@ function BakkerVanderLindenContent() {
 
         {/* Cart Total & Order button */}
         {totalCartCount > 0 && (
-          <div className="max-w-md mx-auto p-3 bg-amber-950/10 border border-amber-900/20 rounded-xl text-center space-y-2 animate-fade-in">
+          <div className="max-w-md mx-auto p-3 bg-amber-50/65 border border-amber-100 rounded-xl text-center space-y-2 animate-fade-in shadow-sm">
             <div className="flex justify-between items-center text-[10px]">
-              <span className="text-zinc-400 font-bold">Jouw Winkelwagen</span>
-              <span className="font-mono text-white font-bold">
+              <span className="text-stone-600 font-bold">Jouw Winkelwagen</span>
+              <span className="font-mono text-stone-900 font-bold">
                 Totaal: €
                 {Object.entries(bakeryCart).reduce((acc: number, [id, count]: [string, any]) => {
                   const item = bakeryItems.find(i => i.id === id);
@@ -342,16 +342,16 @@ function BakkerVanderLindenContent() {
             {!bakeryOrdered ? (
               <button 
                 onClick={() => setBakeryOrdered(true)}
-                className="w-full py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
+                className="w-full py-1.5 bg-amber-700 hover:bg-amber-800 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
               >
                 Bestelling Bevestigen
               </button>
             ) : (
-              <div className="p-1.5 bg-emerald-950/20 border border-emerald-900/30 rounded-lg text-center">
-                <p className="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-1">
+              <div className="p-1.5 bg-emerald-50 border border-emerald-100 rounded-lg text-center">
+                <p className="text-[10px] text-emerald-700 font-bold flex items-center justify-center gap-1">
                   <CheckCircle className="w-3 h-3" /> Bestelling geplaatst!
                 </p>
-                <p className="text-[8px] text-zinc-500 mt-0.5 font-medium">Haal morgen vanaf 08:00 uur vers af.</p>
+                <p className="text-[8px] text-stone-500 mt-0.5 font-medium">Haal morgen vanaf 08:00 uur vers af.</p>
               </div>
             )}
           </div>
@@ -359,7 +359,7 @@ function BakkerVanderLindenContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600 space-y-0.5">
+      <footer className="mt-auto bg-stone-100 border-t border-stone-200 p-3 text-center text-[9px] text-stone-500 space-y-0.5">
         <p>© Warme Bakker Van der Linden. Alle rechten voorbehouden.</p>
         <p>Dorpsstraat 12, Leerdam | 📞 0345-123456</p>
       </footer>
@@ -388,31 +388,31 @@ function GroenteFruitVersluisContent() {
   };
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-bold text-green-500 text-base tracking-wide flex items-center gap-1">
+    <div className="min-h-full flex flex-col text-sm text-slate-650 bg-white">
+      <header className="border-b border-emerald-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-bold text-emerald-600 text-base tracking-wide flex items-center gap-1">
           🍎 Versluis AGF
         </span>
-        <span className="text-[10px] font-bold text-green-500 font-mono">MARKTPRIJZEN</span>
+        <span className="text-[10px] font-bold text-emerald-600 font-mono">MARKTPRIJZEN</span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-green-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-green-50/50 to-white border-b border-slate-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="px-2 py-0.5 rounded bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-wider inline-block">
+          <span className="px-2.5 py-0.5 rounded bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider border border-green-100/60 inline-block">
             Dagvers van het land
           </span>
-          <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase italic leading-none">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-slate-900 uppercase italic leading-none">
             Gezond &amp; vol vitaminen van Groenteman Versluis
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-slate-500 leading-relaxed">
             Met meer dan 30 jaar passie selecteren wij dagelijks de lekkerste seizoensproducten voor jou.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80" 
           alt="Groenten" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-green-950/20 brightness-90 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-green-100/60 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -420,8 +420,8 @@ function GroenteFruitVersluisContent() {
       {/* Interactive Season Selection and contents */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center space-y-1">
-          <h3 className="font-display font-black text-white uppercase italic text-xs">Ontdek Seizoensproducten</h3>
-          <p className="text-[10px] text-zinc-500">Klik op een seizoen om te ontdekken wat er geoogst is.</p>
+          <h3 className="font-display font-black text-slate-900 uppercase italic text-xs">Ontdek Seizoensproducten</h3>
+          <p className="text-[10px] text-slate-400">Klik op een seizoen om te ontdekken wat er geoogst is.</p>
         </div>
 
         {/* Season Tabs */}
@@ -432,8 +432,8 @@ function GroenteFruitVersluisContent() {
               onClick={() => setSelectedSeason(season)}
               className={`flex-1 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider border cursor-pointer text-center transition-all ${
                 selectedSeason === season 
-                  ? 'bg-green-600 text-white border-green-600 shadow' 
-                  : 'bg-zinc-900 text-zinc-400 border-zinc-850'
+                  ? 'bg-green-600 text-white border-green-600 shadow-md' 
+                  : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-350'
               }`}
             >
               {season}
@@ -442,20 +442,20 @@ function GroenteFruitVersluisContent() {
         </div>
 
         {/* Seasonal fruits card with photo */}
-        <div className="p-3 bg-zinc-900 border border-zinc-850 rounded-xl max-w-md mx-auto space-y-2 overflow-hidden">
+        <div className="p-3 bg-white border border-slate-150 rounded-xl max-w-md mx-auto space-y-2 overflow-hidden shadow-sm">
           <img 
             src={seasonalImages[selectedSeason]} 
             alt={selectedSeason} 
-            className="w-full h-24 object-cover rounded-lg border border-zinc-800 brightness-90"
+            className="w-full h-24 object-cover rounded-lg border border-slate-100 brightness-100"
             referrerPolicy="no-referrer"
           />
-          <p className="text-[10px] font-bold text-white uppercase tracking-wider text-center border-b border-zinc-800 pb-1.5">
+          <p className="text-[10px] font-bold text-slate-900 uppercase tracking-wider text-center border-b border-slate-100 pb-1.5">
             ⭐ Vers geoogst in de {selectedSeason}:
           </p>
           <div className="grid grid-cols-2 gap-1.5">
             {seasonalProduce[selectedSeason].map((prod, i) => (
-              <div key={i} className="flex items-center gap-1.5 p-1.5 bg-zinc-950 rounded-lg border border-zinc-900 text-[10px] text-zinc-300">
-                <span className="text-green-500 font-bold">✔</span>
+              <div key={i} className="flex items-center gap-1.5 p-1.5 bg-slate-50 rounded-lg border border-slate-100 text-[10px] text-slate-700">
+                <span className="text-green-600 font-bold">✔</span>
                 <span className="truncate">{prod}</span>
               </div>
             ))}
@@ -463,9 +463,9 @@ function GroenteFruitVersluisContent() {
         </div>
 
         {/* Vitamine Box Widget */}
-        <div className="max-w-md mx-auto p-4 bg-zinc-900 border border-zinc-850 rounded-xl space-y-3">
+        <div className="max-w-md mx-auto p-4 bg-slate-50/50 border border-slate-150 rounded-xl space-y-3 shadow-xs">
           <div className="text-center">
-            <h4 className="font-bold text-white text-xs">Bestel de wekelijkse Vitaminebox</h4>
+            <h4 className="font-bold text-slate-900 text-xs">Bestel de wekelijkse Vitaminebox</h4>
           </div>
 
           <div className="grid grid-cols-3 gap-1.5">
@@ -476,10 +476,10 @@ function GroenteFruitVersluisContent() {
                 <button
                   key={sz}
                   onClick={() => setBoxSize(sz)}
-                  className={`p-1.5 rounded-lg border flex flex-col items-center justify-center cursor-pointer ${
+                  className={`p-1.5 rounded-lg border flex flex-col items-center justify-center cursor-pointer transition-all ${
                     boxSize === sz 
                       ? 'bg-green-600 text-white border-green-600' 
-                      : 'bg-zinc-950 text-zinc-400 border-zinc-850'
+                      : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 shadow-xs'
                   }`}
                 >
                   <span className="text-[8px] font-bold uppercase truncate">{labels[sz]}</span>
@@ -497,8 +497,8 @@ function GroenteFruitVersluisContent() {
               Vitaminebox Reserveren
             </button>
           ) : (
-            <div className="p-2 bg-emerald-950/20 border border-emerald-900/30 rounded-lg text-center animate-fade-in">
-              <p className="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-1">
+            <div className="p-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center animate-fade-in">
+              <p className="text-[10px] text-emerald-700 font-bold flex items-center justify-center gap-1">
                 <CheckCircle className="w-3 h-3" /> Reservering ontvangen!
               </p>
             </div>
@@ -507,7 +507,7 @@ function GroenteFruitVersluisContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600 space-y-0.5">
+      <footer className="mt-auto bg-slate-50 border-t border-slate-100 p-3 text-center text-[9px] text-slate-400 space-y-0.5">
         <p>© Groente &amp; Fruit Versluis. Alle rechten voorbehouden.</p>
         <p>Iedere woensdag (Utrecht Centrum) en zaterdag (Nieuwegein Markt).</p>
       </footer>
@@ -531,83 +531,83 @@ function HaarsalonNovaContent() {
   };
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-display font-black text-pink-400 text-base uppercase italic tracking-wider">
+    <div className="min-h-full flex flex-col text-sm text-neutral-750 bg-white">
+      <header className="border-b border-rose-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-display font-black text-rose-500 text-base uppercase italic tracking-wider">
           ✂ Salon Nova
         </span>
-        <span className="text-[9px] font-bold text-pink-400 uppercase tracking-widest">AFSPRAAK</span>
+        <span className="text-[9px] font-bold text-rose-500 uppercase tracking-widest">AFSPRAAK</span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-pink-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-rose-50/40 to-white border-b border-neutral-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="text-[9px] uppercase tracking-widest text-pink-400 font-mono font-bold bg-pink-400/10 px-2 py-0.5 rounded border border-pink-400/20 inline-block">
+          <span className="text-[9px] uppercase tracking-widest text-rose-600 font-mono font-bold bg-rose-50 px-2 py-0.5 rounded border border-rose-100 inline-block">
             Knippen &amp; Kleuren
           </span>
-          <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase italic leading-none">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-slate-900 uppercase italic leading-none">
             Ontsnap aan de hectiek en verwen je haar
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-slate-500 leading-relaxed">
             Bij Haarsalon Nova luisteren we naar je wensen en geven deskundig, persoonlijk advies.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=300&q=80" 
           alt="Salon" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-pink-500/20 brightness-90 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-rose-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
 
       {/* Services/Prices Table */}
       <section className="py-6 px-4 space-y-4">
-        <h3 className="font-display font-black text-center text-white uppercase italic text-xs">
+        <h3 className="font-display font-black text-center text-slate-900 uppercase italic text-xs">
           Behandelingen &amp; Tarieven
         </h3>
-        <div className="max-w-md mx-auto space-y-2 bg-zinc-900/60 p-3 border border-zinc-850 rounded-xl">
+        <div className="max-w-md mx-auto space-y-2 bg-white p-3 border border-neutral-150 rounded-xl shadow-sm">
           {Object.entries(treatmentPrices).map(([id, item]) => (
             <div 
               key={id} 
               onClick={() => setSelectedTreatment(id)}
               className={`p-2.5 rounded-lg border flex justify-between items-center cursor-pointer transition-all duration-300 ${
                 selectedTreatment === id 
-                  ? 'bg-pink-950/20 border-pink-500/40 text-white' 
-                  : 'bg-zinc-950/40 border-zinc-900 text-zinc-400 hover:border-zinc-800'
+                  ? 'bg-rose-50/60 border-rose-200 text-slate-900 shadow-xs' 
+                  : 'bg-neutral-50/40 border-neutral-100 text-neutral-500 hover:border-neutral-250'
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className={`w-1.5 h-1.5 rounded-full ${selectedTreatment === id ? 'bg-pink-500' : 'bg-zinc-800'}`} />
+                <span className={`w-1.5 h-1.5 rounded-full ${selectedTreatment === id ? 'bg-rose-500' : 'bg-neutral-300'}`} />
                 <span className="text-[11px] font-bold">{item.name}</span>
               </div>
-              <span className="font-mono text-xs text-white font-black">€{item.price.toFixed(2)}</span>
+              <span className="font-mono text-xs text-rose-750 font-black">€{item.price.toFixed(2)}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Online Booking Widget */}
-      <section className="py-6 px-4 bg-zinc-900/40 border-t border-b border-zinc-900">
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-3">
-          <h4 className="font-display font-black text-white text-xs uppercase italic text-center">
+      <section className="py-6 px-4 bg-neutral-50/40 border-t border-b border-neutral-100">
+        <div className="max-w-md mx-auto bg-white border border-neutral-150 p-4 rounded-xl space-y-3 shadow-md">
+          <h4 className="font-display font-black text-slate-900 text-xs uppercase italic text-center">
             Boek direct online je afspraak
           </h4>
 
           <div className="space-y-2.5">
             <div>
-              <label className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest block mb-0.5">Geselecteerde Behandeling</label>
-              <div className="p-1.5 bg-zinc-950 rounded-lg text-[10px] font-bold text-white border border-zinc-850">
+              <label className="text-[8px] font-bold text-neutral-450 uppercase tracking-widest block mb-0.5">Geselecteerde Behandeling</label>
+              <div className="p-1.5 bg-neutral-50 rounded-lg text-[10px] font-bold text-slate-800 border border-neutral-150">
                 {treatmentPrices[selectedTreatment]?.name} — €{treatmentPrices[selectedTreatment]?.price.toFixed(2)}
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest block mb-0.5">Stylist</label>
+                <label className="text-[8px] font-bold text-neutral-450 uppercase tracking-widest block mb-0.5">Stylist</label>
                 <select 
                   value={selectedStylist} 
                   onChange={(e) => setSelectedStylist(e.target.value)}
-                  className="w-full bg-zinc-950 text-[10px] border border-zinc-850 p-1.5 rounded-lg text-white font-bold cursor-pointer"
+                  className="w-full bg-white text-[10px] border border-neutral-200 p-1.5 rounded-lg text-slate-800 font-bold cursor-pointer"
                 >
                   <option value="Chantal">Chantal</option>
                   <option value="Anouk">Anouk</option>
@@ -615,11 +615,11 @@ function HaarsalonNovaContent() {
                 </select>
               </div>
               <div>
-                <label className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest block mb-0.5">Datum</label>
+                <label className="text-[8px] font-bold text-neutral-450 uppercase tracking-widest block mb-0.5">Datum</label>
                 <select 
                   value={selectedDate} 
                   onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full bg-zinc-950 text-[10px] border border-zinc-850 p-1.5 rounded-lg text-white font-bold cursor-pointer"
+                  className="w-full bg-white text-[10px] border border-neutral-200 p-1.5 rounded-lg text-slate-800 font-bold cursor-pointer"
                 >
                   <option value="Vandaag">Vandaag</option>
                   <option value="Morgen">Morgen</option>
@@ -630,7 +630,7 @@ function HaarsalonNovaContent() {
 
             {/* Time slot picker */}
             <div>
-              <label className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest block mb-1">Kies een Tijdstip</label>
+              <label className="text-[8px] font-bold text-neutral-450 uppercase tracking-widest block mb-1">Kies een Tijdstip</label>
               <div className="grid grid-cols-4 gap-1">
                 {['09:30', '11:00', '13:30', '15:00'].map((time) => (
                   <button
@@ -638,8 +638,8 @@ function HaarsalonNovaContent() {
                     onClick={() => setSelectedTime(time)}
                     className={`py-1 rounded border text-[10px] font-mono font-bold transition-all cursor-pointer text-center ${
                       selectedTime === time 
-                        ? 'bg-pink-600 border-pink-600 text-white shadow-md' 
-                        : 'bg-zinc-950 border-zinc-850 text-zinc-400 hover:text-white'
+                        ? 'bg-rose-600 border-rose-600 text-white shadow-md' 
+                        : 'bg-neutral-50 border-neutral-200 text-neutral-500 hover:text-rose-600'
                     }`}
                   >
                     {time}
@@ -652,16 +652,16 @@ function HaarsalonNovaContent() {
           {!bookingConfirmed ? (
             <button 
               onClick={() => setBookingConfirmed(true)}
-              className="w-full py-2 bg-pink-600 hover:bg-pink-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
+              className="w-full py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer shadow"
             >
               Afspraak Boeken ({selectedTime})
             </button>
           ) : (
-            <div className="p-2.5 bg-emerald-950/20 border border-emerald-900/30 rounded-lg text-center space-y-0.5">
-              <p className="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-1">
+            <div className="p-2.5 bg-emerald-50 border border-emerald-100 rounded-lg text-center space-y-0.5">
+              <p className="text-[10px] text-emerald-700 font-bold flex items-center justify-center gap-1">
                 <CheckCircle className="w-3.5 h-3.5" /> Succesvol geboekt!
               </p>
-              <p className="text-[9px] text-zinc-400">
+              <p className="text-[9px] text-slate-600">
                 {selectedDate} om <strong>{selectedTime}</strong> bij {selectedStylist}.
               </p>
             </div>
@@ -670,7 +670,7 @@ function HaarsalonNovaContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600 space-y-0.5">
+      <footer className="mt-auto bg-neutral-50 border-t border-neutral-100 p-3 text-center text-[9px] text-neutral-400 space-y-0.5">
         <p>© Haarsalon Nova. Alle rechten voorbehouden.</p>
         <p>Marnixstraat 188, Utrecht | 📞 030-9876543</p>
       </footer>
@@ -692,75 +692,75 @@ function TandartsenpraktijkContent() {
   const [dentistRegistered, setDentistRegistered] = useState<boolean>(false);
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-bold text-cyan-400 text-base tracking-wide flex items-center gap-1">
+    <div className="min-h-full flex flex-col text-sm text-slate-600 bg-white">
+      <header className="border-b border-cyan-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-bold text-cyan-600 text-base tracking-wide flex items-center gap-1">
           🦷 Tandartspraktijk Zuid
         </span>
-        <span className="text-[9px] font-bold text-cyan-400 font-mono">
+        <span className="text-[9px] font-bold text-cyan-600 font-mono">
           ☎ 030-1112222
         </span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-cyan-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-cyan-50/40 to-white border-b border-slate-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 text-[10px] font-bold uppercase tracking-wider inline-block">
+          <span className="px-2.5 py-0.5 rounded bg-cyan-50 text-cyan-700 text-[10px] font-bold uppercase tracking-wider border border-cyan-100/60 inline-block">
             Moderne Mondzorg
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
             Rustgevende, professionele tandzorg voor het gezin
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-slate-500 leading-relaxed">
             Bij Utrecht Zuid nemen we de tijd voor angstige patiënten en kinderen. Moderne behandelkamers.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=300&q=80" 
           alt="Tandarts" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-cyan-500/20 brightness-95 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-cyan-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
 
       {/* Patient Registration Form */}
       <section className="py-6 px-4">
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-3">
+        <div className="max-w-md mx-auto bg-slate-50/50 border border-slate-150 p-4 rounded-xl space-y-3 shadow-xs">
           <div className="text-center">
-            <h3 className="font-bold text-white text-xs">Online Inschrijven</h3>
-            <p className="text-[9px] text-zinc-500">Meld u direct en eenvoudig aan als nieuwe patiënt.</p>
+            <h3 className="font-bold text-slate-900 text-xs">Online Inschrijven</h3>
+            <p className="text-[9px] text-slate-400">Meld u direct en eenvoudig aan als nieuwe patiënt.</p>
           </div>
 
           {!dentistRegistered ? (
             <div className="space-y-2.5">
               {dentistStep === 1 && (
                 <div className="space-y-2.5 animate-fade-in">
-                  <p className="text-[8px] text-cyan-400 font-bold uppercase tracking-widest font-mono">Stap 1: Contactgegevens</p>
+                  <p className="text-[8px] text-cyan-600 font-bold uppercase tracking-widest font-mono">Stap 1: Contactgegevens</p>
                   <div className="space-y-1">
-                    <label className="text-[8px] text-zinc-400 uppercase">Naam</label>
+                    <label className="text-[8px] text-slate-500 uppercase">Naam</label>
                     <input 
                       type="text" 
                       placeholder="Jan de Vries" 
                       value={dentistFormData.name}
                       onChange={(e) => setDentistFormData({ ...dentistFormData, name: e.target.value })}
-                      className="w-full bg-zinc-950 border border-zinc-850 p-1.5 rounded-lg text-[11px] text-white"
+                      className="w-full bg-white border border-slate-200 p-1.5 rounded-lg text-[11px] text-slate-800"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[8px] text-zinc-400 uppercase">E-mail</label>
+                    <label className="text-[8px] text-slate-500 uppercase">E-mail</label>
                     <input 
                       type="email" 
                       placeholder="jan@outlook.com" 
                       value={dentistFormData.email}
                       onChange={(e) => setDentistFormData({ ...dentistFormData, email: e.target.value })}
-                      className="w-full bg-zinc-950 border border-zinc-850 p-1.5 rounded-lg text-[11px] text-white"
+                      className="w-full bg-white border border-slate-200 p-1.5 rounded-lg text-[11px] text-slate-800"
                     />
                   </div>
                   <button 
                     onClick={() => {
                       if (dentistFormData.name && dentistFormData.email) setDentistStep(2);
                     }}
-                    className="w-full py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
+                    className="w-full py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer shadow-xs"
                   >
                     Volgende stap
                   </button>
@@ -769,23 +769,23 @@ function TandartsenpraktijkContent() {
 
               {dentistStep === 2 && (
                 <div className="space-y-2.5 animate-fade-in">
-                  <p className="text-[8px] text-cyan-400 font-bold uppercase tracking-widest font-mono">Stap 2: Medische Info</p>
+                  <p className="text-[8px] text-cyan-600 font-bold uppercase tracking-widest font-mono">Stap 2: Medische Info</p>
                   <div className="space-y-1">
-                    <label className="text-[8px] text-zinc-400 uppercase">Geboortedatum</label>
+                    <label className="text-[8px] text-slate-500 uppercase">Geboortedatum</label>
                     <input 
                       type="text" 
                       placeholder="12-05-1988" 
                       value={dentistFormData.birthdate}
                       onChange={(e) => setDentistFormData({ ...dentistFormData, birthdate: e.target.value })}
-                      className="w-full bg-zinc-950 border border-zinc-850 p-1.5 rounded-lg text-[11px] text-white"
+                      className="w-full bg-white border border-slate-200 p-1.5 rounded-lg text-[11px] text-slate-800"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[8px] text-zinc-400 uppercase">Zorgverzekeraar</label>
+                    <label className="text-[8px] text-slate-500 uppercase">Zorgverzekeraar</label>
                     <select 
                       value={dentistFormData.insurance}
                       onChange={(e) => setDentistFormData({ ...dentistFormData, insurance: e.target.value })}
-                      className="w-full bg-zinc-950 border border-zinc-850 p-1.5 rounded-lg text-[11px] text-white cursor-pointer"
+                      className="w-full bg-white border border-slate-200 p-1.5 rounded-lg text-[11px] text-slate-800 cursor-pointer"
                     >
                       <option value="Menzis">Menzis</option>
                       <option value="Zilveren Kruis">Zilveren Kruis</option>
@@ -796,7 +796,7 @@ function TandartsenpraktijkContent() {
                   <div className="flex gap-2 pt-1">
                     <button 
                       onClick={() => setDentistStep(1)}
-                      className="flex-1 py-1.5 bg-zinc-800 text-zinc-300 font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
+                      className="flex-1 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
                     >
                       Terug
                     </button>
@@ -811,11 +811,11 @@ function TandartsenpraktijkContent() {
               )}
             </div>
           ) : (
-            <div className="p-3 bg-emerald-950/20 border border-emerald-900/30 rounded-lg text-center space-y-1 animate-fade-in">
-              <p className="text-[11px] text-emerald-400 font-bold flex items-center justify-center gap-1">
+            <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-lg text-center space-y-1 animate-fade-in">
+              <p className="text-[11px] text-emerald-700 font-bold flex items-center justify-center gap-1">
                 <CheckCircle className="w-3.5 h-3.5" /> Aanmelding ontvangen!
               </p>
-              <p className="text-[9px] text-zinc-400 leading-relaxed">
+              <p className="text-[9px] text-slate-500 leading-relaxed">
                 Hartelijk dank, <strong>{dentistFormData.name}</strong>. Wij nemen binnen 2 werkdagen contact op.
               </p>
             </div>
@@ -824,7 +824,7 @@ function TandartsenpraktijkContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600 space-y-0.5">
+      <footer className="mt-auto bg-slate-50 border-t border-slate-100 p-3 text-center text-[9px] text-slate-400 space-y-0.5">
         <p>© Tandartsenpraktijk Utrecht Zuid. Alle rechten voorbehouden.</p>
         <p>Inschrijvingen goedgekeurd volgens BIG-registratie.</p>
       </footer>
@@ -842,33 +842,33 @@ function BouwbedrijfDeGrootContent() {
   ];
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-display font-black text-[#f97316] text-base uppercase tracking-wide italic">
+    <div className="min-h-full flex flex-col text-sm text-stone-700 bg-white">
+      <header className="border-b border-orange-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-display font-black text-orange-600 text-base uppercase tracking-wide italic">
           🏗 Bouwbedrijf De Groot
         </span>
-        <span className="text-[9px] font-bold text-zinc-400 font-mono">
+        <span className="text-[9px] font-bold text-orange-600 font-mono">
           ☎ 06-12345678
         </span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-[#f97316]/10 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-orange-50/40 to-white border-b border-stone-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="px-2 py-0.5 rounded bg-[#f97316]/10 text-[#f97316] text-[9px] font-bold uppercase tracking-wider font-mono inline-block">
+          <span className="px-2.5 py-0.5 rounded bg-orange-50 text-orange-700 text-[10px] font-bold uppercase tracking-wider border border-orange-100 inline-block">
             Aannemer &amp; Bouwexpert
           </span>
-          <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase italic leading-none">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-stone-900 uppercase italic leading-none">
             Bouwen, verbouwen &amp; verduurzamen
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-stone-550 leading-relaxed">
             Voor al uw verbouw, aanbouw en renovatiewerkzaamheden in de regio. Transparante planning en budget.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1503387762458-bf6a2064003e?auto=format&fit=crop&w=300&q=80" 
           alt="Bouw" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-[#f97316]/20 brightness-90 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-orange-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -876,8 +876,8 @@ function BouwbedrijfDeGrootContent() {
       {/* Interactive Project Portfolio Slider */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center space-y-0.5">
-          <h3 className="font-display font-black text-white uppercase italic text-xs">Onze Gerealiseerde Projecten</h3>
-          <p className="text-[10px] text-zinc-500">Klik op een categorie om de transformatie te bekijken.</p>
+          <h3 className="font-display font-black text-stone-900 uppercase italic text-xs">Onze Gerealiseerde Projecten</h3>
+          <p className="text-[10px] text-stone-450">Klik op een categorie om de transformatie te bekijken.</p>
         </div>
 
         {/* Project selection Buttons */}
@@ -888,8 +888,8 @@ function BouwbedrijfDeGrootContent() {
               onClick={() => setSelectedGalleryProject(i)}
               className={`px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider border cursor-pointer transition-all ${
                 selectedGalleryProject === i 
-                  ? 'bg-[#f97316] text-white border-[#f97316]' 
-                  : 'bg-zinc-900 text-zinc-400 border-zinc-850'
+                  ? 'bg-orange-600 text-white border-orange-600 shadow-md' 
+                  : 'bg-stone-50 text-stone-500 border-stone-200 hover:border-stone-300 shadow-xs'
               }`}
             >
               {proj.category}
@@ -898,27 +898,27 @@ function BouwbedrijfDeGrootContent() {
         </div>
 
         {/* Active project card with photo */}
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl animate-fade-in flex flex-col">
+        <div className="max-w-md mx-auto bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm animate-fade-in flex flex-col">
           <img 
             src={builderProjects[selectedGalleryProject].image} 
             alt={builderProjects[selectedGalleryProject].title} 
-            className="w-full h-32 object-cover brightness-90 border-b border-zinc-800"
+            className="w-full h-32 object-cover brightness-100 border-b border-stone-100"
             referrerPolicy="no-referrer"
           />
           <div className="p-3.5 space-y-3">
             <div className="space-y-0.5">
-              <h4 className="font-bold text-white text-[11px] uppercase">{builderProjects[selectedGalleryProject].title}</h4>
-              <p className="text-[10px] text-zinc-400 leading-normal">{builderProjects[selectedGalleryProject].desc}</p>
+              <h4 className="font-bold text-stone-900 text-[11px] uppercase">{builderProjects[selectedGalleryProject].title}</h4>
+              <p className="text-[10px] text-stone-500 leading-normal">{builderProjects[selectedGalleryProject].desc}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-[10px]">
-              <div className="p-2 bg-zinc-950 border border-zinc-900 rounded-lg space-y-0.5">
-                <span className="text-[8px] uppercase font-bold text-red-500 font-mono">Voor:</span>
-                <p className="text-zinc-500 font-medium truncate">{builderProjects[selectedGalleryProject].before}</p>
+              <div className="p-2 bg-red-50/50 border border-red-100/60 rounded-lg space-y-0.5">
+                <span className="text-[8px] uppercase font-bold text-red-650 font-mono">Voor:</span>
+                <p className="text-stone-500 font-medium truncate">{builderProjects[selectedGalleryProject].before}</p>
               </div>
-              <div className="p-2 bg-zinc-950 border border-zinc-900 rounded-lg space-y-0.5">
-                <span className="text-[8px] uppercase font-bold text-emerald-500 font-mono">Na:</span>
-                <p className="text-emerald-400 font-black truncate">{builderProjects[selectedGalleryProject].after}</p>
+              <div className="p-2 bg-emerald-50/50 border border-emerald-100/60 rounded-lg space-y-0.5">
+                <span className="text-[8px] uppercase font-bold text-emerald-650 font-mono">Na:</span>
+                <p className="text-emerald-700 font-black truncate">{builderProjects[selectedGalleryProject].after}</p>
               </div>
             </div>
           </div>
@@ -926,7 +926,7 @@ function BouwbedrijfDeGrootContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600">
+      <footer className="mt-auto bg-stone-50 border-t border-stone-100 p-3 text-center text-[9px] text-stone-400">
         <p>© Bouwbedrijf De Groot. Kwaliteitsgarantie sinds 2008.</p>
       </footer>
     </div>
@@ -940,30 +940,30 @@ function ApexGymContent() {
   const [gymRegistered, setGymRegistered] = useState<boolean>(false);
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-display font-black text-red-500 text-base uppercase italic tracking-wider">
+    <div className="min-h-full flex flex-col text-sm text-slate-700 bg-white">
+      <header className="border-b border-rose-100 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-display font-black text-rose-600 text-base uppercase italic tracking-wider">
           ⚡ Apex Fitness
         </span>
-        <span className="text-[9px] font-bold text-red-500 font-mono uppercase tracking-widest bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20">
+        <span className="text-[9px] font-bold text-rose-600 font-mono uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded border border-rose-100">
           24/7 LIVE
         </span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-red-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-rose-50/20 to-white border-b border-slate-150 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase italic leading-none">
-            STOP MET SMOESJES. START JOUW TRANSFORMATIE.
+          <h2 className="text-2xl sm:text-3xl font-display font-black text-slate-900 uppercase italic leading-none">
+            Stop met smoesjes. Start jouw transformatie.
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-slate-500 leading-relaxed">
             De modernste krachtapparatuur, cardio-zone en wekelijkse groepslessen onder begeleiding.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=300&q=80" 
           alt="Gym" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-red-500/20 brightness-90 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-rose-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -971,19 +971,21 @@ function ApexGymContent() {
       {/* Membership Price Calculator */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center">
-          <h3 className="font-display font-black text-white uppercase italic text-xs">Bereken je lidmaatschap</h3>
-          <p className="text-[9px] text-zinc-500">Kies jouw wekelijkse fitness tarief.</p>
+          <h3 className="font-display font-black text-slate-900 uppercase italic text-xs">Bereken je lidmaatschap</h3>
+          <p className="text-[9px] text-slate-450">Kies jouw wekelijkse fitness tarief.</p>
         </div>
 
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-3">
+        <div className="max-w-md mx-auto bg-slate-50 border border-slate-150 p-4 rounded-xl space-y-3 shadow-xs">
           {/* Contract duration selection */}
           <div className="space-y-1">
-            <label className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest block">Looptijd</label>
+            <label className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block">Looptijd</label>
             <div className="grid grid-cols-2 gap-1.5">
               <button 
                 onClick={() => setGymDuration('month')}
                 className={`py-1.5 text-[9px] font-bold rounded-md border uppercase transition-all cursor-pointer text-center ${
-                  gymDuration === 'month' ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-950 border-zinc-850 text-zinc-400'
+                  gymDuration === 'month' 
+                    ? 'bg-rose-600 border-rose-600 text-white shadow-sm' 
+                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 shadow-2xs'
                 }`}
               >
                 Maandelijkse
@@ -991,7 +993,9 @@ function ApexGymContent() {
               <button 
                 onClick={() => setGymDuration('year')}
                 className={`py-1.5 text-[9px] font-bold rounded-md border uppercase transition-all cursor-pointer text-center ${
-                  gymDuration === 'year' ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-950 border-zinc-850 text-zinc-400'
+                  gymDuration === 'year' 
+                    ? 'bg-rose-600 border-rose-600 text-white shadow-sm' 
+                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 shadow-2xs'
                 }`}
               >
                 1 Jaar Vast
@@ -1001,12 +1005,14 @@ function ApexGymContent() {
 
           {/* Access time selector */}
           <div className="space-y-1">
-            <label className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest block">Tijden</label>
+            <label className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block">Tijden</label>
             <div className="grid grid-cols-2 gap-1.5">
               <button 
                 onClick={() => setGymAccess('all')}
                 className={`py-1.5 text-[9px] font-bold rounded-md border uppercase transition-all cursor-pointer text-center ${
-                  gymAccess === 'all' ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-950 border-zinc-850 text-zinc-400'
+                  gymAccess === 'all' 
+                    ? 'bg-rose-600 border-rose-600 text-white shadow-sm' 
+                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 shadow-2xs'
                 }`}
               >
                 24/7 Toegang
@@ -1014,7 +1020,9 @@ function ApexGymContent() {
               <button 
                 onClick={() => setGymAccess('offpeak')}
                 className={`py-1.5 text-[9px] font-bold rounded-md border uppercase transition-all cursor-pointer text-center ${
-                  gymAccess === 'offpeak' ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-950 border-zinc-850 text-zinc-400'
+                  gymAccess === 'offpeak' 
+                    ? 'bg-rose-600 border-rose-600 text-white shadow-sm' 
+                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 shadow-2xs'
                 }`}
               >
                 Daluren
@@ -1023,9 +1031,9 @@ function ApexGymContent() {
           </div>
 
           {/* Weekly price output */}
-          <div className="p-3 bg-zinc-950 border border-zinc-900 rounded-lg text-center space-y-2">
-            <p className="text-[8px] text-zinc-500 uppercase font-bold tracking-widest">Totaal per week:</p>
-            <div className="text-xl font-mono font-black text-white">
+          <div className="p-3 bg-white border border-slate-200 rounded-lg text-center space-y-2 shadow-xs">
+            <p className="text-[8px] text-slate-400 uppercase font-bold tracking-widest">Totaal per week:</p>
+            <div className="text-xl font-mono font-black text-slate-900">
               €
               {(() => {
                 let base = gymDuration === 'year' ? 6.99 : 8.99;
@@ -1037,12 +1045,12 @@ function ApexGymContent() {
             {!gymRegistered ? (
               <button 
                 onClick={() => setGymRegistered(true)}
-                className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold uppercase rounded-lg tracking-wider transition-all cursor-pointer w-full"
+                className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-bold uppercase rounded-lg tracking-wider transition-all cursor-pointer w-full shadow-sm"
               >
                 Inschrijven &amp; Starten
               </button>
             ) : (
-              <div className="p-1 bg-emerald-950/20 border border-emerald-900/30 rounded-lg text-[9px] text-emerald-400 font-bold flex items-center justify-center gap-1">
+              <div className="p-1 bg-emerald-50 border border-emerald-100 rounded-lg text-[9px] text-emerald-700 font-bold flex items-center justify-center gap-1 animate-fade-in">
                 <CheckCircle className="w-3 h-3" /> Welkom bij Apex Gym!
               </div>
             )}
@@ -1051,7 +1059,7 @@ function ApexGymContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600">
+      <footer className="mt-auto bg-slate-50 border-t border-slate-100 p-3 text-center text-[9px] text-slate-400">
         <p>© Apex Fitness &amp; Gym. No excuses, only results.</p>
       </footer>
     </div>
@@ -1069,28 +1077,28 @@ function SlijterijDeDruifContent() {
   };
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-serif font-bold text-purple-400 text-base">
+    <div className="min-h-full flex flex-col text-sm text-slate-700 bg-white">
+      <header className="border-b border-purple-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-serif font-bold text-purple-700 text-base">
           🍇 Slijterij De Druif
         </span>
-        <span className="text-[8px] text-zinc-500 font-bold uppercase tracking-widest bg-purple-950/20 px-1.5 py-0.5 rounded border border-purple-900/10">
+        <span className="text-[8px] text-purple-600 font-bold uppercase tracking-widest bg-purple-50 px-1.5 py-0.5 rounded border border-purple-100">
           NIX 18
         </span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-purple-950/20 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-purple-50/30 to-white border-b border-slate-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-2">
-          <span className="text-[9px] text-purple-400 font-serif font-bold italic block">Sinds 1902</span>
-          <h2 className="text-xl sm:text-2xl font-serif text-purple-100 leading-tight">
+          <span className="text-[9px] text-purple-600 font-serif font-bold italic block">Sinds 1902</span>
+          <h2 className="text-xl sm:text-2xl font-serif text-slate-900 leading-tight">
             Ontdek exclusieve wijnen &amp; ambachtelijke speciaalbieren
           </h2>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=300&q=80" 
           alt="Wijn" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-purple-500/10 brightness-90 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-purple-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -1098,8 +1106,8 @@ function SlijterijDeDruifContent() {
       {/* Wine & Food Pairing Assistant */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center space-y-0.5">
-          <h3 className="font-serif text-sm text-purple-100">Wijn &amp; Spijs Hulp</h3>
-          <p className="text-[10px] text-zinc-500">Wat eten we vanavond? Vind direct de match.</p>
+          <h3 className="font-serif text-sm text-slate-900 font-bold">Wijn &amp; Spijs Hulp</h3>
+          <p className="text-[10px] text-slate-450">Wat eten we vanavond? Vind direct de match.</p>
         </div>
 
         {/* Food buttons */}
@@ -1112,8 +1120,8 @@ function SlijterijDeDruifContent() {
                 onClick={() => setSelectedFoodPairing(food)}
                 className={`p-2 rounded-xl border flex flex-col items-center justify-center transition-all cursor-pointer ${
                   selectedFoodPairing === food 
-                    ? 'bg-purple-600 border-purple-600 text-white shadow' 
-                    : 'bg-zinc-900 border-zinc-850 text-zinc-400'
+                    ? 'bg-purple-600 border-purple-600 text-white shadow-md' 
+                    : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-350 shadow-2xs'
                 }`}
               >
                 <span className="text-base mb-0.5">{icons[food]}</span>
@@ -1124,28 +1132,28 @@ function SlijterijDeDruifContent() {
         </div>
 
         {/* Wine recommendation result with image */}
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl animate-fade-in flex flex-col">
+        <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm animate-fade-in flex flex-col">
           <img 
             src={wineRecommendations[selectedFoodPairing].image} 
             alt={wineRecommendations[selectedFoodPairing].wine} 
-            className="w-full h-24 object-cover brightness-90 border-b border-zinc-800"
+            className="w-full h-24 object-cover brightness-100 border-b border-slate-100"
             referrerPolicy="no-referrer"
           />
           <div className="p-3.5 space-y-2">
-            <span className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 text-[8px] font-mono font-bold uppercase tracking-wider">
+            <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-100 text-[8px] font-mono font-bold uppercase tracking-wider">
               {wineRecommendations[selectedFoodPairing].type}
             </span>
             <div className="flex justify-between items-baseline gap-1 pt-0.5">
-              <h4 className="font-serif text-xs text-white font-bold">{wineRecommendations[selectedFoodPairing].wine}</h4>
-              <span className="text-xs text-purple-400 font-mono font-bold shrink-0">{wineRecommendations[selectedFoodPairing].price}</span>
+              <h4 className="font-serif text-xs text-slate-900 font-bold">{wineRecommendations[selectedFoodPairing].wine}</h4>
+              <span className="text-xs text-purple-700 font-mono font-bold shrink-0">{wineRecommendations[selectedFoodPairing].price}</span>
             </div>
-            <p className="text-[10px] text-zinc-400 leading-normal">{wineRecommendations[selectedFoodPairing].description}</p>
+            <p className="text-[10px] text-slate-500 leading-normal">{wineRecommendations[selectedFoodPairing].description}</p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600">
+      <footer className="mt-auto bg-slate-50 border-t border-slate-100 p-3 text-center text-[9px] text-slate-400">
         <p>© Slijterij &amp; Wijnhandel De Druif. Sinds 1902.</p>
       </footer>
     </div>
@@ -1179,26 +1187,26 @@ function SlagerijVreeswijkContent() {
   };
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-bold text-red-600 text-base uppercase tracking-wider flex items-center gap-1">
+    <div className="min-h-full flex flex-col text-sm text-stone-700 bg-white">
+      <header className="border-b border-red-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-bold text-red-750 text-base uppercase tracking-wider flex items-center gap-1">
           🥩 Slagerij Vreeswijk
         </span>
-        <span className="text-[10px] font-bold text-red-500">CATERING</span>
+        <span className="text-[10px] font-bold text-red-650">CATERING</span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-red-950/10 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-red-50/30 to-white border-b border-stone-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-2">
-          <span className="text-[9px] uppercase tracking-widest text-zinc-500 font-black block">Ambachtelijke kwaliteit</span>
-          <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase italic leading-none">
+          <span className="text-[9px] uppercase tracking-widest text-stone-500 font-black block">Ambachtelijke kwaliteit</span>
+          <h2 className="text-xl sm:text-2xl font-display font-black text-stone-900 uppercase italic leading-none">
             Eerlijk vlees, vakkundig gesneden en met passie
           </h2>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80" 
           alt="Slagerij" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-red-500/20 brightness-95 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-red-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -1206,34 +1214,36 @@ function SlagerijVreeswijkContent() {
       {/* BBQ Catering Calculator */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center">
-          <h3 className="font-display font-black text-white uppercase italic text-xs">Plan jouw BBQ of Catering</h3>
-          <p className="text-[9px] text-zinc-500">Kies je pakket en bereken de kosten.</p>
+          <h3 className="font-display font-black text-stone-900 uppercase italic text-xs">Plan jouw BBQ of Catering</h3>
+          <p className="text-[9px] text-stone-450">Kies je pakket en bereken de kosten.</p>
         </div>
 
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-3">
+        <div className="max-w-md mx-auto bg-stone-50 border border-stone-150 p-4 rounded-xl space-y-3 shadow-xs">
           {/* Number of guests */}
           <div className="space-y-1">
-            <label className="text-[9px] font-bold text-zinc-400 uppercase block">Aantal gasten: <span className="text-red-500 font-mono font-black text-xs">{bbqGuests} personen</span></label>
+            <label className="text-[9px] font-bold text-stone-500 uppercase block">Aantal gasten: <span className="text-red-750 font-mono font-black text-xs">{bbqGuests} personen</span></label>
             <input 
               type="range" 
               min="5" 
               max="100" 
               value={bbqGuests} 
               onChange={(e) => setBbqGuests(parseInt(e.target.value))}
-              className="w-full accent-red-600 h-1 bg-zinc-800 rounded-lg cursor-pointer"
+              className="w-full accent-red-700 h-1 bg-stone-200 rounded-lg cursor-pointer"
             />
           </div>
 
           {/* BBQ package type */}
           <div className="space-y-1">
-            <label className="text-[9px] text-zinc-400 uppercase block mb-0.5">Klasse</label>
+            <label className="text-[9px] text-stone-500 uppercase block mb-0.5">Klasse</label>
             <div className="grid grid-cols-3 gap-1.5">
               {(['budget', 'ambacht', 'deluxe'] as const).map((type) => (
                 <button
                   key={type}
                   onClick={() => setBbqType(type)}
                   className={`py-1.5 text-[8px] font-bold rounded-md border uppercase transition-all cursor-pointer text-center ${
-                    bbqType === type ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-950 border-zinc-850 text-zinc-400'
+                    bbqType === type 
+                      ? 'bg-red-700 border-red-700 text-white shadow-sm' 
+                      : 'bg-white border-stone-200 text-stone-500 hover:border-stone-300 shadow-2xs'
                   }`}
                 >
                   {type}
@@ -1246,36 +1256,36 @@ function SlagerijVreeswijkContent() {
           <img 
             src={bbqImages[bbqType]} 
             alt={`BBQ`} 
-            className="w-full h-24 object-cover rounded-lg border border-zinc-850 brightness-95 shadow-sm transition-all duration-300"
+            className="w-full h-24 object-cover rounded-lg border border-stone-200 brightness-100 shadow-2xs transition-all duration-300"
             referrerPolicy="no-referrer"
           />
 
           {/* Calculation Output details */}
-          <div className="p-3 bg-zinc-950 border border-zinc-900 rounded-lg space-y-2">
-            <div className="flex justify-between items-center text-[10px] border-b border-zinc-900 pb-1">
-              <span className="text-zinc-500">p.p.</span>
-              <span className="font-mono text-white font-bold">€{getBbqSpecs().pricePerPerson.toFixed(2)}</span>
+          <div className="p-3 bg-white border border-stone-200 rounded-lg space-y-2 shadow-sm">
+            <div className="flex justify-between items-center text-[10px] border-b border-stone-100 pb-1">
+              <span className="text-stone-400">p.p.</span>
+              <span className="font-mono text-stone-900 font-bold">€{getBbqSpecs().pricePerPerson.toFixed(2)}</span>
             </div>
             
-            <p className="text-[9px] text-zinc-400 leading-normal text-left">
+            <p className="text-[9px] text-stone-550 leading-normal text-left">
               {getBbqSpecs().content}
             </p>
 
-            <div className="pt-1.5 flex justify-between items-center text-xs font-bold border-t border-zinc-900">
-              <span className="text-white">Totaalprijs:</span>
-              <span className="text-red-500 font-mono font-black text-sm">€{getBbqSpecs().total.toFixed(2)}</span>
+            <div className="pt-1.5 flex justify-between items-center text-xs font-bold border-t border-stone-100">
+              <span className="text-stone-900">Totaalprijs:</span>
+              <span className="text-red-750 font-mono font-black text-sm">€{getBbqSpecs().total.toFixed(2)}</span>
             </div>
 
             {!bbqOrdered ? (
               <button 
                 onClick={() => setBbqOrdered(true)}
-                className="w-full py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer"
+                className="w-full py-1.5 bg-red-700 hover:bg-red-800 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all cursor-pointer shadow-xs"
               >
                 Catering Reserveren
               </button>
             ) : (
-              <div className="p-1.5 bg-emerald-950/20 border border-emerald-900/30 rounded-lg text-center">
-                <p className="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-0.5">
+              <div className="p-1.5 bg-emerald-50 border border-emerald-100 rounded-lg text-center">
+                <p className="text-[10px] text-emerald-700 font-bold flex items-center justify-center gap-0.5">
                   <CheckCircle className="w-3.5 h-3.5" /> Opgeslagen!
                 </p>
               </div>
@@ -1285,7 +1295,7 @@ function SlagerijVreeswijkContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600">
+      <footer className="mt-auto bg-stone-50 border-t border-stone-100 p-3 text-center text-[9px] text-stone-400">
         <p>© Ambachtelijke Slagerij Vreeswijk. Worstmakers pur sang.</p>
       </footer>
     </div>
@@ -1304,33 +1314,33 @@ function RijschoolStartAndGoContent() {
   };
 
   return (
-    <div className="min-h-full flex flex-col text-sm text-zinc-300 bg-zinc-950">
-      <header className="border-b border-zinc-900/60 bg-zinc-950 px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md bg-zinc-950/90">
-        <span className="font-display font-black text-yellow-500 text-base uppercase tracking-wider">
+    <div className="min-h-full flex flex-col text-sm text-slate-700 bg-white">
+      <header className="border-b border-amber-50 bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-10 backdrop-blur-md shadow-sm">
+        <span className="font-display font-black text-amber-600 text-base uppercase tracking-wider">
           🚗 Start &amp; Go
         </span>
-        <span className="text-[10px] font-mono text-yellow-500 font-bold">
+        <span className="text-[10px] font-mono text-amber-600 font-bold bg-amber-50 border border-amber-100/60 px-1.5 py-0.5 rounded">
           Slaging: 94%
         </span>
       </header>
 
       {/* Hero */}
-      <section className="py-8 px-4 bg-gradient-to-b from-yellow-500/10 to-zinc-950 border-b border-zinc-900 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+      <section className="py-8 px-4 bg-gradient-to-b from-amber-50/30 to-white border-b border-slate-100 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         <div className="flex-1 space-y-3">
-          <span className="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400 text-[10px] font-bold uppercase tracking-wider inline-block">
+          <span className="px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-bold uppercase tracking-wider border border-amber-100 inline-block">
             In één keer slagen
           </span>
-          <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase italic leading-none">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-slate-900 uppercase italic leading-none">
             Persoonlijke &amp; stressvrije rijlessen op jouw tempo
           </h2>
-          <p className="text-[11px] text-zinc-400 leading-relaxed">
+          <p className="text-[11px] text-slate-500 leading-relaxed">
             Bij Start &amp; Go rij je altijd in een moderne lesauto met dezelfde gekwalificeerde instructeur.
           </p>
         </div>
         <img 
           src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=300&q=80" 
           alt="Rijles" 
-          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-yellow-500/20 brightness-95 shrink-0"
+          className="w-full sm:w-44 aspect-video sm:aspect-square rounded-2xl object-cover border border-amber-100 shadow-md brightness-100 shrink-0"
           referrerPolicy="no-referrer"
         />
       </section>
@@ -1338,8 +1348,8 @@ function RijschoolStartAndGoContent() {
       {/* Interactive Package Selector */}
       <section className="py-6 px-4 space-y-4">
         <div className="text-center space-y-0.5">
-          <h3 className="font-display font-black text-white uppercase italic text-xs">Onze Rijles Pakketten</h3>
-          <p className="text-[10px] text-zinc-500">Klik op een pakket om de details en advies te bekijken.</p>
+          <h3 className="font-display font-black text-slate-900 uppercase italic text-xs">Onze Rijles Pakketten</h3>
+          <p className="text-[10px] text-slate-450">Klik op een pakket om de details en advies te bekijken.</p>
         </div>
 
         {/* Pack buttons */}
@@ -1350,8 +1360,8 @@ function RijschoolStartAndGoContent() {
               onClick={() => setSelectedLessonPack(pack)}
               className={`p-1.5 rounded-lg border flex flex-col items-center justify-center cursor-pointer transition-all ${
                 selectedLessonPack === pack 
-                  ? 'bg-yellow-500 border-yellow-500 text-black font-black shadow-md' 
-                  : 'bg-zinc-900 border-zinc-850 text-zinc-400'
+                  ? 'bg-amber-500 border-amber-500 text-slate-950 font-black shadow-md' 
+                  : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-350 shadow-2xs'
               }`}
             >
               <span className="text-[8px] uppercase tracking-wide font-bold">
@@ -1365,22 +1375,22 @@ function RijschoolStartAndGoContent() {
         </div>
 
         {/* Active pack details box with photo */}
-        <div className="max-w-md mx-auto bg-zinc-900 border border-zinc-850 rounded-xl overflow-hidden shadow-xl animate-fade-in flex flex-col">
+        <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm animate-fade-in flex flex-col">
           <img 
             src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=300&q=80" 
             alt="Modern Driving Experience" 
-            className="w-full h-24 object-cover brightness-95 border-b border-zinc-850"
+            className="w-full h-24 object-cover brightness-100 border-b border-slate-100"
             referrerPolicy="no-referrer"
           />
           <div className="p-3.5 space-y-2.5 text-center">
-            <h4 className="font-display font-black text-white text-xs uppercase italic">
+            <h4 className="font-display font-black text-slate-900 text-xs uppercase italic">
               {rijschoolPacks[selectedLessonPack].name} — {rijschoolPacks[selectedLessonPack].price}
             </h4>
 
-            <div className="text-[10px] text-zinc-400 space-y-0.5">
-              <p className="font-bold text-white">✓ {rijschoolPacks[selectedLessonPack].lessons}</p>
-              <p className="font-bold text-white">✓ {rijschoolPacks[selectedLessonPack].exam}</p>
-              <p className="text-[9px] text-zinc-500 italic mt-1 leading-normal">
+            <div className="text-[10px] text-slate-500 space-y-0.5">
+              <p className="font-bold text-slate-800">✓ {rijschoolPacks[selectedLessonPack].lessons}</p>
+              <p className="font-bold text-slate-800">✓ {rijschoolPacks[selectedLessonPack].exam}</p>
+              <p className="text-[9px] text-slate-400 italic mt-1 leading-normal">
                 {rijschoolPacks[selectedLessonPack].advice}
               </p>
             </div>
@@ -1388,13 +1398,13 @@ function RijschoolStartAndGoContent() {
             {!rijschoolSubmitted ? (
               <button 
                 onClick={() => setRijschoolSubmitted(true)}
-                className="w-full py-1.5 bg-yellow-500 text-black font-bold text-[10px] uppercase tracking-wider rounded-lg hover:bg-yellow-400 transition-all cursor-pointer"
+                className="w-full py-1.5 bg-amber-500 text-slate-950 font-bold text-[10px] uppercase tracking-wider rounded-lg hover:bg-amber-400 transition-all cursor-pointer shadow"
               >
                 Gratis Proefles Aanvragen
               </button>
             ) : (
-              <div className="p-2 bg-emerald-950/20 border border-emerald-900/30 rounded-lg">
-                <p className="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-1">
+              <div className="p-2 bg-emerald-50 border border-emerald-100 rounded-lg">
+                <p className="text-[10px] text-emerald-700 font-bold flex items-center justify-center gap-1">
                   <CheckCircle className="w-3.5 h-3.5" /> Aangevraagd!
                 </p>
               </div>
@@ -1404,7 +1414,7 @@ function RijschoolStartAndGoContent() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto bg-zinc-950 border-t border-zinc-900 p-3 text-center text-[9px] text-zinc-600">
+      <footer className="mt-auto bg-slate-50 border-t border-slate-100 p-3 text-center text-[9px] text-slate-400">
         <p>© Rijschool Start &amp; Go. Rijkserkend opleider.</p>
       </footer>
     </div>
