@@ -66,7 +66,7 @@ if (!$email || !$phone) {
 }
 
 // Email recipient (The owner of oerang.nl)
-$to = "rjhaije@protonmail.com";
+$to = "info@oerang.nl, rjhaije@protonmail.com";
 
 // Email Subject
 $isQuotation = !empty($packageConfig);
@@ -173,13 +173,13 @@ $message .= "
 // Set headers for HTML email
 $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-$headers .= "From: Oerang Web Leads <no-reply@oerang.nl>\r\n";
+$headers .= "From: Oerang Web Leads <info@oerang.nl>\r\n";
 $headers .= "Reply-To: " . $email . "\r\n";
-$headers .= "Return-Path: <no-reply@oerang.nl>\r\n";
+$headers .= "Return-Path: <info@oerang.nl>\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
 // Send the mail (using the -f parameter to set the envelope sender/Return-Path, which aligns SPF and DMARC)
-$mailSent = mail($to, $subject, $message, $headers, "-fno-reply@oerang.nl");
+$mailSent = mail($to, $subject, $message, $headers, "-finfo@oerang.nl");
 
 if ($mailSent) {
     http_response_code(200);

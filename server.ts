@@ -103,7 +103,10 @@ async function startServer() {
       });
     }
 
-    const receiverEmail = process.env.NOTIFICATION_RECEIVER_EMAIL || "rjhaije@protonmail.com";
+    const configuredReceiver = process.env.NOTIFICATION_RECEIVER_EMAIL;
+    const receiverEmail = configuredReceiver && configuredReceiver !== "rjhaije@protonmail.com"
+      ? `${configuredReceiver}, rjhaije@protonmail.com`
+      : "rjhaije@protonmail.com";
     const isPackageRequest = !!packageConfig;
     const subject = isPackageRequest
       ? `🆕 Oerang.nl: Offerte Aanvraag (${email})`

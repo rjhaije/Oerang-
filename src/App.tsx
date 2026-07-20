@@ -197,7 +197,7 @@ export default function App() {
 
       if (res.ok && data.success) {
         setCallbackSubmitted(true);
-        setSubmitFeedback("Bedankt! We hebben je aanvraag ontvangen en nemen binnen 1 werkdag telefonisch contact met je op.");
+        setSubmitFeedback(data.message || "Bedankt! We hebben je aanvraag ontvangen en nemen binnen 1 werkdag telefonisch contact met je op.");
         setCallbackEmail('');
         setCallbackPhone('');
         setCallbackMessage('');
