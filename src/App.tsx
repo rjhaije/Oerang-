@@ -6,8 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  TESTIMONIALS as DEFAULT_TESTIMONIALS,
-  CALCULATOR_OPTIONS as DEFAULT_CALCULATOR_OPTIONS
+  TESTIMONIALS as DEFAULT_TESTIMONIALS
 } from './data';
 import { OrangutanIcon } from './components/OrangutanIcon';
 import { 
@@ -38,7 +37,8 @@ import {
   ShoppingBag,
   ExternalLink,
   AlertTriangle,
-  RefreshCw
+  RefreshCw,
+  UtensilsCrossed
 } from 'lucide-react';
 
 export default function App() {
@@ -65,29 +65,7 @@ export default function App() {
     heroSubtitle: 'Wij bouwen betaalbare gebruiksvriendelijke websites voor de kleine ondernemer.'
   };
 
-  const calculatorOptions = DEFAULT_CALCULATOR_OPTIONS;
   const testimonials = DEFAULT_TESTIMONIALS;
-
-  // Package configuration state
-  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>(['webdesign', 'hosting']);
-  const [hasConfiguredPackage, setHasConfiguredPackage] = useState(false);
-
-  const toggleOption = (id: string) => {
-    setSelectedOptionIds(prev => 
-      prev.includes(id) 
-        ? prev.filter(item => item !== id) 
-        : [...prev, id]
-    );
-  };
-
-  const selectedOptions = calculatorOptions.filter(opt => selectedOptionIds.includes(opt.id));
-  const totalSetup = selectedOptions.reduce((acc, opt) => acc + opt.setupPrice, 0);
-  const totalMonthly = selectedOptions.reduce((acc, opt) => acc + opt.monthlyPrice, 0);
-
-  const handleRequestPackage = () => {
-    setHasConfiguredPackage(true);
-    scrollToSection('contact');
-  };
 
   const WERKWIJZE_STEPS = [
     {
@@ -146,14 +124,6 @@ export default function App() {
         phone: callbackPhone,
       };
 
-      if (hasConfiguredPackage) {
-        payload.packageConfig = {
-          options: selectedOptions.map(o => o.name),
-          setupPrice: totalSetup,
-          monthlyPrice: totalMonthly,
-        };
-      }
-
       // Dynamisch bepalen van de API URL en verzendmethode.
       // Als de app draait op localhost of de AI Studio preview (.run.app), gebruiken we het relatieve pad van de Express server.
       // Als de static site is geüpload naar de live website op Hostinger (zoals oerang.nl), sturen we de POST via URL-encoded form data naar contact.php.
@@ -175,9 +145,6 @@ export default function App() {
         const formBody = new URLSearchParams();
         formBody.append("email", payload.email);
         formBody.append("phone", payload.phone);
-        if (payload.packageConfig) {
-          formBody.append("packageConfig", JSON.stringify(payload.packageConfig));
-        }
 
         res = await fetch(apiUrl, {
           method: "POST",
@@ -274,7 +241,6 @@ export default function App() {
             <nav className="flex items-center gap-8 lg:gap-10 text-sm md:text-[15px] lg:text-[16px] font-extrabold uppercase tracking-widest text-zinc-300">
               <button onClick={() => scrollToSection('hero')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-100 font-extrabold">Home</button>
               <button onClick={() => scrollToSection('over-ons')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">About us</button>
-              <button onClick={() => scrollToSection('pakket-kiezer')} className="hover:text-brand-clay transition-colors cursor-pointer text-zinc-300 hover:text-brand-clay">Pakket Kiezer</button>
             </nav>
 
             {/* Right Desktop CTA Buttons */}
@@ -305,7 +271,6 @@ export default function App() {
               <div className="px-4 py-6 space-y-4 flex flex-col">
                 <button onClick={() => scrollToSection('hero')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Home</button>
                 <button onClick={() => scrollToSection('over-ons')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">About us</button>
-                <button onClick={() => scrollToSection('pakket-kiezer')} className="text-left font-bold text-zinc-100 py-2 border-b border-zinc-800/60">Pakket Kiezer</button>
                 <button onClick={() => scrollToSection('contact')} className="text-left font-bold text-brand-clay py-2 border-b border-zinc-800/60">Contact Opnemen</button>
                 
                 <div className="pt-4 flex flex-col gap-3">
@@ -391,7 +356,10 @@ export default function App() {
                 test_8: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_9: 'https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=800&h=1000&q=80',
                 test_10: 'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?auto=format&fit=crop&w=800&h=1000&q=80',
-                test_11: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&h=1000&q=80'
+                test_11: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_12: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_13: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=800&h=1000&q=80',
+                test_14: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=800&h=1000&q=80'
               };
               const portraitSrc = HERO_PORTRAITS[currentReview.id] || currentReview.image;
 
@@ -483,7 +451,7 @@ export default function App() {
                           <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">Kies een klant:</span>
                           <span className="text-[10px] font-bold text-brand-clay">klik op een foto om te wisselen</span>
                         </div>
-                        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none sm:scrollbar-thin sm:scrollbar-thumb-zinc-800 sm:scrollbar-track-transparent">
+                        <div className="flex flex-wrap gap-2 pb-1">
                           {testimonials.map((test, idx) => {
                             const thumbSrc = HERO_PORTRAITS[test.id] || test.image;
                             const isActive = heroReviewIdx === idx;
@@ -558,256 +526,9 @@ export default function App() {
 
       </section>
 
-      {/* Interactive Package Configurator Section */}
-      <section id="pakket-kiezer" className="py-16 bg-brand-sand border-t border-brand-sand-dark relative overflow-hidden bg-grid-pattern">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-brand-clay uppercase tracking-widest block mb-2">Configureer Jouw Website</span>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-white uppercase italic leading-none">
-              Welk pakket past bij jou?
-            </h2>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-              Laat ons weten wat je wilt of nodig hebt. Klik op de functionaliteiten om je eigen pakket samen te stellen. Je ziet direct een heldere prijsopgave.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Left Column: Interactive Options Grid */}
-            <div className="lg:col-span-7 space-y-8">
-              
-              {/* Category: Basis (Required / Highly recommended) */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1 border-b border-zinc-800/60">
-                  <span className="w-2.5 h-2.5 rounded-full bg-brand-clay" />
-                  <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">1. De Basis (Essentieel)</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {calculatorOptions.filter(opt => opt.category === 'basis').map((option) => {
-                    const IconComponent = option.icon;
-                    const isSelected = selectedOptionIds.includes(option.id);
-                    return (
-                      <button
-                        key={option.id}
-                        onClick={() => toggleOption(option.id)}
-                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group cursor-pointer focus:outline-none flex flex-col justify-between h-full ${
-                          isSelected 
-                            ? 'bg-zinc-900 border-brand-clay shadow-[0_0_20px_-5px_rgba(255,92,0,0.15)]' 
-                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700'
-                        }`}
-                      >
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <div className={`p-2.5 rounded-xl transition-colors ${isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'}`}>
-                              <IconComponent className="w-5 h-5" />
-                            </div>
-                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
-                              isSelected ? 'bg-brand-clay border-brand-clay text-white' : 'border-zinc-700 bg-zinc-950'
-                            }`}>
-                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-display font-black text-sm text-white tracking-tight uppercase leading-snug">
-                              {option.name}
-                            </h4>
-                            <p className="text-[11px] text-zinc-400 leading-normal mt-1">
-                              {option.description}
-                            </p>
-                          </div>
-                        </div>
 
-                        <div className="pt-4 mt-4 border-t border-zinc-800/60 flex items-baseline justify-between">
-                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-extrabold">Investering</span>
-                          <span className="text-xs font-extrabold text-white">
-                            {option.setupPrice > 0 && `€${option.setupPrice} eenmalig`}
-                            {option.setupPrice > 0 && option.monthlyPrice > 0 && ' + '}
-                            {option.monthlyPrice > 0 && `€${option.monthlyPrice}/mnd`}
-                          </span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
 
-              {/* Category: Extra Functionaliteiten */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1 border-b border-zinc-800/60">
-                  <span className="w-2.5 h-2.5 rounded-full bg-brand-clay/65" />
-                  <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">2. Extra Functionaliteiten (Boost je bereik)</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {calculatorOptions.filter(opt => opt.category === 'extra').map((option) => {
-                    const IconComponent = option.icon;
-                    const isSelected = selectedOptionIds.includes(option.id);
-                    return (
-                      <button
-                        key={option.id}
-                        onClick={() => toggleOption(option.id)}
-                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group cursor-pointer focus:outline-none flex flex-col justify-between h-full ${
-                          isSelected 
-                            ? 'bg-zinc-900 border-brand-clay shadow-[0_0_20px_-5px_rgba(255,92,0,0.15)]' 
-                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700'
-                        }`}
-                      >
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <div className={`p-2.5 rounded-xl transition-colors ${isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'}`}>
-                              <IconComponent className="w-5 h-5" />
-                            </div>
-                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
-                              isSelected ? 'bg-brand-clay border-brand-clay text-white' : 'border-zinc-700 bg-zinc-950'
-                            }`}>
-                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-display font-black text-sm text-white tracking-tight uppercase leading-snug">
-                              {option.name}
-                            </h4>
-                            <p className="text-[11px] text-zinc-400 leading-normal mt-1">
-                              {option.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="pt-4 mt-4 border-t border-zinc-800/60 flex items-baseline justify-between">
-                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-extrabold">Investering</span>
-                          <span className="text-xs font-extrabold text-white">
-                            {option.setupPrice > 0 && `€${option.setupPrice} eenmalig`}
-                            {option.setupPrice > 0 && option.monthlyPrice > 0 && ' + '}
-                            {option.monthlyPrice > 0 && `€${option.monthlyPrice}/mnd`}
-                          </span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Category: Groei & Beheer */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1 border-b border-zinc-800/60">
-                  <span className="w-2.5 h-2.5 rounded-full bg-brand-clay/40" />
-                  <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">3. Groei &amp; Beheer (Voor de actieve ondernemer)</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {calculatorOptions.filter(opt => opt.category === 'groei').map((option) => {
-                    const IconComponent = option.icon;
-                    const isSelected = selectedOptionIds.includes(option.id);
-                    return (
-                      <button
-                        key={option.id}
-                        onClick={() => toggleOption(option.id)}
-                        className={`text-left p-5 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden group cursor-pointer focus:outline-none flex flex-col justify-between h-full ${
-                          isSelected 
-                            ? 'bg-zinc-900 border-brand-clay shadow-[0_0_20px_-5px_rgba(255,92,0,0.15)]' 
-                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700'
-                        }`}
-                      >
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <div className={`p-2.5 rounded-xl transition-colors ${isSelected ? 'bg-brand-clay/10 text-brand-clay' : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'}`}>
-                              <IconComponent className="w-5 h-5" />
-                            </div>
-                            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
-                              isSelected ? 'bg-brand-clay border-brand-clay text-white' : 'border-zinc-700 bg-zinc-950'
-                            }`}>
-                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-display font-black text-sm text-white tracking-tight uppercase leading-snug">
-                              {option.name}
-                            </h4>
-                            <p className="text-[11px] text-zinc-400 leading-normal mt-1">
-                              {option.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="pt-4 mt-4 border-t border-zinc-800/60 flex items-baseline justify-between">
-                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 font-extrabold">Investering</span>
-                          <span className="text-xs font-extrabold text-white">
-                            {option.setupPrice > 0 && `€${option.setupPrice} eenmalig`}
-                            {option.setupPrice > 0 && option.monthlyPrice > 0 && ' + '}
-                            {option.monthlyPrice > 0 && `€${option.monthlyPrice}/mnd`}
-                          </span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-            </div>
-
-            {/* Right Column: Sticky Summary & Checkout Card */}
-            <div className="lg:col-span-5 lg:sticky lg:top-28">
-              <div className="bg-zinc-900 rounded-3xl border border-zinc-800 p-6 space-y-6 shadow-2xl relative overflow-hidden aggressive-glow">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-clay/5 rounded-full blur-2xl pointer-events-none" />
-                
-                <div className="border-b border-zinc-800 pb-4">
-                  <h3 className="font-display font-black text-lg text-white uppercase italic tracking-tight">Jouw Keuzes</h3>
-                  <p className="text-[11px] text-zinc-400">Snel en direct berekend</p>
-                </div>
-
-                {/* Selected items receipt list */}
-                <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
-                  {selectedOptions.length === 0 ? (
-                    <p className="text-xs text-zinc-500 italic py-4 text-center">Geen opties geselecteerd. Klik links om opties toe te voegen!</p>
-                  ) : (
-                    selectedOptions.map((opt) => (
-                      <div key={opt.id} className="flex justify-between items-start gap-4 text-xs">
-                        <div className="flex gap-2">
-                          <span className="text-brand-clay font-bold shrink-0">✓</span>
-                          <span className="text-zinc-200 font-medium">{opt.name}</span>
-                        </div>
-                        <span className="text-zinc-400 font-semibold font-mono shrink-0">
-                          {opt.setupPrice > 0 && `€${opt.setupPrice}`}
-                          {opt.setupPrice > 0 && opt.monthlyPrice > 0 && ' + '}
-                          {opt.monthlyPrice > 0 && `€${opt.monthlyPrice}/mnd`}
-                        </span>
-                      </div>
-                    ))
-                  )}
-                </div>
-
-                {/* Cost totals */}
-                <div className="bg-zinc-950 p-4 rounded-2xl border border-zinc-850 space-y-4">
-                  <div className="flex justify-between items-baseline">
-                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Eenmalige opstart:</span>
-                    <span className="text-2xl font-display font-black text-white">€{totalSetup}</span>
-                  </div>
-                  <div className="flex justify-between items-baseline border-t border-zinc-800/50 pt-3">
-                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Maandelijkse kosten:</span>
-                    <span className="text-xl font-display font-black text-brand-clay">€{totalMonthly}<span className="text-xs font-sans font-medium text-zinc-500 lowercase">/mnd</span></span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleRequestPackage}
-                  className="w-full py-3.5 bg-brand-clay hover:bg-orange-600 text-white font-extrabold uppercase tracking-wider text-xs rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
-                >
-                  <span>Vraag dit pakket aan</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
-
-                <div className="text-[10px] text-zinc-500 text-center space-y-1">
-                  <p>✓ 100% vrijblijvend advies • Geen verkoopdruk</p>
-                  <p>✓ We nemen binnen 1 werkdag telefonisch contact op</p>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
 
 
 
@@ -851,30 +572,8 @@ export default function App() {
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {hasConfiguredPackage && (
-                    <div className="bg-brand-clay/10 border border-brand-clay/35 rounded-xl p-3.5 text-xs space-y-1.5 animate-fade-in relative">
-                      <div className="flex justify-between items-center">
-                        <span className="font-extrabold text-brand-clay uppercase tracking-wider text-[9px]">Gekozen Configuraties</span>
-                        <button 
-                          type="button" 
-                          onClick={() => setHasConfiguredPackage(false)} 
-                          className="text-zinc-500 hover:text-white transition-colors cursor-pointer"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <p className="text-zinc-200 font-bold text-[11.5px] leading-tight">
-                        {selectedOptions.map(o => o.name).join(', ')}
-                      </p>
-                      <div className="flex gap-4 font-bold text-[10px] text-zinc-400 pt-0.5">
-                        <span>Eenmalig: <span className="text-white">€{totalSetup}</span></span>
-                        <span>Maandelijks: <span className="text-brand-clay">€{totalMonthly}/mnd</span></span>
-                      </div>
-                    </div>
-                  )}
-
                   <h4 className="font-display font-bold text-sm text-white mb-2">
-                    {hasConfiguredPackage ? "Ontvang een gratis offerte voor dit pakket" : "Vul je gegevens in voor contact"}
+                    Vul je gegevens in voor contact
                   </h4>
                   
                   <div className="space-y-3">
@@ -915,8 +614,7 @@ export default function App() {
                         <div className="grid grid-cols-2 gap-2 pt-1">
                           <a
                             href={`https://wa.me/31645392108?text=${encodeURIComponent(
-                              `Beste Oerang, ik wil graag contact opnemen.\n\nE-mailadres: ${callbackEmail || '(nog niet ingevuld)'}\nTelefoonnummer: ${callbackPhone || '(nog niet ingevuld)'}` +
-                              (hasConfiguredPackage ? `\n\nGekozen pakket:\nOpties: ${selectedOptions.map(o => o.name).join(', ')}\nEenmalig: €${totalSetup}\nMaandelijks: €${totalMonthly}/mnd` : '')
+                              `Beste Oerang, ik wil graag contact opnemen.\n\nE-mailadres: ${callbackEmail || '(nog niet ingevuld)'}\nTelefoonnummer: ${callbackPhone || '(nog niet ingevuld)'}`
                             )}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -927,11 +625,9 @@ export default function App() {
                           </a>
                           <a
                             href={`mailto:rjhaije@protonmail.com?subject=${encodeURIComponent(
-                              hasConfiguredPackage ? "Oerang.nl: Offerte Aanvraag" : "Oerang.nl: Terugbelverzoek"
+                              "Oerang.nl: Terugbelverzoek"
                             )}&body=${encodeURIComponent(
-                              `Beste Oerang,\n\nHierbij mijn contactgegevens:\n\nE-mailadres: ${callbackEmail || ''}\nTelefoonnummer: ${callbackPhone || ''}` +
-                              (hasConfiguredPackage ? `\n\nIk heb de volgende configuratie samengesteld:\nOpties: ${selectedOptions.map(o => o.name).join(', ')}\nEenmalige opstartkosten: €${totalSetup}\nMaandelijkse kosten: €${totalMonthly}/mnd` : '') +
-                              `\n\nMet vriendelijke groet,\n${callbackEmail}`
+                              `Beste Oerang,\n\nHierbij mijn contactgegevens:\n\nE-mailadres: ${callbackEmail || ''}\nTelefoonnummer: ${callbackPhone || ''}\n\nMet vriendelijke groet,\n${callbackEmail}`
                             )}`}
                             className="py-2 px-2.5 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-[10px] rounded-lg text-center flex items-center justify-center gap-1.5 transition-colors border border-zinc-700"
                           >
@@ -968,11 +664,7 @@ export default function App() {
                   <div className="text-3xl text-brand-clay">✓</div>
                   <h4 className="font-display font-bold text-sm text-white">Bedankt voor je aanvraag!</h4>
                   <p className="text-xs text-zinc-300 leading-relaxed">
-                    {submitFeedback || (hasConfiguredPackage ? (
-                      `We hebben je aanvraag voor jouw samengestelde website-pakket (eenmalig €${totalSetup} en €${totalMonthly}/mnd) ontvangen. We nemen binnen één werkdag contact met je op!`
-                    ) : (
-                      "We nemen zo snel mogelijk contact met je op via e-mail of telefoon. Tot snel!"
-                    ))}
+                    {submitFeedback || "We nemen zo snel mogelijk contact met je op via e-mail of telefoon. Tot snel!"}
                   </p>
                 </motion.div>
               )}
@@ -1039,6 +731,8 @@ export default function App() {
 
         </div>
       </footer>
+
+
 
     </div>
   );

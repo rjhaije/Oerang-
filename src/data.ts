@@ -191,43 +191,103 @@ export const SHOWCASE_STYLES: ShowcaseStyle[] = [
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     id: 'port_1',
-    title: 'Kapsalon Haarstudio Nova',
-    category: 'Schoonheid & Verzorging',
-    branch: 'Haarstudio',
-    description: 'Een frisse, responsive website inclusief een online afsprakensysteem zodat klanten direct kunnen boeken.',
-    price: '€447',
-    deliveryTime: '10 dagen',
-    colorHex: '#ec4899'
+    title: 'Schildersbedrijf Van Herk',
+    category: 'Onderhoud & Bouw',
+    branch: 'Schildersbedrijf',
+    description: 'Strakke website met focus op lokaal vakmanschap, foto-galerij van recente projecten en een handige online offerte-calculator.',
+    price: '€328',
+    deliveryTime: '7 dagen',
+    colorHex: '#3b82f6'
   },
   {
     id: 'port_2',
-    title: 'Hovenier Groen & Co',
-    category: 'Bouw & Tuin',
-    branch: 'Hoveniersbedrijf',
-    description: 'Prachtige fotogalerij van gerealiseerde tuinen, een duidelijk overzicht van diensten en een offerteaanvraag-formulier.',
-    price: '€378',
-    deliveryTime: '12 dagen',
-    colorHex: '#10b981'
-  },
-  {
-    id: 'port_3',
-    title: 'Café De Buurman',
-    category: 'Horeca & Recreatie',
-    branch: 'Eetcafé / Bar',
-    description: 'Sfeervolle website met een eenvoudig aanpasbare menukaart, openingstijden en Google Maps integratie.',
+    title: 'Warme Bakker Van der Linden',
+    category: 'Ambacht & Voeding',
+    branch: 'Bakkerij',
+    description: 'Sfeervolle website met wekelijks wisselende aanbiedingen, bestelmogelijkheden voor feestdagen en een fotogenieke menukaart van ambachtelijk brood.',
     price: '€338',
     deliveryTime: '8 dagen',
     colorHex: '#d97706'
   },
   {
+    id: 'port_3',
+    title: 'Groente & Fruit Versluis',
+    category: 'Ambacht & Voeding',
+    branch: 'Groenteman',
+    description: 'Frisse en kleurrijke website met actuele weekaanbiedingen, recepten van het seizoen en een directe koppeling naar de marktdagen en locaties.',
+    price: '€299',
+    deliveryTime: '6 dagen',
+    colorHex: '#22c55e'
+  },
+  {
     id: 'port_4',
-    title: 'Van Dam Schilderwerken',
+    title: 'Haarsalon Nova',
+    category: 'Schoonheid & Verzorging',
+    branch: 'Kapsalon',
+    description: 'Elegante website met een volledig geïntegreerd online afsprakensysteem, prijslijst per behandeling en Instagram-feed integratie.',
+    price: '€447',
+    deliveryTime: '10 dagen',
+    colorHex: '#ec4899'
+  },
+  {
+    id: 'port_5',
+    title: 'Tandartsenpraktijk Utrecht Zuid',
+    category: 'Gezondheidszorg',
+    branch: 'Tandartspraktijk',
+    description: 'Professionele en rustgevende website met patiëntenportaal, inschrijfformulier voor nieuwe patiënten en handige FAQ voor spoedgevallen.',
+    price: '€399',
+    deliveryTime: '9 dagen',
+    colorHex: '#06b6d4'
+  },
+  {
+    id: 'port_6',
+    title: 'Bouwbedrijf De Groot',
     category: 'Onderhoud & Bouw',
-    branch: 'Schildersbedrijf',
-    description: 'Professionele website gericht op lokaal vertrouwen, met duidelijke reviews, werkwijze en WhatsApp knop.',
-    price: '€328',
+    branch: 'Aannemer',
+    description: 'Robuuste en strakke website met uitgebreide projecten-portfolio, klantbeoordelingen, werkwijze en een direct contactformulier voor offertes.',
+    price: '€388',
+    deliveryTime: '11 dagen',
+    colorHex: '#f97316'
+  },
+  {
+    id: 'port_7',
+    title: 'Apex Fitness & Gym',
+    category: 'Sport & Gezondheid',
+    branch: 'Sportschool',
+    description: 'Dynamische website met online lidmaatschapsregistratie, lesroosters, trainer-profielen en een interactieve groepsles-boeker.',
+    price: '€418',
+    deliveryTime: '10 dagen',
+    colorHex: '#ef4444'
+  },
+  {
+    id: 'port_8',
+    title: 'Slijterij & Wijnhandel De Druif',
+    category: 'Ambacht & Voeding',
+    branch: 'Slijterij',
+    description: 'Karaktervolle website met catalogus van exclusieve wijnen en whisky\'s, agenda voor proeverijen en een mini-webshop voor proefpakketten.',
+    price: '€358',
+    deliveryTime: '9 dagen',
+    colorHex: '#8b5cf6'
+  },
+  {
+    id: 'port_9',
+    title: 'Ambachtelijke Slagerij Vreeswijk',
+    category: 'Ambacht & Voeding',
+    branch: 'Slagersbedrijf',
+    description: 'Ambachtelijke website met online barbecue-bestelservice, wekelijkse vleespakketten, gourmet-bestellingen en een kijkje in de worstmakerij.',
+    price: '€368',
+    deliveryTime: '8 dagen',
+    colorHex: '#b91c1c'
+  },
+  {
+    id: 'port_10',
+    title: 'Rijschool Start & Go',
+    category: 'Diensten & Opleiding',
+    branch: 'Rijschool',
+    description: 'Duidelijke en moderne website met pakketprijzen, een direct aanmeldformulier, slagingspercentages en een interactieve proefles-planner.',
+    price: '€318',
     deliveryTime: '7 dagen',
-    colorHex: '#3b82f6'
+    colorHex: '#eab308'
   }
 ];
 
@@ -338,9 +398,39 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Eigenaar',
     company: 'Autoservice Van Veen',
     rating: 5,
-    text: 'Eindelijk een webdesigner die begrijpt dat we geen ingewikkelde poespas willen. Een helder overzicht van onze diensten, openingstijden en een knop om direct een afspraak te maken. Snel, betaalbaar en betrouwbaar.',
+    text: 'Eindelijk een webdesigner die begrijpt dat we geen ingewikkelde poespas willen. Een helder overzicht van onze diensten, openingstijden and een knop om direct een afspraak te maken. Snel, betaalbaar en betrouwbaar.',
     initials: 'RV',
     image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_12',
+    name: 'Esther de Vries',
+    role: 'Eigenaresse',
+    company: "Esther's Bloemenboetiek",
+    rating: 5,
+    text: 'Dankzij Oerang ben ik online eindelijk zichtbaar voor klanten in de buurt. De bloemenwinkel loopt fantastisch en ik krijg wekelijks complimenten over de vrolijke uitstraling van onze nieuwe website. Echt topservice!',
+    initials: 'EV',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_13',
+    name: 'Pieter de Koning',
+    role: 'Mede-eigenaar',
+    company: 'Koning & Zonen Verhuizingen',
+    rating: 5,
+    text: 'Wat een verademing! Binnen een week stond er een website die direct leads opleverde. Klanten vullen nu direct een terugbelverzoek in en we merken echt dat we professioneler overkomen. Heel tevreden over de snelle communicatie!',
+    initials: 'PK',
+    image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: 'test_14',
+    name: 'Yasmine El Amrani',
+    role: 'Oprichtster',
+    company: "Yasmine's Catering & Events",
+    rating: 5,
+    text: 'Oerang heeft onze catering service een prachtige, smaakvolle website gegeven. Onze gerechten komen prachtig tot hun recht en het reserveren voor groepen gaat nu volledig vlekkeloos. Hele fijne partij om mee samen te werken!',
+    initials: 'YA',
+    image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=150&h=150&q=80'
   }
 ];
 
